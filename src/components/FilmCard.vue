@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="film-card">
     <div><img :src="poster" :alt="movie.title" class="film-poster" /></div>
     <div>
       <p>
@@ -24,7 +24,12 @@ const poster = `https://image.tmdb.org/t/p/original/${movie.value.backdrop_path}
 </script>
 
 <style scoped>
+/* .film-card {
+  transform: rotate(90deg);
+} */
+
 .film-poster {
-  width: 200px;
+  width: 225px;
+  object-fit: cover;
 }
 </style>
