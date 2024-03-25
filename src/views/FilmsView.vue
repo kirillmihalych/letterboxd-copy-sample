@@ -1,5 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import RecentFilmList from '@/components/RecentFilmList.vue'
+</script>
 
 <template>
-  <main>Films view</main>
+  <header>films view</header>
+  <main>
+    <RecentFilmList />
+  </main>
 </template>
