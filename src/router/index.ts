@@ -4,8 +4,9 @@ import ListsView from '@/views/ListsView.vue'
 import ErrorView from '@/views/ErrorView.vue'
 import StartView from '@/views/StartView.vue'
 import type { Component } from 'vue'
+import SingleFilmView from '@/views/SingleFilmView.vue'
 
-type Path = '/films' | '/lists' | '/:pathMatch(.*)*' | '/'
+type Path = '/films' | '/lists' | '/:pathMatch(.*)*' | '/' | '/films/:id'
 
 interface IRoute {
   path: Path
@@ -20,6 +21,10 @@ const routes: IRoute[] = [
   {
     path: '/films',
     component: FilmsView,
+  },
+  {
+    path: '/films/:id',
+    component: SingleFilmView,
   },
   {
     path: '/lists',

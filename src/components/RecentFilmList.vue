@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import FilmCard from './FilmCard.vue'
 import type { IMovie } from '@/types'
-import { computed, ref, watchEffect } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { loadRecentMovies } from '../api'
 
 let movieList = ref<IMovie[] | null>(null)

@@ -1,5 +1,5 @@
 <template>
-  <div class="film-card">
+  <RouterLink :to="singleMovieURL" class="film-card">
     <div><img :src="poster" :alt="movie.title" class="film-poster" /></div>
     <div>
       <p>
@@ -7,12 +7,13 @@
         with {{ movie.vote_average }} average
       </p>
     </div>
-  </div>
+  </RouterLink>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { IMovie } from '../types'
+import { RouterLink } from 'vue-router'
 
 interface FilmCardProps {
   movie: IMovie
@@ -21,6 +22,7 @@ interface FilmCardProps {
 const props = defineProps<FilmCardProps>()
 const movie = ref<IMovie>(props.movie)
 const poster = `https://image.tmdb.org/t/p/original/${movie.value.backdrop_path}`
+const singleMovieURL = `/films/${movie.value.id}`
 </script>
 
 <style scoped>

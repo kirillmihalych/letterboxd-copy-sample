@@ -18,3 +18,27 @@ export const loadRecentMovies = async () => {
 
   return recentMovies.results
 }
+
+// ===========================================
+const movieDetailsOptions = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+export const loadMovieById = async (id: string) => {
+  const movieDetails = await (
+    await fetch(
+      `https://api.themoviedb.org/3/movie/${id}?language=ru&append_to_response=credits`,
+      movieDetailsOptions
+    )
+  ).json()
+
+  console.log(movieDetails)
+
+  return movieDetails
+}
+
+// ================================
