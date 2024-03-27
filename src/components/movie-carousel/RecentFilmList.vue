@@ -20,14 +20,14 @@
 <script setup lang="ts">
 import FilmCard from './FilmCard.vue'
 import type { IMovie } from '@/types'
-import { ref, watchEffect } from 'vue'
-import { loadRecentMovies } from '../api'
+import { onMounted, ref, watchEffect } from 'vue'
+import { loadRecentMovies } from '@/api'
 
 let movieList = ref<IMovie[] | null>(null)
 const error = ref<string | null>(null)
 const loading = ref(false)
 
-watchEffect(() => fetchMovies())
+onMounted(() => fetchMovies())
 
 function slideRight() {
   ;(document.getElementById('slider') as HTMLElement).scrollLeft += 925

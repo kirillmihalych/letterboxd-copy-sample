@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { IMovie } from '../types'
+import type { IMovie } from '@/types'
 import { RouterLink } from 'vue-router'
 
 interface FilmCardProps {

@@ -13,9 +13,7 @@ const recentMoviesURL =
 
 export const loadRecentMovies = async () => {
   const options = recentMoviesOptions
-
   const recentMovies = await (await fetch(recentMoviesURL, options)).json()
-
   return recentMovies.results
 }
 
@@ -35,9 +33,6 @@ export const loadMovieById = async (id: string) => {
       movieDetailsOptions
     )
   ).json()
-
-  console.log(movieDetails)
-
   return movieDetails
 }
 

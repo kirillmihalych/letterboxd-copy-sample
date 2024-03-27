@@ -6,7 +6,13 @@ import StartView from '@/views/StartView.vue'
 import type { Component } from 'vue'
 import SingleFilmView from '@/views/SingleFilmView.vue'
 
-type Path = '/films' | '/lists' | '/:pathMatch(.*)*' | '/' | '/films/:id'
+type Path =
+  | '/films'
+  | '/lists'
+  | '/:pathMatch(.*)*'
+  | '/'
+  | '/films/:id'
+  | 'fimls/:id/cast'
 
 interface IRoute {
   path: Path

@@ -14,7 +14,34 @@ export interface IMovie {
   vote_average: number
   vote_count: number
   release_date?: string
-  credits?: ICredits
+  credits: ICredits
+  genres: IGenre[]
+  spoken_languages: ILanguage[]
+  production_companies: IProductionCompany[]
+  production_countries: IProductionCountry[]
+}
+
+export interface IGenre {
+  id: number
+  name: string
+}
+
+export interface IProductionCountry {
+  iso_3166_1: string
+  name: string
+}
+
+export interface IProductionCompany {
+  id: number
+  logo_path: string
+  name: string
+  origin_country: string
+}
+
+export interface ILanguage {
+  english_name: string
+  iso_639_1: string
+  name: string
 }
 
 export interface ICrewMember {

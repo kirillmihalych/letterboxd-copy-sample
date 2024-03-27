@@ -10,11 +10,10 @@
 
 <script setup lang="ts">
 import { loadMovieById } from '@/api'
-import { ref, watchEffect } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import SingleMovie from '@/components/SingleMovie.vue'
+import SingleMovie from '@/components/single-movie/SingleMovie.vue'
 import type { IMovie } from '@/types'
-// edit later
 const movie = ref<IMovie | null>()
 const loading = ref(false)
 const error = ref<string | null>(null)
@@ -35,7 +34,7 @@ const fetchMovieById = async () => {
   }
 }
 
-watchEffect(() => fetchMovieById())
+onMounted(() => fetchMovieById())
 </script>
 
 <style scoped></style>

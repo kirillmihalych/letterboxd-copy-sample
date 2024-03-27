@@ -18,11 +18,15 @@
     </article>
   </div>
   <!-- cast info, rating, imdb links -->
+  <div>
+    <FilmInfoList :movieInfo="movieDetails" />
+  </div>
 </template>
 
 <script setup lang="ts">
+import FilmInfoList from './movie-info/FilmInfoList.vue'
 import { ref } from 'vue'
-import FilmCard from './FilmCard.vue'
+import FilmCard from '../movie-carousel/FilmCard.vue'
 import type { IMovie, ICrewMember } from '@/types'
 
 interface MovieDetailsProps {
@@ -31,7 +35,7 @@ interface MovieDetailsProps {
 
 const props = defineProps<MovieDetailsProps>()
 const movieDetails = ref<IMovie>(props.movieDetails)
-// const crew = movieDetails.value.credits?.crew
+const crew = movieDetails.value.credits?.crew
 </script>
 
 <style scoped></style>
