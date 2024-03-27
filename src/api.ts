@@ -37,3 +37,21 @@ export const loadMovieById = async (id: string) => {
 }
 
 // ================================
+const searchOptions = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+export const fetchByTitle = async (name: string) => {
+  const response = await (
+    await fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${name}&include_adult=false&language=ru&page=1`,
+      searchOptions
+    )
+  ).json()
+
+  return response.results
+}

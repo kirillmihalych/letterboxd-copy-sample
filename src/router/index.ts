@@ -5,6 +5,7 @@ import ErrorView from '@/views/ErrorView.vue'
 import StartView from '@/views/StartView.vue'
 import type { Component } from 'vue'
 import SingleFilmView from '@/views/SingleFilmView.vue'
+import SearchResultsView from '@/views/SearchResultsView.vue'
 
 type Path =
   | '/films'
@@ -12,7 +13,7 @@ type Path =
   | '/:pathMatch(.*)*'
   | '/'
   | '/films/:id'
-  | 'fimls/:id/cast'
+  | '/films/search_results'
 
 interface IRoute {
   path: Path
@@ -31,6 +32,10 @@ const routes: IRoute[] = [
   {
     path: '/films/:id',
     component: SingleFilmView,
+  },
+  {
+    path: '/films/search_results',
+    component: SearchResultsView,
   },
   {
     path: '/lists',
