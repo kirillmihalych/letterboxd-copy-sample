@@ -55,3 +55,24 @@ export const fetchByTitle = async (name: string) => {
 
   return response.results
 }
+
+// =======================================
+
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+export const loadPopularMovies = async () => {
+  const response = await (
+    await fetch(
+      'https://api.themoviedb.org/3/movie/popular?language=ru-RU&page=1',
+      options
+    )
+  ).json()
+  console.log(response)
+  return response.results
+}

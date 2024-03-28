@@ -46,7 +46,7 @@ async function fetchMovies() {
     movieList.value = await loadRecentMovies()
   } catch (err: unknown) {
     if (err instanceof Error) {
-      error.value = err.message.toString()
+      error.value = err.message.toString() + ' Возможно, у вас выключен VPN.'
     }
   } finally {
     loading.value = false
