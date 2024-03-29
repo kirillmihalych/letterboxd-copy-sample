@@ -21,7 +21,12 @@ interface FilmCardProps {
 
 const props = defineProps<FilmCardProps>()
 const movie = ref<IMovie>(props.movie)
-const poster = `https://image.tmdb.org/t/p/original/${movie.value.backdrop_path}`
+
+const poster = movie.value.poster_path
+  ? `https://image.tmdb.org/t/p/original/${movie.value.poster_path}`
+  : undefined
+// fix it later
+
 const singleMovieURL = `/films/${movie.value.id}`
 </script>
 

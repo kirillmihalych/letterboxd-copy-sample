@@ -9,7 +9,7 @@ const recentMoviesOptions = {
 }
 
 const recentMoviesURL =
-  'https://api.themoviedb.org/3/movie/now_playing?language=ru&page=1'
+  'https://api.themoviedb.org/3/movie/now_playing?language=ru-RU&page=1&region=RU'
 
 export const loadRecentMovies = async () => {
   const options = recentMoviesOptions
@@ -58,7 +58,7 @@ export const fetchByTitle = async (name: string) => {
 
 // =======================================
 
-const options = {
+const optionsPopular = {
   method: 'GET',
   headers: {
     accept: 'application/json',
@@ -69,10 +69,51 @@ const options = {
 export const loadPopularMovies = async () => {
   const response = await (
     await fetch(
-      'https://api.themoviedb.org/3/movie/popular?language=ru-RU&page=1',
-      options
+      'https://api.themoviedb.org/3/movie/popular?language=ru-RU&page=1&region=RU',
+      optionsPopular
     )
   ).json()
-  console.log(response)
+
+  return response.results
+}
+
+// ========================================
+
+const optionsUpcoming = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+export const loadUpcomingMovies = async () => {
+  const response = await (
+    await fetch(
+      'https://api.themoviedb.org/3/movie/upcoming?language=ru-RU&page=1&region=RU',
+      optionsUpcoming
+    )
+  ).json()
+  return response.results
+}
+
+// ========================================
+
+const optionsTopRated = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+export const loadTopRatedMovies = async () => {
+  const response = await (
+    await fetch(
+      'https://api.themoviedb.org/3/movie/top_rated?language=ru-RU&page=1&region=RU',
+      optionsTopRated
+    )
+  ).json()
+  console.log(response.results)
   return response.results
 }

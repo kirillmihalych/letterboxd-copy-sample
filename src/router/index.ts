@@ -7,6 +7,8 @@ import type { Component } from 'vue'
 import SingleFilmView from '@/views/SingleFilmView.vue'
 import SearchResultsView from '@/views/SearchResultsView.vue'
 import PopularMovieListView from '@/views/FIlteredMovieViews/PopularMovieListView.vue'
+import UpcomingMovieListView from '@/views/FIlteredMovieViews/UpcomingMovieListView.vue'
+import TopRatedMovieListView from '@/views/FIlteredMovieViews/TopRatedMovieListView.vue'
 
 type Path =
   | '/films'
@@ -16,6 +18,8 @@ type Path =
   | '/films/:id'
   | '/films/search_results'
   | '/films/popular'
+  | '/films/upcoming'
+  | '/films/top_rated'
 
 interface IRoute {
   path: Path
@@ -42,6 +46,14 @@ const routes: IRoute[] = [
   {
     path: '/films/popular',
     component: PopularMovieListView,
+  },
+  {
+    path: '/films/upcoming',
+    component: UpcomingMovieListView,
+  },
+  {
+    path: '/films/top_rated',
+    component: TopRatedMovieListView,
   },
   // ==============================
   {
