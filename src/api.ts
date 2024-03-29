@@ -1,22 +1,5 @@
 import { API_KEY } from './keys'
 
-const recentMoviesOptions = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: API_KEY,
-  },
-}
-
-const recentMoviesURL =
-  'https://api.themoviedb.org/3/movie/now_playing?language=ru-RU&page=1&region=RU'
-
-export const loadRecentMovies = async () => {
-  const options = recentMoviesOptions
-  const recentMovies = await (await fetch(recentMoviesURL, options)).json()
-  return recentMovies.results
-}
-
 // ===========================================
 const movieDetailsOptions = {
   method: 'GET',
@@ -73,7 +56,7 @@ export const loadPopularMovies = async () => {
       optionsPopular
     )
   ).json()
-
+  console.log(response.results)
   return response.results
 }
 
@@ -115,5 +98,46 @@ export const loadTopRatedMovies = async () => {
     )
   ).json()
   console.log(response.results)
+  return response.results
+}
+
+// =================================
+
+const optionsVideo = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+export const loadVideoById = async (id: number) => {
+  const response = await (
+    await fetch(
+      `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
+      optionsVideo
+    )
+  ).json()
+  console.log(response)
+  return response
+}
+
+// ====================================
+
+const optionsTrending = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+export const loadTrendingToday = async () => {
+  const response = await (
+    await fetch(
+      'https://api.themoviedb.org/3/trending/movie/day?language=ru-RU',
+      optionsTrending
+    )
+  ).json()
   return response.results
 }

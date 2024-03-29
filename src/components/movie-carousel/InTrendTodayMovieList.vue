@@ -21,7 +21,7 @@
 import FilmCard from './FilmCard.vue'
 import type { IMovie } from '@/types'
 import { onMounted, ref, watchEffect } from 'vue'
-import { loadRecentMovies } from '@/api'
+import { loadTrendingToday } from '@/api'
 
 let movieList = ref<IMovie[] | null>(null)
 const error = ref<string | null>(null)
@@ -43,7 +43,7 @@ async function fetchMovies() {
   loading.value = true
 
   try {
-    movieList.value = await loadRecentMovies()
+    movieList.value = await loadTrendingToday()
   } catch (err: unknown) {
     if (err instanceof Error) {
       error.value = err.message.toString() + ' Возможно, у вас выключен VPN.'

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import RecentFilmList from '@/components/movie-carousel/RecentFilmList.vue'
+import InTrendTodayMovieList from '@/components/movie-carousel/InTrendTodayMovieList.vue'
 import SearchMovie from '@/components/search/SearchMovie.vue'
 import MovieNavbar from '@/components/filters/MovieNavbar.vue'
+import MovieTrailersCarousel from '@/components/movie-carousel/MovieTrailersCarousel.vue'
 </script>
 
 <template>
@@ -10,6 +11,7 @@ import MovieNavbar from '@/components/filters/MovieNavbar.vue'
     <SearchMovie />
   </header>
   <main>
-    <RecentFilmList />
+    <InTrendTodayMovieList />
+    <MovieTrailersCarousel />
   </main>
 </template>

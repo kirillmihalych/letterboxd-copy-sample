@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import PopularMovieList from '@/components/filters/PopularMovieList.vue'
-import { loadPopularMovies } from '@/api'
+import { loadPopularMovies, loadVideoById } from '@/api'
 import type { IMovie } from '@/types'
 import { onMounted, ref } from 'vue'
 
@@ -28,6 +28,7 @@ const fetchPopularMovieList = async () => {
   try {
     loading.value = true
     popularMovieList.value = await loadPopularMovies()
+    await loadVideoById(634492)
   } catch (err: unknown) {
     if (err instanceof Error) {
       error.value =

@@ -24,7 +24,9 @@ interface ISearchResultCard {
 }
 
 const props = defineProps<ISearchResultCard>()
-const poster = `https://image.tmdb.org/t/p/original/${props.movie.backdrop_path}`
+const poster = props.movie.backdrop_path
+  ? `https://image.tmdb.org/t/p/original/${props.movie.backdrop_path}`
+  : undefined
 const singleMovieURL = `/films/${props.movie.id}`
 </script>
 
