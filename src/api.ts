@@ -118,8 +118,10 @@ export const loadVideoById = async (id: number) => {
       optionsVideo
     )
   ).json()
-  console.log(response)
-  return response
+  const result = response.results.find(({ name }: any) =>
+    name.includes('Official Trailer')
+  )
+  return result
 }
 
 // ====================================

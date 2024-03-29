@@ -1,9 +1,5 @@
 <template>
   <div>
-    <div v-if="loading">Loading...</div>
-
-    <div v-if="error">{{ error }}</div>
-
     <div v-if="movieList" class="movie-list" id="slider">
       <button class="btn-left" @click="slideLeft"><=</button>
       <FilmCard
@@ -20,14 +16,13 @@
 <script setup lang="ts">
 import FilmCard from './FilmCard.vue'
 import type { IMovie } from '@/types'
-import { onMounted, ref, watchEffect } from 'vue'
-import { loadTrendingToday } from '@/api'
 
-let movieList = ref<IMovie[] | null>(null)
-const error = ref<string | null>(null)
-const loading = ref(false)
+interface IMovieTrendList {
+  movieList: IMovie[] | null
+}
 
-onMounted(() => fetchMovies())
+const props = defineProps<IMovieTrendList>()
+const movieList = props.movieList
 
 function slideRight() {
   ;(document.getElementById('slider') as HTMLElement).scrollLeft += 925
@@ -35,22 +30,6 @@ function slideRight() {
 
 function slideLeft() {
   ;(document.getElementById('slider') as HTMLElement).scrollLeft -= 925
-}
-
-async function fetchMovies() {
-  error.value = null
-  movieList.value = null
-  loading.value = true
-
-  try {
-    movieList.value = await loadTrendingToday()
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      error.value = err.message.toString() + ' Возможно, у вас выключен VPN.'
-    }
-  } finally {
-    loading.value = false
-  }
 }
 </script>
 
