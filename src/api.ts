@@ -16,6 +16,7 @@ export const loadMovieById = async (id: string) => {
       movieDetailsOptions
     )
   ).json()
+  console.log(movieDetails)
   return movieDetails
 }
 
@@ -56,7 +57,6 @@ export const loadPopularMovies = async () => {
       optionsPopular
     )
   ).json()
-  console.log(response.results)
   return response.results
 }
 
@@ -97,7 +97,6 @@ export const loadTopRatedMovies = async () => {
       optionsTopRated
     )
   ).json()
-  console.log(response.results)
   return response.results
 }
 

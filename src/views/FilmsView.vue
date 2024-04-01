@@ -48,7 +48,7 @@ const fetchTrendMovies = async () => {
     <div v-if="error">{{ error }}</div>
     <div v-if="movieList">
       <MovieTrendList :movieList="movieList" />
-      <MovieTrailersCarousel :ids="movieIDs" />
+      <!-- <MovieTrailersCarousel :ids="movieIDs" /> -->
     </div>
   </main>
 </template>

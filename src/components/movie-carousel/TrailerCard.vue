@@ -1,9 +1,6 @@
 <template>
   <div>{{ videoKey }}</div>
   <iframe width="500" height="500" :src="trailerURL" frameborder=""></iframe>
-  <!-- <video :src="trailerURL">
-    
-  </video> -->
 </template>
 
 <script setup lang="ts">

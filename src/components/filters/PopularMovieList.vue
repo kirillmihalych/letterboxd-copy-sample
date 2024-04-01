@@ -14,6 +14,13 @@ interface IPopularMovieListProps {
 
 const props = defineProps<IPopularMovieListProps>()
 const movieList = props.movieList
+// movieimg card and more detailed card
+// by genre
+// by decades
+// ====================================
+// additional
+// slider filter by vote amount and score
+// can customly set dates interval and filter by it
 </script>
 
 <style scoped></style>

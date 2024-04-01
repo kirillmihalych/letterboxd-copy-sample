@@ -3,6 +3,8 @@ export interface IMovie {
   backdrop_path: string
   genre_ids: string[]
   id: number
+  imdb_id: string
+  runtime: number
   original_language: string
   original_title: string
   overview: string
