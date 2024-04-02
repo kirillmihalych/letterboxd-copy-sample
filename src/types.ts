@@ -1,7 +1,7 @@
 export interface IMovie {
   adult?: boolean
   backdrop_path: string
-  genre_ids: string[]
+  genre_ids: number[]
   id: number
   imdb_id: string
   runtime: number

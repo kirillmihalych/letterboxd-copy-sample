@@ -24,6 +24,26 @@ interface IMovieTrendList {
 const props = defineProps<IMovieTrendList>()
 const movieList = props.movieList
 
+// const posters = movieList?.map(
+//   (movie) => `https://image.tmdb.org/t/p/original/${movie.poster_path}`
+// )
+// const loadedPosters = ref<PromiseSettledResult<unknown>[]>()
+// const preloadPosters = async (posters: string[]) => {
+//   const load = posters.map(async (posterPath) => {
+//     const img = new Image()
+//     img.src = posterPath
+//     return await new Promise((res) => {
+//       img.onload = () => res(img)
+//     })
+//   })
+
+//   loadedPosters.value = await Promise.allSettled(load)
+// }
+
+// onMounted(() => {
+//   preloadPosters(posters as string[])
+// })
+
 function slideRight() {
   ;(document.getElementById('slider') as HTMLElement).scrollLeft += 925
 }

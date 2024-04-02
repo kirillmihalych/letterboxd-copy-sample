@@ -30,6 +30,10 @@ const searchOptions = {
 }
 
 export const fetchByTitle = async (name: string) => {
+  const url = new URL(
+    `https://api.themoviedb.org/3/search/movie?query=${name}&include_adult=false&language=ru&page=1`
+  )
+  console.log(url)
   const response = await (
     await fetch(
       `https://api.themoviedb.org/3/search/movie?query=${name}&include_adult=false&language=ru&page=1`,
@@ -141,4 +145,24 @@ export const loadTrendingToday = async () => {
     )
   ).json()
   return response.results
+}
+
+// =================================
+const optionsGenreList = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+export const loadGenreList = async () => {
+  const { genres } = await (
+    await fetch(
+      'https://api.themoviedb.org/3/genre/movie/list?language=ru-RU',
+      optionsGenreList
+    )
+  ).json()
+  //
+  return genres
 }

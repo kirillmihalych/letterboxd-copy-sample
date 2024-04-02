@@ -1,7 +1,7 @@
 <template>
   <div v-if="loading">loading ...</div>
   <div v-if="error">{{ error }}</div>
-
+  <div>filters</div>
   <div v-if="popularMovieList">
     <PopularMovieList :movieList="popularMovieList" />
   </div>
