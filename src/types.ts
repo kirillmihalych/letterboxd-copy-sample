@@ -88,5 +88,6 @@ export interface IFilters {
 
 export interface IDiscoverOptions {
   genres: number[] | []
-  popularity: string
+  sort_by: string | ''
+  min_amount_votes: string
 }

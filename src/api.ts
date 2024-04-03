@@ -183,9 +183,10 @@ export const doDiscoverMovies = async (options: IDiscoverOptions) => {
     (accStr, currStr) => (accStr += `${currStr}%2C`),
     ''
   )
+  const minVotes = options.min_amount_votes
   const response = await (
     await fetch(
-      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ru-RU&page=1&sort_by=${options.popularity}&with_genres=${genres}`,
+      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ru-RU&page=1&sort_by=${options.sort_by}&with_genres=${genres}&vote_count.gte=${minVotes}`,
       optionsSort
     )
   ).json()

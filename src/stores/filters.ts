@@ -10,7 +10,8 @@ interface IFilterStore {
 const useFiltersStore = defineStore('filters', () => {
   const defaultOptions: IDiscoverOptions = {
     genres: [],
-    popularity: '',
+    sort_by: '',
+    min_amount_votes: '250',
   }
 
   const selectedOptions = ref<IDiscoverOptions>(defaultOptions)
