@@ -9,17 +9,20 @@ import SearchResultsView from '@/views/SearchResultsView.vue'
 import PopularMovieListView from '@/views/FIlteredMovieViews/PopularMovieListView.vue'
 import UpcomingMovieListView from '@/views/FIlteredMovieViews/UpcomingMovieListView.vue'
 import TopRatedMovieListView from '@/views/FIlteredMovieViews/TopRatedMovieListView.vue'
+import DiscoveredMovieList from '@/views/DiscoveredMovieList.vue'
 
 type Path =
+  | '/:catchAll(.*)'
   | '/films'
   | '/lists'
   | '/:pathMatch(.*)*'
   | '/'
-  | '/films/:id'
+  | '/films/movie_page/:id'
   | '/films/search_results'
   | '/films/popular'
   | '/films/upcoming'
   | '/films/top_rated'
+  | '/films/discovered_list'
 
 interface IRoute {
   path: Path
@@ -36,12 +39,16 @@ const routes: IRoute[] = [
     component: FilmsView,
   },
   {
-    path: '/films/:id',
+    path: '/films/movie_page/:id',
     component: SingleFilmView,
   },
   {
     path: '/films/search_results',
     component: SearchResultsView,
+  },
+  {
+    path: '/films/discovered_list',
+    component: DiscoveredMovieList,
   },
   {
     path: '/films/popular',
@@ -61,7 +68,7 @@ const routes: IRoute[] = [
     component: ListsView,
   },
   {
-    path: '/:pathMatch(.*)*',
+    path: '/:catchAll(.*)',
     component: ErrorView,
   },
 ]

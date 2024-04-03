@@ -1,19 +1,21 @@
 <template>
-  <RouterLink :to="singleMovieURL" class="film-card">
-    <ImagePlaceholder :src="poster" :title="movie.title">
-      <img
-        src="../../assets//images/black-back.jpg"
-        alt="placeholder"
-        class="placeholder"
-      />
-    </ImagePlaceholder>
+  <div class="film-card">
+    <RouterLink :to="singleMovieURL">
+      <ImagePlaceholder :src="poster" :title="movie.title">
+        <img
+          src="../../assets//images/black-back.jpg"
+          alt="placeholder"
+          class="placeholder"
+        />
+      </ImagePlaceholder>
+    </RouterLink>
     <div>
       <p>
         {{ movie.vote_count }} votes amount <br />
         with {{ movie.vote_average }} average
       </p>
     </div>
-  </RouterLink>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -29,13 +31,9 @@ interface FilmCardProps {
 const props = defineProps<FilmCardProps>()
 const movie = ref<IMovie>(props.movie)
 
-// const poster = movie.value.poster_path
-//   ? `https://image.tmdb.org/t/p/original/${movie.value.poster_path}`
-//   : undefined
 const poster = `https://image.tmdb.org/t/p/original/${movie.value.poster_path}`
-// fix it later
 
-const singleMovieURL = `/films/${movie.value.id}`
+const singleMovieURL = `/films/movie_page/${movie.value.id}`
 </script>
 
 <style scoped>
@@ -44,14 +42,9 @@ const singleMovieURL = `/films/${movie.value.id}`
 }
 
 img {
-  width: 200px;
+  width: 185px;
   display: block;
   object-position: center;
   object-fit: cover;
-}
-
-.blur-load {
-  background-size: cover;
-  background-position: center;
 }
 </style>

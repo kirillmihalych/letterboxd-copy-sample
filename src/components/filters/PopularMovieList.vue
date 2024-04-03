@@ -1,16 +1,12 @@
 <template>
   <div>
-    <FilteredList />
-    <MovieImgCard
-      v-for="movie in filteredPopularList"
-      :key="movie.id"
-      :movie="movie"
-    />
+    <FilterList />
+    <MovieImgCard v-for="movie in movieList" :key="movie.id" :movie="movie" />
   </div>
 </template>
 
 <script setup lang="ts">
-import FilteredList from './FilteretedList.vue'
+import FilterList from './FilterList.vue'
 import type { IMovie } from '@/types'
 import MovieImgCard from './MovieImgCard.vue'
 import { computed, watchEffect } from 'vue'
@@ -25,19 +21,19 @@ interface IPopularMovieListProps {
 const props = defineProps<IPopularMovieListProps>()
 const movieList = props.movieList
 
-const filteredPopularList = computed(() => {
-  return movieList.filter((movie) =>
-    movie.genre_ids.some((id) => filtersStore.selectedGenres.has(Number(id)))
-  )
-})
+// const filteredPopularList = computed(() => {
+//   return movieList.filter((movie) =>
+//     movie.genre_ids.some((id) => filtersStore.selectedGenres.has(Number(id)))
+//   )
+// })
 
-console.log(
-  movieList.filter((movie) =>
-    movie.genre_ids.reduce((acc, id) => acc + id, '').includes('16' + '12')
-  )
-)
+// console.log(
+//   movieList.filter((movie) =>
+//     movie.genre_ids.reduce((acc, id) => acc + id, '').includes('16' + '12')
+//   )
+// )
 
-console.log('16' + '99')
+// console.log('16' + '99')
 
 // из каждого загруженного листа фильмов
 // должен вести пусть на страницу фильтрованных фильмов
@@ -45,17 +41,6 @@ console.log('16' + '99')
 // и параметры в виде выбранных жанров
 //
 // фильтры не добавляются
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 </script>
 
 <style scoped></style>

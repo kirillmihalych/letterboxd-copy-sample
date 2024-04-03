@@ -15,7 +15,7 @@ export interface IMovie {
   video: boolean
   vote_average: number
   vote_count: number
-  release_date?: string
+  release_date: string
   credits: ICredits
   genres: IGenre[]
   spoken_languages: ILanguage[]
@@ -78,4 +78,10 @@ export interface ICastMember {
 export interface ICredits {
   cast: ICastMember[]
   crew: ICrewMember[]
+}
+
+export interface IFilters {
+  decade: string
+  year: string
+  genre: number | null
 }

@@ -166,3 +166,23 @@ export const loadGenreList = async () => {
   //
   return genres
 }
+
+// ===================================
+const optionsSort = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+export const doDiscoverMovies = async (popularatiy: string) => {
+  const response = await (
+    await fetch(
+      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ru-RU&page=1&sort_by=${popularatiy}`,
+      optionsSort
+    )
+  ).json()
+  console.log(response)
+  return response
+}

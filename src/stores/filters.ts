@@ -1,11 +1,17 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import type { IGenre } from '@/types'
+import type { IFilters, IGenre } from '@/types'
 
 const useFiltersStore = defineStore('filters', () => {
-  const selectedGenres = ref<Map<number, string>>(new Map())
+  const defaultFilters: IFilters = {
+    decade: '',
+    year: '',
+    genre: 10770,
+  }
 
-  return { selectedGenres }
+  const selectedFilters = ref<IFilters>(defaultFilters)
+
+  return { selectedFilters }
 })
 
 export default useFiltersStore
