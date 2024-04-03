@@ -1,17 +1,44 @@
-import { ref, computed } from 'vue'
+import { ref, computed, type Ref, watchEffect } from 'vue'
 import { defineStore } from 'pinia'
-import type { IFilters, IGenre } from '@/types'
+import type { IDiscoverOptions, IGenre, IMovie } from '@/types'
+import { doDiscoverMovies } from '@/api'
+
+interface IFilterStore {
+  selectedOptions: Ref<IDiscoverOptions>
+}
 
 const useFiltersStore = defineStore('filters', () => {
-  const defaultFilters: IFilters = {
-    decade: '',
-    year: '',
-    genre: 10770,
+  const defaultOptions: IDiscoverOptions = {
+    genres: [],
+    popularity: '',
   }
 
-  const selectedFilters = ref<IFilters>(defaultFilters)
+  const selectedOptions = ref<IDiscoverOptions>(defaultOptions)
+  const discoveredMovieList = ref<IMovie[] | null>(null)
+  const error = ref<string | null>(null)
+  const loading = ref(false)
 
-  return { selectedFilters }
+  const fetchDiscoveredMovies = async (options: IDiscoverOptions) => {
+    discoveredMovieList.value = null
+    error.value = null
+
+    try {
+      loading.value = true
+      discoveredMovieList.value = await doDiscoverMovies(options)
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        error.value = err.message.toString()
+      }
+    } finally {
+      loading.value = false
+    }
+  }
+
+  watchEffect(() => {
+    fetchDiscoveredMovies(selectedOptions.value)
+  })
+
+  return { selectedOptions, discoveredMovieList }
 })
 
 export default useFiltersStore

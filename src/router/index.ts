@@ -9,7 +9,7 @@ import SearchResultsView from '@/views/SearchResultsView.vue'
 import PopularMovieListView from '@/views/FIlteredMovieViews/PopularMovieListView.vue'
 import UpcomingMovieListView from '@/views/FIlteredMovieViews/UpcomingMovieListView.vue'
 import TopRatedMovieListView from '@/views/FIlteredMovieViews/TopRatedMovieListView.vue'
-import DiscoveredMovieList from '@/views/DiscoveredMovieList.vue'
+import DiscoveredMovieListView from '@/views/DiscoveredMovieListView.vue'
 
 type Path =
   | '/:catchAll(.*)'
@@ -48,7 +48,7 @@ const routes: IRoute[] = [
   },
   {
     path: '/films/discovered_list',
-    component: DiscoveredMovieList,
+    component: DiscoveredMovieListView,
   },
   {
     path: '/films/popular',

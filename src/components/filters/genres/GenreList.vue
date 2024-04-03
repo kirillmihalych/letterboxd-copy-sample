@@ -1,9 +1,14 @@
 <template>
   <!-- <label for="genres">genres</label> -->
-  <select v-model="selectedFilters.genre" name="genres">
-    <label>Genres</label>
-    <GenreCard v-for="genre in genreList" :key="genre.id" :genre="genre" />
-  </select>
+  <!-- <select v-model="selectedGenres" name="genres">
+    <h3>Genres</h3> -->
+  <GenreCard
+    v-for="genre in genreList"
+    :key="genre.id"
+    :genre="genre"
+    @update-selected-genres="updateSelectedGenres"
+  />
+  <!-- </select> -->
 </template>
 
 <script setup lang="ts">
@@ -13,10 +18,20 @@ import { onMounted, ref } from 'vue'
 import GenreCard from './GenreCard.vue'
 import useFiltersStore from '@/stores/filters'
 
-const { selectedFilters } = useFiltersStore()
 const genreList = ref<IGenre[] | null>(null)
 const error = ref<string | null>(null)
 const loading = ref(false)
+const selectedGenres = ref<string>('')
+
+const updateSelectedGenres = async (genre: IGenre) => {
+  if (selectedGenres.value.length > 0) {
+    selectedGenres.value += `%2C${genre.id}`
+  } else {
+    selectedGenres.value += genre.id
+  }
+
+  // console.log(await doDiscoverMovies())
+}
 
 const fetchGenreList = async () => {
   genreList.value = null
@@ -24,7 +39,6 @@ const fetchGenreList = async () => {
   try {
     loading.value = true
     genreList.value = await loadGenreList()
-    console.log(await doDiscoverMovies('popularity.asc'))
   } catch (err: unknown) {
     if (err instanceof Error) {
       error.value =

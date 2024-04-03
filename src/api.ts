@@ -1,4 +1,6 @@
 import { API_KEY } from './keys'
+import type { IGenre } from './types'
+import type { IDiscoverOptions } from './types'
 
 // ===========================================
 const movieDetailsOptions = {
@@ -176,13 +178,16 @@ const optionsSort = {
   },
 }
 
-export const doDiscoverMovies = async (popularatiy: string) => {
+export const doDiscoverMovies = async (options: IDiscoverOptions) => {
+  const genres = options.genres.reduce(
+    (accStr, currStr) => (accStr += `${currStr}%2C`),
+    ''
+  )
   const response = await (
     await fetch(
-      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ru-RU&page=1&sort_by=${popularatiy}`,
+      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ru-RU&page=1&sort_by=${options.popularity}&with_genres=${genres}`,
       optionsSort
     )
   ).json()
-  console.log(response)
-  return response
+  return response.results
 }

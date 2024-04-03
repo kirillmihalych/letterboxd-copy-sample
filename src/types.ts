@@ -85,3 +85,8 @@ export interface IFilters {
   year: string
   genre: number | null
 }
+
+export interface IDiscoverOptions {
+  genres: number[] | []
+  popularity: string
+}
