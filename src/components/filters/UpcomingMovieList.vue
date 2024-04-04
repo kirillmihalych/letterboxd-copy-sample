@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import type { IMovie } from '@/types'
-import MovieImgCard from './MovieImgCard.vue'
+import MovieImgCard from '../movie-cards/MovieImgCard.vue'
 
 interface IUpcomingMovieList {
   movies: IMovie[] | null

@@ -190,5 +190,5 @@ export const doDiscoverMovies = async (options: IDiscoverOptions) => {
       optionsSort
     )
   ).json()
-  return response.results
+  return response
 }

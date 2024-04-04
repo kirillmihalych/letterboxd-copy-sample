@@ -1,5 +1,6 @@
 <template>
-  <select v-model="filtersStore.selectedOptions.sort_by">
+  <select v-model="filtersStore.selectedOptions.sort_by" class="sort-by">
+    <option disabled value="">Sort by</option>
     <option value="popularity.desc">popularity</option>
     <option value="vote_average.desc">rating</option>
     <option value="vote_count.desc">vote amount</option>
@@ -14,4 +15,16 @@ import useFiltersStore from '@/stores/filters'
 const filtersStore = useFiltersStore()
 </script>
 
-<style scoped></style>
+<style scoped>
+.sort-by {
+  width: 75px;
+}
+
+.sort-by {
+  font-weight: bold;
+}
+
+.sort-by option {
+  text-transform: capitalize;
+}
+</style>

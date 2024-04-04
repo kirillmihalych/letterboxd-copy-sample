@@ -7,12 +7,26 @@ import { RouterLink, RouterView } from 'vue-router'
     <RouterLink to="/films">Films</RouterLink>
     <RouterLink to="/lists">Lists</RouterLink>
   </nav>
-  <main>
-    <RouterView />
+  <main class="main-view">
+    <div class="main-view-container">
+      <RouterView />
+    </div>
   </main>
 </template>
 
 <style scoped>
+.main-view {
+  margin: 0 auto;
+  width: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .main-view-container {
+  
+} */
+
 header {
   line-height: 1.5;
   max-height: 100vh;

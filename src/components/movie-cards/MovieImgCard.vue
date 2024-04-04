@@ -1,6 +1,6 @@
 <template>
   <div>
-    <RouterLink :to="singleMovieURL">
+    <RouterLink :to="singleMovieURL" class="link-wrapper">
       <ImagePlaceholder :src="poster" :title="movie.title">
         <img
           src="../../assets//images/black-back.jpg"
@@ -37,12 +37,12 @@ const singleMovieURL = `/films/movie_page/${movie.id}`
 </script>
 
 <style scoped>
-.card-img {
-  object-fit: contain;
-  height: 150px;
+.link-wrapper {
+  display: inline-block;
 }
 
 .placeholder {
-  width: 180px;
+  width: 75px;
+  height: 110px;
 }
 </style>

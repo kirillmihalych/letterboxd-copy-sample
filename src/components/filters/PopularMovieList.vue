@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import FilterList from './FilterList.vue'
 import type { IMovie } from '@/types'
-import MovieImgCard from './MovieImgCard.vue'
+import MovieImgCard from '../movie-cards/MovieImgCard.vue'
 import { computed, watchEffect } from 'vue'
 import useFiltersStore from '@/stores/filters'
 

@@ -1,5 +1,5 @@
 <template>
-  <div>Lists view</div>
+  <div>comming soon</div>
 </template>
 
 <script setup lang="ts"></script>

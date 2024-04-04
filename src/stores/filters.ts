@@ -16,6 +16,7 @@ const useFiltersStore = defineStore('filters', () => {
 
   const selectedOptions = ref<IDiscoverOptions>(defaultOptions)
   const discoveredMovieList = ref<IMovie[] | null>(null)
+  const amountOfMovies = ref(0)
   const error = ref<string | null>(null)
   const loading = ref(false)
 
@@ -25,10 +26,14 @@ const useFiltersStore = defineStore('filters', () => {
 
     try {
       loading.value = true
-      discoveredMovieList.value = await doDiscoverMovies(options)
+      const { results, total_results } = await doDiscoverMovies(options)
+      discoveredMovieList.value = results
+      amountOfMovies.value = total_results
     } catch (err: unknown) {
       if (err instanceof Error) {
-        error.value = err.message.toString()
+        error.value =
+          err.message.toString() +
+          '. Возможно, Ваш VPN отключен. Попробуйте включить VPN.'
       }
     } finally {
       loading.value = false
@@ -39,7 +44,13 @@ const useFiltersStore = defineStore('filters', () => {
     fetchDiscoveredMovies(selectedOptions.value)
   })
 
-  return { selectedOptions, discoveredMovieList }
+  return {
+    selectedOptions,
+    discoveredMovieList,
+    amountOfMovies,
+    error,
+    loading,
+  }
 })
 
 export default useFiltersStore

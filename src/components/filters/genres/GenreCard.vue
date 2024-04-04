@@ -1,6 +1,5 @@
 <template>
-  <!-- <option :value="genre.id">{{ genre.name }}</option> -->
-  <div>
+  <div class="genre-card">
     <label :for="genre.name">{{ genre.name }}</label>
     <input
       type="checkbox"
@@ -21,25 +20,15 @@ interface IGenreCardProps {
   genre: IGenre
 }
 
-// const addGenre = (genre: any) => {
-//   if (filterStore.selectedOptions.genres.length > 0) {
-//     filterStore.selectedOptions.genres += `%2C${genre}`
-//   } else {
-//     filterStore.selectedOptions.genres += `${genre}`
-//   }
-// }
-
-const onChangeGenres = (e: Event) => {
-  // const event = e.target as HTMLInputElement
-  // if (event.checked) {
-  //   addGenre(event.value)
-  // }
-
-  console.log((e.target as HTMLInputElement).checked)
-}
-
 const props = defineProps<IGenreCardProps>()
 const genre = props.genre
 </script>
 
-<style scoped></style>
+<style scoped>
+.genre-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: capitalize;
+}
+</style>

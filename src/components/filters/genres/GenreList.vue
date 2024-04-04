@@ -1,37 +1,31 @@
 <template>
-  <!-- <label for="genres">genres</label> -->
-  <!-- <select v-model="selectedGenres" name="genres">
-    <h3>Genres</h3> -->
-  <GenreCard
-    v-for="genre in genreList"
-    :key="genre.id"
-    :genre="genre"
-    @update-selected-genres="updateSelectedGenres"
-  />
-  <!-- </select> -->
+  <div class="multiselect">
+    <div class="selectBox" @click="showGenres">
+      <select>
+        <option>Genre</option>
+      </select>
+      <div class="overSelect"></div>
+    </div>
+    <div
+      class="checkboxes"
+      v-show="isGenresShowed"
+      @mouseleave="() => (isGenresShowed = false)"
+    >
+      <GenreCard v-for="genre in genreList" :key="genre.id" :genre="genre" />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { doDiscoverMovies, loadGenreList } from '@/api'
+import { loadGenreList } from '@/api'
 import type { IGenre } from '@/types'
 import { onMounted, ref } from 'vue'
 import GenreCard from './GenreCard.vue'
-import useFiltersStore from '@/stores/filters'
 
 const genreList = ref<IGenre[] | null>(null)
 const error = ref<string | null>(null)
 const loading = ref(false)
-const selectedGenres = ref<string>('')
-
-const updateSelectedGenres = async (genre: IGenre) => {
-  if (selectedGenres.value.length > 0) {
-    selectedGenres.value += `%2C${genre.id}`
-  } else {
-    selectedGenres.value += genre.id
-  }
-
-  // console.log(await doDiscoverMovies())
-}
+const isGenresShowed = ref(false)
 
 const fetchGenreList = async () => {
   genreList.value = null
@@ -53,11 +47,49 @@ onMounted(() => {
   fetchGenreList()
 })
 
-// interface IGenreListProps {
-//   genre: IGenre
-// }
-
-// const props = defineProps<IGenreListProps>()
+const showGenres = (): void => {
+  isGenresShowed.value = !isGenresShowed.value
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+.multiselect {
+  width: 75px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.checkboxes {
+  position: absolute;
+  background: #222;
+  color: lightgray;
+}
+
+/* #checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+
+#checkboxes label {
+  display: block;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
+} */
+</style>
