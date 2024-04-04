@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <nav>
     <RouterLink to="/films">Films</RouterLink>
-    <RouterLink to="/lists">Lists</RouterLink>
+    <!-- <RouterLink to="/lists">Lists</RouterLink> -->
   </nav>
   <main class="main-view">
     <div class="main-view-container">

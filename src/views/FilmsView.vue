@@ -38,7 +38,7 @@ const fetchTrendMovies = async () => {
 </script>
 
 <template>
-  <header>
+  <header class="films-view-header">
     <MovieNavbar />
     <SearchMovie />
   </header>
@@ -48,7 +48,15 @@ const fetchTrendMovies = async () => {
     <div v-if="error">{{ error }}</div>
     <div v-if="movieList">
       <MovieTrendList :movieList="movieList" />
-      <!-- <MovieTrailersCarousel :ids="movieIDs" /> -->
     </div>
   </main>
 </template>
+
+<style scoped>
+.films-view-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+</style>
