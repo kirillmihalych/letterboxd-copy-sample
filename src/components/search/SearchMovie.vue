@@ -6,6 +6,7 @@
         type="text"
         placeholder="Type film's name"
         id="query"
+        autocomplete="off"
         :value="query"
         @input="changeQueryHandler"
         @focusout="doCloseDropDownList"

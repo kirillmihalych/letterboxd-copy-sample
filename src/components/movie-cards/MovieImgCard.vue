@@ -1,12 +1,11 @@
 <template>
   <div>
     <RouterLink :to="singleMovieURL" class="link-wrapper">
-      <ImagePlaceholder :src="poster" :title="movie.title">
-        <img
-          src="../../assets//images/black-back.jpg"
-          alt="placeholder"
-          class="placeholder"
-        />
+      <ImagePlaceholder
+        :src="poster"
+        :title="movie.title"
+        :imgParams="imgParams"
+      >
       </ImagePlaceholder>
       <!-- <img :src="poster" :alt="movie.title" class="card-img" /> -->
 
@@ -24,6 +23,7 @@
 import type { IMovie } from '@/types'
 import { RouterLink } from 'vue-router'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
+import type { CSSProperties } from 'vue'
 
 interface IMovieImgCardProps {
   movie: IMovie
@@ -34,6 +34,10 @@ const movie = props.movie
 
 const poster = `https://image.tmdb.org/t/p/original/${movie.poster_path}`
 const singleMovieURL = `/films/movie_page/${movie.id}`
+const imgParams: CSSProperties = {
+  width: 75 + 'px',
+  height: 110 + 'px',
+}
 </script>
 
 <style scoped>
@@ -41,7 +45,12 @@ const singleMovieURL = `/films/movie_page/${movie.id}`
   display: inline-block;
 }
 
-.placeholder {
+/* .placeholder {
+  width: 75px;
+  height: 110px;
+} */
+
+.img-params {
   width: 75px;
   height: 110px;
 }

@@ -33,7 +33,7 @@
 
 <script setup lang="ts">
 import FilmInfoList from './movie-info/FilmInfoList.vue'
-import FilmCard from '../movie-carousel/FilmCard.vue'
+import FilmCard from '../movie-cards/FilmCard.vue'
 import type { ICrewMember, IMovie } from '@/types'
 
 interface MovieDetailsProps {

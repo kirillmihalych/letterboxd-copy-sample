@@ -2,7 +2,6 @@
 import MovieTrendList from '@/components/movie-carousel/MovieTrendList.vue'
 import SearchMovie from '@/components/search/SearchMovie.vue'
 import MovieNavbar from '@/components/filters/MovieNavbar.vue'
-import MovieTrailersCarousel from '@/components/movie-carousel/MovieTrailersCarousel.vue'
 
 import type { IMovie } from '@/types'
 import { onMounted, ref } from 'vue'
@@ -55,7 +54,7 @@ const fetchTrendMovies = async () => {
 <style scoped>
 .films-view-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
 }

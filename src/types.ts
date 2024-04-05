@@ -91,3 +91,8 @@ export interface IDiscoverOptions {
   sort_by: string | ''
   min_amount_votes: string
 }
+
+export interface IImageParams {
+  width: string
+  height: string
+}
