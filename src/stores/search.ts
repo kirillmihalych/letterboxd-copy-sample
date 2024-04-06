@@ -2,7 +2,8 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const useSearchStore = defineStore('search', () => {
-  const query = ref<string | null>('')
+  const query = ref<string>('')
+  const isSearchSubmited = ref(false)
 
-  return { query }
+  return { query, isSearchSubmited }
 })

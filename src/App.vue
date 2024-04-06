@@ -15,7 +15,7 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
 <style scoped>
 .main-view {
   margin: 0 auto;
-  width: 1000px;
+  width: 950px;
   display: flex;
   justify-content: center;
   align-items: center;

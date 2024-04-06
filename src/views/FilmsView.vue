@@ -53,9 +53,12 @@ const fetchTrendMovies = async () => {
 
 <style scoped>
 .films-view-header {
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: 950px;
+  padding: 0.25rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
 }
 </style>

@@ -16,38 +16,37 @@
 <script setup lang="ts">
 import type { IMovie } from '@/types'
 import SearchResultCard from './SearchResultCard.vue'
-import { ref, watchEffect } from 'vue'
-import { fetchByTitle } from '@/api'
+import { onMounted, ref, watchEffect } from 'vue'
+import { fetchMultiResultsByQuery } from '@/api'
 import { useSearchStore } from '@/stores/search'
 import _ from 'lodash'
 
-const searchStore = useSearchStore()
+const search = useSearchStore()
 const searchResult = ref<IMovie[] | null>(null)
 const error = ref<string | null>(null)
 const loading = ref(false)
 
-const searchMoviesByTitle = async (title: string) => {
+const searchByQuery = async () => {
   console.log('call')
   error.value = null
   searchResult.value = null
   try {
     loading.value = true
-    searchResult.value = await fetchByTitle(title)
+    searchResult.value = await fetchMultiResultsByQuery(search.query)
   } catch (err: unknown) {
     if (err instanceof Error) {
       error.value = err.message.toString()
     }
   } finally {
     loading.value = false
+    search.isSearchSubmited = false
   }
 }
 
-const doUpdateSearch = _.debounce((query) => {
-  searchMoviesByTitle(query)
-}, 1000)
-
 watchEffect(() => {
-  doUpdateSearch(searchStore.query)
+  if (search.isSearchSubmited) {
+    searchByQuery()
+  }
 })
 </script>
 
