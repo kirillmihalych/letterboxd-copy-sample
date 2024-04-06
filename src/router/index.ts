@@ -11,7 +11,7 @@ import UpcomingMovieListView from '@/views/FIlteredMovieViews/UpcomingMovieListV
 import TopRatedMovieListView from '@/views/FIlteredMovieViews/TopRatedMovieListView.vue'
 import DiscoveredMovieListView from '@/views/DiscoveredMovieListView.vue'
 
-type Path =
+export type Path =
   | '/:catchAll(.*)'
   | '/films'
   | '/lists'
@@ -25,16 +25,18 @@ type Path =
   | '/films/discovered_list'
 
 interface IRoute {
+  name?: string
   path: Path
   component: Component
 }
 
-const routes: IRoute[] = [
+export const routes: IRoute[] = [
   {
     path: '/',
     component: StartView,
   },
   {
+    name: 'films',
     path: '/films',
     component: FilmsView,
   },
@@ -64,12 +66,35 @@ const routes: IRoute[] = [
   },
   // ==============================
   {
+    name: 'lists',
     path: '/lists',
     component: ListsView,
   },
   {
     path: '/:catchAll(.*)',
     component: ErrorView,
+  },
+]
+
+type NavbarPath = '/films' | '/lists'
+type NavbarName = 'Films' | 'Lists'
+
+interface INavbarRoute {
+  name: NavbarName
+  component: Component
+  path: NavbarPath
+}
+
+export const navbarRoutes: INavbarRoute[] = [
+  {
+    name: 'Films',
+    component: FilmsView,
+    path: '/films',
+  },
+  {
+    name: 'Lists',
+    component: ListsView,
+    path: '/lists',
   },
 ]
 

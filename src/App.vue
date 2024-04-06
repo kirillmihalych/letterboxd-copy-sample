@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import NavbarComponent from './components/navbar/NavbarComponent.vue'
 </script>
 
 <template>
-  <nav>
-    <RouterLink to="/films">Films</RouterLink>
-    <!-- <RouterLink to="/lists">Lists</RouterLink> -->
-  </nav>
+  <NavbarComponent />
   <main class="main-view">
     <div class="main-view-container">
       <RouterView />
@@ -22,10 +20,6 @@ import { RouterLink, RouterView } from 'vue-router'
   justify-content: center;
   align-items: center;
 }
-
-/* .main-view-container {
-  
-} */
 
 header {
   line-height: 1.5;
