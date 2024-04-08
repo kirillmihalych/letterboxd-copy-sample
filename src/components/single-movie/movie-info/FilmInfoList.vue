@@ -1,8 +1,8 @@
 <template>
-  <nav class="nav-info">
-    <a href="#cast"> cast </a>
-    <a href="#crew"> crew </a>
-    <a href="#details"> details </a>
+  <nav class="movie-info-navbar">
+    <a href="#cast" :class="{ active: isCastShowed }"> cast </a>
+    <a href="#crew" :class="{ active: isCrewShowed }"> crew </a>
+    <a href="#details" :class="{ active: isDetailsShowed }"> details </a>
   </nav>
   <main>
     <section v-show="isCastShowed">
@@ -21,14 +21,11 @@
         :genres="movieInfo.genres"
       />
     </section>
-    <!-- <section v-show="isGenresShowed">
-      <GenresList />
-    </section> -->
   </main>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 // import GenresList from './GenresList.vue'
 import DetailsList from './DetailsList.vue'
 import CastList from './CastList.vue'
@@ -66,10 +63,37 @@ function onHashChange() {
     isDetailsShowed.value = true
   }
 }
+
+watchEffect(() => {
+  onHashChange()
+})
 </script>
 
 <style scoped>
-.nav-info {
+.movie-info-navbar {
   display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.movie-info-navbar a {
+  box-sizing: border-box;
+  text-decoration: none;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
+
+/* .movie-info-navbar a:hover {
+  background: grey;
+} */
+
+.active {
+  /* background: red; */
+  background: lightgrey;
+  padding: 0.1rem 0.2rem;
+  border: 1px solid black;
+  border-radius: 0.2rem;
 }
 </style>

@@ -6,7 +6,7 @@
       :castMemberInfo="castMember"
     />
     <button @click="showAllCastMembers" v-show="endOfCastList !== castLength">
-      show all
+      Show all
     </button>
   </div>
 </template>
@@ -35,12 +35,16 @@ const showedCastMembers = computed((): ICastMember[] => {
 </script>
 
 <style scoped>
-.cast-list {
+/* .cast-list {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 5px;
   width: 550px;
+} */
+.cast-list {
+  display: grid;
+  gap: 0.25rem;
 }
 </style>

@@ -51,7 +51,6 @@ export const fetchMultiResultsByQuery = async (query: string) => {
       searchOptions
     )
   ).json()
-  console.log(response)
   return response.results
 }
 
@@ -65,13 +64,20 @@ const optionsPopular = {
   },
 }
 
-export const loadPopularMovies = async () => {
+export const loadPopularMovies = async (options: IDiscoverOptions) => {
+  const sort_option = 'popularity.desc'
+  const genre_option = options.genres.reduce(
+    (accStr, currStr) => (accStr += `${currStr}%2C`),
+    ''
+  )
+  const votes_option = options.min_amount_votes
   const response = await (
     await fetch(
-      'https://api.themoviedb.org/3/movie/popular?language=ru-RU&page=1&region=RU',
+      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=${sort_option}&with_genres=${genre_option}&vote_count.gte=${votes_option}`,
       optionsPopular
     )
   ).json()
+  console.log(response)
   return response.results
 }
 
@@ -195,9 +201,10 @@ export const doDiscoverMovies = async (options: IDiscoverOptions) => {
   const minVotes = options.min_amount_votes
   const response = await (
     await fetch(
-      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ru-RU&page=1&sort_by=${options.sort_by}&with_genres=${genres}&vote_count.gte=${minVotes}`,
+      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ru-RU&page=1&sort_by=${options.sort_by}&with_genres=${genres}&vote_count.gte=${minVotes}&with_release_type=2|3&release_date.gte=2024-04-01`,
       optionsSort
     )
   ).json()
+  console.log(response)
   return response
 }

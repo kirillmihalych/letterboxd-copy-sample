@@ -8,7 +8,7 @@
 import type { CSSProperties } from 'vue'
 
 interface ISpinnerCompProps {
-  cssParams: CSSProperties
+  cssParams?: CSSProperties
 }
 
 const props = defineProps<ISpinnerCompProps>()

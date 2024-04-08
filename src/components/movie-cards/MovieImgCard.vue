@@ -27,6 +27,8 @@ import type { CSSProperties } from 'vue'
 
 interface IMovieImgCardProps {
   movie: IMovie
+  width?: string
+  height?: string
 }
 
 const props = defineProps<IMovieImgCardProps>()
@@ -35,8 +37,8 @@ const movie = props.movie
 const poster = `https://image.tmdb.org/t/p/original/${movie.poster_path}`
 const singleMovieURL = `/films/movie_page/${movie.id}`
 const imgParams: CSSProperties = {
-  width: 75 + 'px',
-  height: 110 + 'px',
+  width: props.width ? props.width : 75 + 'px',
+  height: props.height ? props.height : 110 + 'px',
 }
 </script>
 

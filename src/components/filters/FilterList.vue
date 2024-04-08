@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import useFiltersStore from '@/stores/filters'
 import GenreList from './genres/GenreList.vue'
 import SortOptionList from '../sort/SortOptionList.vue'
 import VotesAmountInput from './rating/VotesAmountInput.vue'
