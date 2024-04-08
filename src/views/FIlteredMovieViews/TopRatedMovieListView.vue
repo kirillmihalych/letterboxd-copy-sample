@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import TopRatedMovieList from '@/components/filters/TopRatedMovieList.vue'
+import TopRatedMovieList from '@/components/movie-lists/TopRatedMovieList.vue'
 import VotesAmountInput from '@/components/filters/rating/VotesAmountInput.vue'
 import GenreList from '@/components/filters/genres/GenreList.vue'
 import { loadTopRatedMovies } from '@/api'

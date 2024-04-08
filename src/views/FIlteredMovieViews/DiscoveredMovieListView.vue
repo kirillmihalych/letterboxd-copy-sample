@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import FilterList from '@/components/filters/FilterList.vue'
-import DiscoverMovieList from '@/components/movie-discover/DiscoverMovieList.vue'
+import DiscoverMovieList from '@/components/movie-lists/DiscoverMovieList.vue'
 </script>
 
 <style scoped>

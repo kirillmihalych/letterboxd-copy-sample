@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 import MovieTrendList from '@/components/movie-carousel/MovieTrendList.vue'
-import SearchMovie from '@/components/search/SearchMovie.vue'
+import SearchMovie from '@/components/movie-search/SearchMovie.vue'
 import MovieNavbar from '@/components/filters/MovieNavbar.vue'
 
 import type { IMovie } from '@/types'
@@ -42,8 +43,9 @@ const fetchTrendMovies = async () => {
     <SearchMovie />
   </header>
   <main>
-    <div v-if="loading">Loading...</div>
-
+    <div class="fetch-handle-container" v-if="loading">
+      <SpinnerComp />
+    </div>
     <div v-if="error">{{ error }}</div>
     <div v-if="movieList">
       <MovieTrendList :movieList="movieList" />
@@ -60,5 +62,12 @@ const fetchTrendMovies = async () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.fetch-handle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 350px;
 }
 </style>

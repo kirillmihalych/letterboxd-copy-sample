@@ -5,11 +5,11 @@ import ErrorView from '@/views/ErrorView.vue'
 import StartView from '@/views/StartView.vue'
 import type { Component } from 'vue'
 import SingleFilmView from '@/views/SingleFilmView.vue'
-import SearchResultsView from '@/views/SearchResultsView.vue'
+import SearchResultsListView from '@/views/SearchResultsListView.vue'
 import PopularMovieListView from '@/views/FIlteredMovieViews/PopularMovieListView.vue'
 import UpcomingMovieListView from '@/views/FIlteredMovieViews/UpcomingMovieListView.vue'
 import TopRatedMovieListView from '@/views/FIlteredMovieViews/TopRatedMovieListView.vue'
-import DiscoveredMovieListView from '@/views/DiscoveredMovieListView.vue'
+import DiscoveredMovieListView from '@/views/FIlteredMovieViews/DiscoveredMovieListView.vue'
 
 export type Path =
   | '/:catchAll(.*)'
@@ -46,7 +46,7 @@ export const routes: IRoute[] = [
   },
   {
     path: '/films/search_results',
-    component: SearchResultsView,
+    component: SearchResultsListView,
   },
   {
     path: '/films/discovered_list',

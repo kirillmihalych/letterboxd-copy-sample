@@ -23,6 +23,7 @@ const movieList = props.movieList
 
 <style scoped>
 .movie-list {
+  box-sizing: border-box;
   width: 950px;
   display: flex;
   align-items: center;

@@ -36,7 +36,7 @@ const src = ref(props.src)
   /* width: 75px;
   height: 110px; */
   object-fit: fill;
-  border: 2.5px solid transparent;
+  border: 1px solid transparent;
   border-radius: 0.25rem;
   transition: border 0.1s linear;
 }

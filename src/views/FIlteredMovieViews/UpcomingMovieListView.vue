@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import type { IDiscoverOptions, IMovie } from '@/types'
-import UpcomingMovieList from '../../components/filters/UpcomingMovieList.vue'
+import UpcomingMovieList from '@/components/movie-lists/UpcomingMovieList.vue'
 import { onMounted, ref, watchEffect } from 'vue'
 import { loadUpcomingMovies } from '@/api'
 import useFiltersStore from '@/stores/filters'

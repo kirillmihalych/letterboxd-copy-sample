@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
-import PopularMovieList from '@/components/filters/PopularMovieList.vue'
+import PopularMovieList from '@/components/movie-lists/PopularMovieList.vue'
 import { loadPopularMovies, loadVideoById } from '@/api'
 import type { IDiscoverOptions, IMovie } from '@/types'
 import { onMounted, ref, watchEffect } from 'vue'

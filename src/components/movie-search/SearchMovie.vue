@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form>
+    <form class="find-film-form">
       <label for="query">Find a film</label>
       <input
         type="text"
@@ -81,5 +81,12 @@ const changeQueryHandler = debounce((e: Event) => {
   height: 100px;
   overflow-y: scroll;
   position: absolute;
+}
+
+.find-film-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 </style>
