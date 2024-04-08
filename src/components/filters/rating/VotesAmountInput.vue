@@ -73,6 +73,5 @@ const onRangeUpdate = debounce((e: Event) => {
   color: lightgray;
   width: 250px;
   text-align: center;
-  right: 45px;
 }
 </style>

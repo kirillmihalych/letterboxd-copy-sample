@@ -1,5 +1,22 @@
 <template>
   <section class="popular-movie-list-container">
+    <header>
+      <div class="title-container">
+        <h2>Popular movies</h2>
+        <span class="filters-container">
+          <GenreList />
+          <VotesAmountInput />
+          <button @click="clearFilterOptions">clear filters</button>
+        </span>
+      </div>
+      <p class="list-overview">
+        This rating based on metrics like number of votes for the day, number of
+        views for the day, number of users who marked it as a "favourite" for
+        the day, number of users who added it to their "watchlist" for the day,
+        release date, number of total votes and previous days score.
+      </p>
+      <hr />
+    </header>
     <div class="fetch-handle-container" v-if="loading">
       <SpinnerComp />
     </div>
@@ -23,6 +40,8 @@ import { loadPopularMovies, loadVideoById } from '@/api'
 import type { IDiscoverOptions, IMovie } from '@/types'
 import { onMounted, ref, watchEffect } from 'vue'
 import useFiltersStore from '@/stores/filters'
+import GenreList from '@/components/filters/genres/GenreList.vue'
+import VotesAmountInput from '@/components/filters/rating/VotesAmountInput.vue'
 
 const filterStore = useFiltersStore()
 
@@ -56,6 +75,11 @@ watchEffect(() => {
   fetchPopularMovieList(filterStore.selectedOptions)
   console.log('options changed')
 })
+
+const clearFilterOptions = () => {
+  filterStore.selectedOptions.genres = []
+  filterStore.selectedOptions.sort_by = ''
+}
 </script>
 
 <style scoped>
@@ -70,5 +94,21 @@ watchEffect(() => {
   box-sizing: border-box;
   width: 950px;
   padding: 0.5rem;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filters-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-overview {
+  width: 950px;
 }
 </style>
