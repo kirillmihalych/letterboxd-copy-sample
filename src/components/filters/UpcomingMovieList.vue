@@ -1,6 +1,12 @@
 <template>
-  <div>
-    <MovieImgCard v-for="movie in movies" :key="movie.id" :movie="movie" />
+  <div class="upcoming-movie-list">
+    <MovieImgCard
+      v-for="movie in movies"
+      :key="movie.id"
+      :movie="movie"
+      :width="imgWidth"
+      :height="imgHeight"
+    />
   </div>
 </template>
 
@@ -14,6 +20,16 @@ interface IUpcomingMovieList {
 
 const props = defineProps<IUpcomingMovieList>()
 const movies = props.movies
+
+const imgWidth = 250 + 'px'
+const imgHeight = 375 + 'px'
 </script>
 
-<style scoped></style>
+<style scoped>
+.upcoming-movie-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  place-items: center;
+  gap: 1rem;
+}
+</style>

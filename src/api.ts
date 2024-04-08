@@ -91,13 +91,23 @@ const optionsUpcoming = {
   },
 }
 
-export const loadUpcomingMovies = async () => {
+const date = new Date()
+let day = date.getDate()
+let month = date.getMonth() + 1
+let year = date.getFullYear()
+
+export const loadUpcomingMovies = async (options: IDiscoverOptions) => {
+  const from_date = `${year}-${month}-${day}`
+  const to_date = `${year + 1}-${month}-${day}`
+  const sort_option =
+    options.sort_by.length > 0 ? options.sort_by : 'popularity.desc'
   const response = await (
     await fetch(
-      'https://api.themoviedb.org/3/movie/upcoming?language=ru-RU&page=1&region=RU',
+      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=${sort_option}&with_release_type=2|3&primary_release_date.gte=${from_date}&primary_release_date.lte=${to_date}`,
       optionsUpcoming
     )
   ).json()
+  console.log
   return response.results
 }
 
