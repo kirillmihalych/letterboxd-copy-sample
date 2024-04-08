@@ -14,9 +14,6 @@
 import type { IMovie } from '@/types'
 import MovieImgCard from '../movie-cards/MovieImgCard.vue'
 import { ref } from 'vue'
-// import GenreList from './genres/GenreList.vue'
-// import VotesAmountInput from './rating/VotesAmountInput.vue'
-// import useFiltersStore from '@/stores/filters'
 
 interface IPopularMovieListProps {
   movieList: IMovie[]

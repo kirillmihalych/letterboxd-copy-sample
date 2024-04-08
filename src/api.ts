@@ -111,13 +111,21 @@ const optionsTopRated = {
   },
 }
 
-export const loadTopRatedMovies = async () => {
+export const loadTopRatedMovies = async (options: IDiscoverOptions) => {
+  const genre_option = options.genres.reduce(
+    (accStr, currStr) => (accStr += `${currStr}%2C`),
+    ''
+  )
+  const votes_option = options.min_amount_votes
+  const from_date = options.from_primary_release
+  const to_date = options.to_primary_release
   const response = await (
     await fetch(
-      'https://api.themoviedb.org/3/movie/top_rated?language=ru-RU&page=1&region=RU',
+      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=${votes_option}&primary_release_date.gte=${from_date}&primary_release_date.lte=${to_date}&with_genres=${genre_option}`,
       optionsTopRated
     )
   ).json()
+  console.log(response)
   return response.results
 }
 

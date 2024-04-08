@@ -1,4 +1,4 @@
-import { ref, computed, type Ref, watchEffect } from 'vue'
+import { ref, type Ref, watchEffect } from 'vue'
 import { defineStore } from 'pinia'
 import type { IDiscoverOptions, IGenre, IMovie } from '@/types'
 import { doDiscoverMovies } from '@/api'
@@ -12,6 +12,8 @@ const useFiltersStore = defineStore('filters', () => {
     genres: [],
     sort_by: '',
     min_amount_votes: '250',
+    from_primary_release: '',
+    to_primary_release: '',
   }
 
   const selectedOptions = ref<IDiscoverOptions>(defaultOptions)

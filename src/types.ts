@@ -90,6 +90,8 @@ export interface IDiscoverOptions {
   genres: number[] | []
   sort_by: string | ''
   min_amount_votes: string
+  from_primary_release: string
+  to_primary_release: string
 }
 
 export interface IImageParams {
