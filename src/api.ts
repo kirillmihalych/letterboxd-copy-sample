@@ -51,7 +51,8 @@ export const fetchMultiResultsByQuery = async (query: string) => {
       searchOptions
     )
   ).json()
-  return response.results
+  console.log(response)
+  return response
 }
 
 // =======================================
@@ -107,7 +108,6 @@ export const loadUpcomingMovies = async (options: IDiscoverOptions) => {
       optionsUpcoming
     )
   ).json()
-  console.log
   return response.results
 }
 

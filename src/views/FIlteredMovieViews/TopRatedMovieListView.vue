@@ -27,14 +27,14 @@
 
 <script setup lang="ts">
 import TopRatedMovieList from '@/components/movie-lists/TopRatedMovieList.vue'
-import VotesAmountInput from '@/components/filters/rating/VotesAmountInput.vue'
-import GenreList from '@/components/filters/genres/GenreList.vue'
+import VotesAmountInput from '@/components/movie-forms/rating/VotesAmountInput.vue'
+import GenreList from '@/components/movie-forms/genres/GenreList.vue'
 import { loadTopRatedMovies } from '@/api'
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 import { onMounted, ref, watchEffect } from 'vue'
 import type { IDiscoverOptions, IMovie } from '@/types'
 import useFiltersStore from '@/stores/filters'
-import DateFilterInput from '@/components/filters/dates/DateFilterInput.vue'
+import DateFilterInput from '@/components/movie-forms/dates/DateFilterInput.vue'
 
 const topRatedMovies = ref<IMovie[] | null>(null)
 const error = ref<string | null>(null)

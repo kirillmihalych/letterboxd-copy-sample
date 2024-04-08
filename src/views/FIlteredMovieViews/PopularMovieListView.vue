@@ -40,8 +40,8 @@ import { loadPopularMovies, loadVideoById } from '@/api'
 import type { IDiscoverOptions, IMovie } from '@/types'
 import { onMounted, ref, watchEffect } from 'vue'
 import useFiltersStore from '@/stores/filters'
-import GenreList from '@/components/filters/genres/GenreList.vue'
-import VotesAmountInput from '@/components/filters/rating/VotesAmountInput.vue'
+import GenreList from '@/components/movie-forms/genres/GenreList.vue'
+import VotesAmountInput from '@/components/movie-forms/rating/VotesAmountInput.vue'
 
 const filterStore = useFiltersStore()
 

@@ -7,9 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import GenreList from './genres/GenreList.vue'
+import GenreList from '../movie-forms/genres/GenreList.vue'
 import SortOptionList from '../sort/SortOptionList.vue'
-import VotesAmountInput from './rating/VotesAmountInput.vue'
+import VotesAmountInput from '../movie-forms/rating/VotesAmountInput.vue'
 </script>
 
 <style scoped>

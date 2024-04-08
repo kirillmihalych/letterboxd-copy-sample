@@ -1,9 +1,12 @@
 <template>
   <div class="navbar-container">
     <nav class="navbar">
-      <NavbarHomeLink />
-      <NavbarLinkList v-show="isLinksShowed" />
-      <NavbarSearch @toggle-search="doToggleLinks" />
+      <div class="left-part-navbar-container">
+        <NavbarMenu />
+        <NavbarHomeLink />
+      </div>
+      <!-- <NavbarLinkList v-show="isLinksShowed" /> -->
+      <NavbarSearch />
     </nav>
   </div>
 </template>
@@ -13,19 +16,15 @@ import { ref } from 'vue'
 import NavbarLinkList from './NavbarLinkList.vue'
 import NavbarHomeLink from './NavbarHomeLink.vue'
 import NavbarSearch from './NavbarSearch.vue'
+import NavbarMenu from './NavbarMenu.vue'
 
 const isLinksShowed = ref(true)
-
-const doToggleLinks = () => {
-  isLinksShowed.value = !isLinksShowed.value
-}
 </script>
 
 <style scoped>
 .navbar-container {
   margin: 0 auto;
   width: 950px;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,5 +39,12 @@ const doToggleLinks = () => {
   justify-content: space-between;
   align-items: center;
   background: #222;
+}
+
+.left-part-navbar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 </style>

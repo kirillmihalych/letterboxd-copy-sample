@@ -1,9 +1,9 @@
 <template>
-  <ul class="navbar-links-container">
+  <div class="navbar-links-container" @mouseleave="$emit('close-links')">
     <RouterLink v-for="key of navbarRoutes" :key="key.path" :to="key.path">{{
       key.name
     }}</RouterLink>
-  </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -13,17 +13,23 @@ import { navbarRoutes } from '@/router'
 
 <style scoped>
 .navbar-links-container {
+  width: 185px;
+  background: darkgrey;
+
+  position: absolute;
+  top: 21px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 0.25rem;
   text-transform: uppercase;
-  background: #222;
 }
 
 .navbar-links-container a {
+  padding-top: 0.15rem;
   text-decoration: none;
-  color: lightgrey;
+  color: #222;
   font-weight: 800;
 }
 
