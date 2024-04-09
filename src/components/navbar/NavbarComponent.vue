@@ -29,6 +29,7 @@ const isLinksShowed = ref(true)
   justify-content: center;
   align-items: center;
   transition: transform 1s ease-in-out;
+  margin-bottom: 1rem;
 }
 
 .navbar {

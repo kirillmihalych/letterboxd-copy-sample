@@ -1,5 +1,5 @@
 <template>
-  <div class="img-card">
+  <div class="img-card" :style="imgParams">
     <img
       :src="src"
       :alt="title"
@@ -42,6 +42,7 @@ const src = ref(props.src)
 }
 
 .img-card img:hover {
+  cursor: pointer;
   border: 1px solid #222;
 }
 

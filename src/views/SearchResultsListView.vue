@@ -88,7 +88,7 @@ const components: IComponents = {
   tv: SearchResultsTvList,
 }
 
-const curr_render = ref<keyof typeof components>('person')
+const curr_render = ref<keyof typeof components>('movie')
 const setCurrRender = (selected: string) => {
   curr_render.value = selected as keyof typeof components
 }

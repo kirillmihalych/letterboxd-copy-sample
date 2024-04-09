@@ -1,14 +1,16 @@
 <template>
   <section>
-    <h3>search results movie list</h3>
-    <article v-for="movie in props.props" :key="movie.id">
-      {{ movie.title }}
-    </article>
+    <MovieCardSearchResult
+      v-for="movie in props.props"
+      :key="movie.id"
+      :movie="movie"
+    />
   </section>
 </template>
 
 <script setup lang="ts">
 import type { IMovieResult } from '@/types'
+import MovieCardSearchResult from '../movie-cards/MovieCardSearchResult.vue'
 
 interface ISearchResultMovieProps {
   props: IMovieResult[]
