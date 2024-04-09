@@ -35,16 +35,11 @@ const showedCastMembers = computed((): ICastMember[] => {
 </script>
 
 <style scoped>
-/* .cast-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 5px;
-  width: 550px;
-} */
 .cast-list {
-  display: grid;
-  gap: 0.25rem;
+  width: 450px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
 }
 </style>

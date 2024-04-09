@@ -14,7 +14,7 @@ const movieDetailsOptions = {
 export const loadMovieById = async (id: string) => {
   const movieDetails = await (
     await fetch(
-      `https://api.themoviedb.org/3/movie/${id}?language=ru&append_to_response=credits`,
+      `https://api.themoviedb.org/3/movie/${id}?language=en-EN&append_to_response=credits`,
       movieDetailsOptions
     )
   ).json()

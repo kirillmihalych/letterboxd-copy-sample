@@ -1,49 +1,37 @@
 <template>
   <!-- lists manipulations -->
-  <div class="single-movie-container">
+  <section class="single-movie-container">
+    <ImagePlaceholder
+      :src="img_source"
+      :title="movieDetails.title"
+      :imgParams="imgParams"
+    />
     <div>
-      <FilmCard :movie="movieDetails" />
-    </div>
-    <div>
-      <header>
-        <h1>
-          {{ movieDetails.title }}
-          <span>({{ movieDetails.release_date?.slice(0, 4) }})</span>
-        </h1>
-      </header>
-      <article class="movie-directors">
-        <h3>Режиссёры:</h3>
+      <h1>
+        {{ movieDetails.title }}
+        <span>({{ movieDetails.release_date?.slice(0, 4) }})</span>
+      </h1>
+      <p class="about-title">
+        Directed by
         <span>
           <a href="/" v-for="director in mainDirectors" :key="director.id">
             {{ director.name }}
           </a>
         </span>
-      </article>
-      <article class="movie-screenwriters">
-        <h3>Сценаристы:</h3>
-        <span>
-          <a
-            href="/"
-            v-for="screenwriter in screenwriters"
-            :key="screenwriter.id"
-            >{{ screenwriter.name }}</a
-          >
-        </span>
-      </article>
-
+      </p>
+      <p class="additional-main-info">
+        Runtime: {{ runtime }}. More at <a :href="imdbLink">IMDb</a>
+      </p>
       <p class="movie-overview">{{ movieDetails.overview }}</p>
       <hr />
       <FilmInfoList :movieInfo="movieDetails" />
-      <p>Продолжительность {{ runtime }}</p>
-      <p>Узнать больше на <a :href="imdbLink">imdb</a></p>
     </div>
-    <!-- cast info, rating, imdb links -->
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
+import ImagePlaceholder from '../ImagePlaceholder.vue'
 import FilmInfoList from './movie-info/FilmInfoList.vue'
-import FilmCard from '../movie-cards/FilmCard.vue'
 import type { ICrewMember, IMovie } from '@/types'
 
 interface MovieDetailsProps {
@@ -61,10 +49,14 @@ const screenwriters: ICrewMember[] = crew.filter(
 )
 const imdbLink = `https://www.imdb.com/title/${movieDetails.imdb_id}`
 const runtime = movieDetails.runtime
+const img_source = `https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`
+const imgParams = {
+  width: 250 + 'px',
+  height: 375 + 'px',
+}
 
 // ================================
 // branestrom
-// 1) отключить ссылку в карте, используя кастомный компонент
 // 2) сделать плеер и загружать трейлеры
 // 3) добавить ссылку на год в названии, чтобы открывался список фильмов по годам
 </script>
@@ -138,5 +130,48 @@ const runtime = movieDetails.runtime
 
 .movie-overview {
   width: 450px;
+}
+
+.about-title {
+  color: gray;
+}
+
+.about-item {
+  color: grey;
+}
+
+.about-item span {
+  color: #222;
+}
+
+.about-title a {
+  text-decoration: none;
+  color: #222;
+  font-size: 1.2rem;
+  padding: 0.1rem 0.2rem;
+  border: 1px solid black;
+  border-radius: 0.2rem;
+}
+
+.about-title a:hover {
+  transition: all 0.1s;
+  background: lightgrey;
+}
+
+.additional-main-info a {
+  text-decoration: none;
+  color: #222;
+  border: 1px solid black;
+  border-radius: 0.2rem;
+  padding: 0.1rem 0.2rem;
+}
+
+.additional-main-info {
+  color: gray;
+}
+
+.additional-main-info a:hover {
+  transition: all 0.1s;
+  background: lightgrey;
 }
 </style>

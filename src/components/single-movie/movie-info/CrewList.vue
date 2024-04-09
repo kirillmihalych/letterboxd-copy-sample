@@ -1,18 +1,14 @@
 <template>
-  <!-- <CrewMember
-    v-for="crewMember in crewInfo"
-    :key="crewMember.id"
-    :crewMember="crewMember"
-  /> -->
-  <div>
-    <div v-for="key in reactiveMap" :key="key[0]">
-      <span>{{ key[0] }}</span> ...:
-      <RouterLink to="/" v-for="(name, idx) in key[1]" :key="idx">
-        {{ name }}
-      </RouterLink>
-      <hr />
+  <section class="crew-list-container">
+    <div v-for="key in reactiveMap" :key="key[0]" class="crew-list-item">
+      <span>{{ key[0] }}</span>
+      <div class="crew-links-container">
+        <RouterLink to="/" v-for="(name, idx) in key[1]" :key="idx">
+          {{ name }}
+        </RouterLink>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -40,4 +36,33 @@ for (let i = 0; i < crewInfo.length; i++) {
 const reactiveMap = reactive(crewMap)
 </script>
 
-<style scoped></style>
+<style scoped>
+.crew-list-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 0.5rem;
+}
+
+.crew-links-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.crew-links-container a {
+  text-decoration: none;
+  background: lightgray;
+  border: 1px solid black;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+  padding: 0.1rem 0.2rem;
+  border-radius: 0.1rem;
+  color: #222;
+}
+
+.crew-links-container a:hover {
+  background: snow;
+  transition: all 0.1s;
+}
+</style>

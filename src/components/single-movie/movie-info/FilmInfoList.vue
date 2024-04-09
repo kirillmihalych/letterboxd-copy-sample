@@ -76,24 +76,24 @@ watchEffect(() => {
   justify-content: flex-start;
   gap: 0.75rem;
   font-size: 1.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .movie-info-navbar a {
   box-sizing: border-box;
   text-decoration: none;
-  text-transform: capitalize;
-  margin-bottom: 1rem;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  border: 1px solid black;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+  padding: 0.1rem 0.2rem;
+  border-radius: 0.1rem;
+  color: #222;
 }
 
-/* .movie-info-navbar a:hover {
-  background: grey;
-} */
-
 .active {
-  /* background: red; */
-  background: lightgrey;
-  padding: 0.1rem 0.2rem;
-  border: 1px solid black;
-  border-radius: 0.2rem;
+  background: lightgray;
+  transition: all 0.1s;
 }
 </style>

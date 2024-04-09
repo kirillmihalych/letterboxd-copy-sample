@@ -1,42 +1,51 @@
 <template>
-  <div>
-    <p>
-      компании создатели :
-      <span v-for="company in props.productionCompanies" :key="company.id">
-        {{ company.name }}
-      </span>
-    </p>
-    <p>
-      страны создатели :
-      <span v-for="country in props.productionCountries" :key="country.name">
-        {{ country.name }}
-      </span>
-    </p>
-    <p>
-      оригинал тайтл: <span> {{ props.originalTitle }}</span>
-    </p>
-    <p>
-      жанры
-      <span v-for="genre in props.genres" :key="genre.id">
-        {{ genre.name }}</span
-      >
-    </p>
-    <p>
-      язык оригинала:
-      <span>
-        {{ props.originalLanguage }}
-      </span>
-    </p>
-    <p>
-      языки в фильме:
-      <span v-for="languages in props.spokenLanguages" :key="languages.name">
-        {{ languages.name }}
-      </span>
-    </p>
+  <div class="movie-details">
+    <div class="details-container">
+      <span>Companies</span>
+      <div>
+        <RouterLink
+          to="/"
+          v-for="company in props.productionCompanies"
+          :key="company.id"
+        >
+          {{ company.name }}
+        </RouterLink>
+      </div>
+    </div>
+    <div class="details-container">
+      <span>Countries</span>
+      <div>
+        <RouterLink
+          to="/"
+          v-for="country in productionCountries"
+          :key="country.name"
+        >
+          {{ country.name }}
+        </RouterLink>
+      </div>
+    </div>
+    <div class="details-container">
+      <span>Genres</span>
+      <div>
+        <RouterLink to="/" v-for="genre in props.genres" :key="genre.id">
+          {{ genre.name }}
+        </RouterLink>
+      </div>
+    </div>
+    <div class="details-container">
+      <span>Film's language</span>
+      <div>
+        <RouterLink to="/">
+          {{ props.originalLanguage.toUpperCase() }}
+        </RouterLink>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
+
 import type {
   IGenre,
   ILanguage,
@@ -56,4 +65,44 @@ interface IDetailsListProps {
 const props = defineProps<IDetailsListProps>()
 </script>
 
-<style scoped></style>
+<style scoped>
+.movie-details div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.genres {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.movie-details a {
+  display: inline;
+  border: 1px solid black;
+  text-decoration: none;
+  color: #222;
+  padding: 0.1rem 0.2rem;
+  border-radius: 0.1rem 0.2rem;
+}
+
+.movie-details a {
+  display: inline;
+  border: 1px solid black;
+  text-decoration: none;
+  background: lightgrey;
+  color: #222;
+  padding: 0.1rem 0.2rem;
+  border-radius: 0.1rem 0.2rem;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.movie-details a:hover {
+  transition: all 0.1s;
+  background: snow;
+}
+
+.details-container {
+  margin-bottom: 0.25rem;
+}
+</style>
