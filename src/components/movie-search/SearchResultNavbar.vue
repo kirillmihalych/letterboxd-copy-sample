@@ -1,32 +1,24 @@
 <template>
   <div class="search-results-navbar">
-    <RouterLink
-      :to="base_path + category[0]"
+    <span
       v-for="category of categories"
       class="category"
+      @click="doSelectCategory(category[0])"
     >
       <span>{{ category[0] }}</span>
       <span>{{ category[1] }}</span>
-    </RouterLink>
+    </span>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { RouterLink } from 'vue-router'
+const emits = defineEmits<{
+  (e: 'category-selected', payload: string): void
+}>()
 
-type ISearchResultPath =
-  | '/films/search_results/movies'
-  | '/films/search_results/persons'
-  | '/films/search_results/tv_shows'
-
-const paths: ISearchResultPath[] = [
-  '/films/search_results/movies',
-  '/films/search_results/persons',
-  '/films/search_results/tv_shows',
-]
-
-const base_path = '/films/search_results/'
+const doSelectCategory = (selected: string) => {
+  emits('category-selected', selected)
+}
 
 interface ISearchCategories {
   categories: Map<string, number>
@@ -34,15 +26,10 @@ interface ISearchCategories {
 
 const props = defineProps<ISearchCategories>()
 const categories = props.categories
-
-// onMounted(() => {
-//   console.log(props.categories)
-// })
 </script>
 
 <style scoped>
 .search-results-navbar {
-  /* border: 1px solid black; */
   box-sizing: border-box;
   padding: 0.25rem;
   background: lightgrey;
@@ -63,6 +50,7 @@ const categories = props.categories
 }
 
 .category:hover {
+  cursor: pointer;
   transition: all 0.1s;
   background: snow;
 }
