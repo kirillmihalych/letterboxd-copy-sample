@@ -29,10 +29,10 @@
 import TopRatedMovieList from '@/components/movie-lists/TopRatedMovieList.vue'
 import VotesAmountInput from '@/components/movie-forms/rating/VotesAmountInput.vue'
 import GenreList from '@/components/movie-forms/genres/GenreList.vue'
-import { loadTopRatedMovies } from '@/api'
+import { loadTopRatedMovies } from '@/api/movie'
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 import { onMounted, ref, watchEffect } from 'vue'
-import type { IDiscoverOptions, IMovie } from '@/types'
+import type { IDiscoverOptions, IMovie } from '@/interfaces/movie-types'
 import useFiltersStore from '@/stores/filters'
 import DateFilterInput from '@/components/movie-forms/dates/DateFilterInput.vue'
 

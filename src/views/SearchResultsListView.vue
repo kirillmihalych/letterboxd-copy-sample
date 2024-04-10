@@ -23,9 +23,9 @@ import SearchResultsMovieList from '@/components/movie-lists/SearchResultsMovieL
 import SearchResultsPersonList from '@/components/movie-lists/SearchResultsPersonList.vue'
 import SearchResultsTvList from '@/components/movie-lists/SearchResultsTvList.vue'
 import SearchResultNavbar from '@/components/movie-search/SearchResultNavbar.vue'
-import type { ISearchResult } from '@/types'
+import type { ISearchResult } from '@/interfaces/movie-types'
 import { computed, ref, watchEffect, type Component } from 'vue'
-import { fetchMultiResultsByQuery } from '@/api'
+import { fetchMultiResultsByQuery } from '@/api/movie'
 import { useSearchStore } from '@/stores/search'
 import _ from 'lodash'
 

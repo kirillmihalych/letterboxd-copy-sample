@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
-import type { IMovieResult } from '@/types'
+import type { IMovieResult } from '@/interfaces/movie-types'
 
 interface IMovieCardSearchResultProps {
   movie: IMovieResult

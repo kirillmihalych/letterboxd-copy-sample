@@ -1,6 +1,6 @@
-import { API_KEY } from './keys'
-import type { IGenre } from './types'
-import type { IDiscoverOptions } from './types'
+import { API_KEY } from '../keys'
+import type { IGenre } from '../interfaces/movie-types'
+import type { IDiscoverOptions } from '../interfaces/movie-types'
 
 // ===========================================
 const movieDetailsOptions = {

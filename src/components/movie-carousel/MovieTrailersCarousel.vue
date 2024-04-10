@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { loadVideoById } from '@/api'
+import { loadVideoById } from '@/api/movie'
 import { onMounted, ref } from 'vue'
 import TrailerCard from './TrailerCard.vue'
 

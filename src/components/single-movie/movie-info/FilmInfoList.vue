@@ -30,7 +30,7 @@ import { ref, watchEffect } from 'vue'
 import DetailsList from './DetailsList.vue'
 import CastList from './CastList.vue'
 import CrewList from './CrewList.vue'
-import type { IMovie } from '@/types'
+import type { IMovie } from '@/interfaces/movie-types'
 
 interface IFilmInfoListProps {
   movieInfo: IMovie

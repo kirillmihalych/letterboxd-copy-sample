@@ -13,6 +13,9 @@ import DiscoveredMovieListView from '@/views/FIlteredMovieViews/DiscoveredMovieL
 import SearchResultsMovieList from '@/components/movie-lists/SearchResultsMovieList.vue'
 import SearchResultsTvList from '@/components/movie-lists/SearchResultsTvList.vue'
 import SearchResultsPersonList from '@/components/movie-lists/SearchResultsPersonList.vue'
+import LoginPage from '@/views/UserViews/LoginPage.vue'
+import AuthPage from '@/views/UserViews/AuthPage.vue'
+import AuthApprovedPage from '@/views/UserViews/AuthApprovedPage.vue'
 
 export type Path =
   | '/:catchAll(.*)'
@@ -29,6 +32,9 @@ export type Path =
   | '/films/upcoming'
   | '/films/top_rated'
   | '/films/discovered_list'
+  | '/login'
+  | '/auth'
+  | '/auth/approved'
 
 interface IRoute {
   name?: string
@@ -116,9 +122,25 @@ export const navbarRoutes: INavbarRoute[] = [
   },
 ]
 
+// =================================
+const userRoutes: IRoute[] = [
+  {
+    path: '/login',
+    component: LoginPage,
+  },
+  {
+    path: '/auth',
+    component: AuthPage,
+  },
+  {
+    path: '/auth/approved',
+    component: AuthApprovedPage,
+  },
+]
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes,
+  routes: routes.concat(userRoutes),
 })
 
 export default router

@@ -25,8 +25,8 @@
 
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue'
-import type { IMovie } from '@/types'
-import { fetchByTitle } from '@/api'
+import type { IMovie } from '@/interfaces/movie-types'
+import { fetchByTitle } from '@/api/movie'
 import { debounce } from 'lodash'
 import MovieDropCard from '../movie-cards/MovieDropCard.vue'
 

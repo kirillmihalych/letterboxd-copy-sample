@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IMovie } from '@/types'
+import type { IMovie } from '@/interfaces/movie-types'
 import MovieImgCard from '../movie-cards/MovieImgCard.vue'
 
 interface IUpcomingMovieList {

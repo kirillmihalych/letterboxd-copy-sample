@@ -51,7 +51,7 @@ import type {
   ILanguage,
   IProductionCompany,
   IProductionCountry,
-} from '@/types'
+} from '@/interfaces/movie-types'
 
 interface IDetailsListProps {
   originalTitle: string

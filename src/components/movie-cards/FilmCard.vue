@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { ref, type CSSProperties } from 'vue'
-import type { IMovie } from '@/types'
+import type { IMovie } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
 

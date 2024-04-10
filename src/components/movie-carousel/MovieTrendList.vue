@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import FilmCard from '../movie-cards/FilmCard.vue'
-import type { IMovie } from '@/types'
+import type { IMovie } from '@/interfaces/movie-types'
 
 interface IMovieTrendList {
   movieList: IMovie[] | null

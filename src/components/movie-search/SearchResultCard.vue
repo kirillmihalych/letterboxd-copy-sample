@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import type { IMovie } from '@/types'
+import type { IMovie } from '@/interfaces/movie-types'
 
 interface ISearchResultCard {
   movie: IMovie

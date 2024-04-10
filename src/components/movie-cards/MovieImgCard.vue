@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IMovie } from '@/types'
+import type { IMovie } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
 import type { CSSProperties } from 'vue'

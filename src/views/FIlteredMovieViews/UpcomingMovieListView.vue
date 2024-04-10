@@ -25,10 +25,10 @@
 </template>
 
 <script setup lang="ts">
-import type { IDiscoverOptions, IMovie } from '@/types'
+import type { IDiscoverOptions, IMovie } from '@/interfaces/movie-types'
 import UpcomingMovieList from '@/components/movie-lists/UpcomingMovieList.vue'
 import { onMounted, ref, watchEffect } from 'vue'
-import { loadUpcomingMovies } from '@/api'
+import { loadUpcomingMovies } from '@/api/movie'
 import useFiltersStore from '@/stores/filters'
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 import SortOptionList from '@/components/sort/SortOptionList.vue'

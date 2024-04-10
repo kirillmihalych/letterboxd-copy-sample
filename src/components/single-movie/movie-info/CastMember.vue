@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ICastMember } from '@/types'
+import type { ICastMember } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
 
 interface ICastMemberProps {

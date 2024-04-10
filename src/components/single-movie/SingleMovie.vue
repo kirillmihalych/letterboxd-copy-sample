@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import ImagePlaceholder from '../ImagePlaceholder.vue'
 import FilmInfoList from './movie-info/FilmInfoList.vue'
-import type { ICrewMember, IMovie } from '@/types'
+import type { ICrewMember, IMovie } from '@/interfaces/movie-types'
 
 interface MovieDetailsProps {
   movieDetails: IMovie

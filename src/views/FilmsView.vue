@@ -4,9 +4,9 @@ import MovieTrendList from '@/components/movie-carousel/MovieTrendList.vue'
 import SearchMovie from '@/components/movie-search/SearchMovie.vue'
 import MovieNavbar from '@/components/filters/MovieNavbar.vue'
 
-import type { IMovie } from '@/types'
+import type { IMovie } from '@/interfaces/movie-types'
 import { onMounted, ref } from 'vue'
-import { loadTrendingToday } from '@/api'
+import { loadTrendingToday } from '@/api/movie'
 
 const movieList = ref<IMovie[] | null>(null)
 const movieIDs = ref<number[] | null>()

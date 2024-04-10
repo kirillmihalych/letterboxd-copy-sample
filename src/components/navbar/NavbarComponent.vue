@@ -5,20 +5,21 @@
         <NavbarMenu />
         <NavbarHomeLink />
       </div>
-      <!-- <NavbarLinkList v-show="isLinksShowed" /> -->
       <NavbarSearch />
+      <NavbarUsersProfile />
     </nav>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import NavbarLinkList from './NavbarLinkList.vue'
+// import NavbarLinkList from './NavbarLinkList.vue'
 import NavbarHomeLink from './NavbarHomeLink.vue'
 import NavbarSearch from './NavbarSearch.vue'
 import NavbarMenu from './NavbarMenu.vue'
+import NavbarUsersProfile from './NavbarUsersProfile.vue'
 
-const isLinksShowed = ref(true)
+// const isLinksShowed = ref(true)
 </script>
 
 <style scoped>

@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IMovieResult } from '@/types'
+import type { IMovieResult } from '@/interfaces/movie-types'
 import MovieCardSearchResult from '../movie-cards/MovieCardSearchResult.vue'
 
 interface ISearchResultMovieProps {

@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IPerson } from '@/types'
+import type { IPerson } from '@/interfaces/movie-types'
 
 interface ISearchResultPersonProps {
   props: IPerson[]

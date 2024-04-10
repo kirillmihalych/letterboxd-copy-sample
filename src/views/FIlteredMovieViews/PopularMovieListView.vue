@@ -36,8 +36,8 @@
 <script setup lang="ts">
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 import PopularMovieList from '@/components/movie-lists/PopularMovieList.vue'
-import { loadPopularMovies, loadVideoById } from '@/api'
-import type { IDiscoverOptions, IMovie } from '@/types'
+import { loadPopularMovies, loadVideoById } from '@/api/movie'
+import type { IDiscoverOptions, IMovie } from '@/interfaces/movie-types'
 import { onMounted, ref, watchEffect } from 'vue'
 import useFiltersStore from '@/stores/filters'
 import GenreList from '@/components/movie-forms/genres/GenreList.vue'

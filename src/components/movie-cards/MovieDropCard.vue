@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IMovie } from '@/types'
+import type { IMovie } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
 
 interface IMovieDropCardProps {

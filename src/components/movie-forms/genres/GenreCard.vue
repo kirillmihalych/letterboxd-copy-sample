@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IGenre } from '@/types'
+import type { IGenre } from '@/interfaces/movie-types'
 import useFiltersStore from '@/stores/filters'
 
 const filterStore = useFiltersStore()

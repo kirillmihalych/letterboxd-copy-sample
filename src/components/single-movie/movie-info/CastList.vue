@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import CastMember from './CastMember.vue'
-import type { ICastMember } from '@/types'
+import type { ICastMember } from '@/interfaces/movie-types'
 
 interface ICastListProps {
   castInfo: ICastMember[]

@@ -1,7 +1,7 @@
 import { ref, type Ref, watchEffect } from 'vue'
 import { defineStore } from 'pinia'
-import type { IDiscoverOptions, IGenre, IMovie } from '@/types'
-import { doDiscoverMovies } from '@/api'
+import type { IDiscoverOptions, IGenre, IMovie } from '@/interfaces/movie-types'
+import { doDiscoverMovies } from '@/api/movie'
 
 interface IFilterStore {
   selectedOptions: Ref<IDiscoverOptions>

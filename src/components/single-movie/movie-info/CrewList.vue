@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ICrewMember } from '@/types'
+import type { ICrewMember } from '@/interfaces/movie-types'
 import { reactive } from 'vue'
 import { RouterLink } from 'vue-router'
 

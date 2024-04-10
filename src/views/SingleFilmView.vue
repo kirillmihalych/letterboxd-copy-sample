@@ -9,11 +9,11 @@
 </template>
 
 <script setup lang="ts">
-import { loadMovieById } from '@/api'
+import { loadMovieById } from '@/api/movie'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import SingleMovie from '@/components/single-movie/SingleMovie.vue'
-import type { IMovie } from '@/types'
+import type { IMovie } from '@/interfaces/movie-types'
 const movie = ref<IMovie | null>()
 const loading = ref(false)
 const error = ref<string | null>(null)

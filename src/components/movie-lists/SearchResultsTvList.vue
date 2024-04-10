@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ITVShow } from '@/types'
+import type { ITVShow } from '@/interfaces/movie-types'
 
 interface ISearchRsultsTvListProps {
   props: ITVShow[]

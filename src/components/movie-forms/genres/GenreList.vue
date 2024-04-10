@@ -17,8 +17,8 @@
 </template>
 
 <script setup lang="ts">
-import { loadGenreList } from '@/api'
-import type { IGenre } from '@/types'
+import { loadGenreList } from '@/api/movie'
+import type { IGenre } from '@/interfaces/movie-types'
 import { onMounted, ref } from 'vue'
 import GenreCard from './GenreCard.vue'
 

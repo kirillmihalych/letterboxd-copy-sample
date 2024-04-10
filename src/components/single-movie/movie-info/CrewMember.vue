@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ICrewMember } from '@/types'
+import type { ICrewMember } from '@/interfaces/movie-types'
 
 interface ICrewMemberProps {
   crewMember: ICrewMember
