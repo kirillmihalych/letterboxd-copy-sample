@@ -1,9 +1,28 @@
 <template>
+  <div v-show="!isAvatarReady && isCreated" class="vpn-warning">
+    <p>
+      You are an authorized<br />
+      but we still can't' get your data<br />
+      try to turn on a VPN, please.
+    </p>
+  </div>
   <div v-show="showLogin">
     <RouterLink to="/auth" class="login-link">Log in</RouterLink>
   </div>
   <div class="avatar-container" v-show="showAvatar">
-    <img :src="avatarUrl" alt="wow-wow-wow" class="avatar" />
+    <img
+      src="/src/assets/images/black-back.jpg"
+      alt="black-jpg"
+      class="avatar"
+      v-if="!isAvatarReady"
+    />
+    <img
+      :src="avatarUrl"
+      alt="wow-wow-wow"
+      class="avatar"
+      v-show="isAvatarReady"
+      @load="isAvatarReady = true"
+    />
   </div>
 </template>
 
@@ -11,10 +30,10 @@
 import { getAccountDetails } from '@/api/user'
 import type { IAccountDetails } from '@/interfaces/user-types'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
-import { computed, ref, watchEffect } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { RouterLink } from 'vue-router'
 
-const session_id = getSessionFromLocalStorage()
+const session_id = ref(getSessionFromLocalStorage())
 
 const accountDetails = ref<IAccountDetails | null>(null)
 const error = ref<string | null>(null)
@@ -22,6 +41,8 @@ const loading = ref(false)
 const avatarUrl = ref<string>('')
 const showLogin = ref(true)
 const showAvatar = ref(false)
+const isAvatarReady = ref(false)
+const isCreated = ref(false)
 
 const fetchAccountDetails = async (sessionID: string) => {
   error.value = null
@@ -43,23 +64,27 @@ const fetchAccountDetails = async (sessionID: string) => {
 }
 
 const isSessionCreated = (session: string): void => {
-  if (session_id) {
+  if (session) {
     showLogin.value = false
     showAvatar.value = true
+    isCreated.value = true
   }
 }
 
 watchEffect(() => {
-  fetchAccountDetails(session_id)
+  fetchAccountDetails(session_id.value)
 })
 
 watchEffect(() => {
-  isSessionCreated(session_id)
+  isSessionCreated(session_id.value)
 })
 </script>
 
 <style scoped>
 .avatar-container {
+  width: 60px;
+  height: 60px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,6 +92,7 @@ watchEffect(() => {
 
 .avatar {
   width: 50px;
+  height: 50px;
   border-radius: 50%;
   border: 2px solid snow;
 }
@@ -83,5 +109,9 @@ watchEffect(() => {
 .login-link:hover {
   cursor: pointer;
   background: lightgrey;
+}
+
+.vpn-warning {
+  color: snow;
 }
 </style>

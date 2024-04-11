@@ -1,12 +1,14 @@
 <template>
-  <div>auth-approved</div>
-  <button @click="createSession()">sign-in</button>
+  <div class="approved-page-container">
+    <div v-if="isTokenApproved">Your token was approved.</div>
+    <div v-if="!isTokenApproved">Something went wrong.</div>
+    <button @click="createSession()">Create an authorized session.</button>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { API_KEY } from '@/keys'
-import { getAccountDetails } from '@/api/user'
 
 const TOKEN_KEY = 'token-tmdb'
 const setTokenToLocalStorage = (payload: string): void => {
@@ -24,7 +26,6 @@ const isTokenApproved = url.get('approved')
 const token = {
   request_token: url.get('request_token'),
 }
-const sessionID = ref('')
 
 const postOptions = {
   method: 'POST',
@@ -45,6 +46,7 @@ const createSession = async () => {
   ).json()
   setSessionIdToLocalStorage(response.session_id)
   console.log('is it worked?')
+  window.location.replace('http://localhost:5173/films')
   return response.session_id
 }
 
@@ -55,4 +57,10 @@ onMounted(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.approved-page-container {
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+}
+</style>
