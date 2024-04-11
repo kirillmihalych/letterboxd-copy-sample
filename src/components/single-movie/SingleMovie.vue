@@ -22,6 +22,11 @@
       <p class="additional-main-info">
         Runtime: {{ runtime }}. More at <a :href="imdbLink">IMDb</a>
       </p>
+      <!--  -->
+      <hr />
+      <MovieRatingComponent :id="movieDetails.id" />
+      <hr />
+      <!--  -->
       <p class="movie-overview">{{ movieDetails.overview }}</p>
       <hr />
       <FilmInfoList :movieInfo="movieDetails" />
@@ -32,6 +37,7 @@
 <script setup lang="ts">
 import ImagePlaceholder from '../ImagePlaceholder.vue'
 import FilmInfoList from './movie-info/FilmInfoList.vue'
+import MovieRatingComponent from './MovieRatingComponent.vue'
 import type { ICrewMember, IMovie } from '@/interfaces/movie-types'
 
 interface MovieDetailsProps {

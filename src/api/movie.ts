@@ -1,6 +1,7 @@
 import { API_KEY } from '../keys'
 import type { IGenre } from '../interfaces/movie-types'
 import type { IDiscoverOptions } from '../interfaces/movie-types'
+import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 
 // ===========================================
 const movieDetailsOptions = {
@@ -225,4 +226,55 @@ export const doDiscoverMovies = async (options: IDiscoverOptions) => {
   ).json()
   console.log(response)
   return response
+}
+
+// ==================================
+
+export const addRating = async (rating: string, id: number) => {
+  const session_id = getSessionFromLocalStorage()
+
+  const optionsAddRating = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: API_KEY,
+    },
+    body: `{"value":${rating}}`,
+  }
+
+  const response = await (
+    await fetch(
+      `https://api.themoviedb.org/3/movie/${id}/rating?session_id=${session_id}`,
+      optionsAddRating
+    )
+  ).json()
+  console.log(response)
+  return response
+}
+
+// =====================================
+
+// 21030265
+
+const optionsAccountStates = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+export const getAccountState = async (id: number) => {
+  const session_id = getSessionFromLocalStorage()
+  const session_exist = session_id.length > 0
+
+  const response = await (
+    await fetch(
+      `https://api.themoviedb.org/3/movie/${id}/account_states?session_id=${session_id}`,
+      optionsAccountStates
+    )
+  ).json()
+  console.log(response)
+  return session_exist ? response.rated.value : false
 }
