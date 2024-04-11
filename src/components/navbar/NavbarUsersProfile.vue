@@ -9,7 +9,7 @@
   <div v-show="showLogin">
     <RouterLink to="/auth" class="login-link">Log in</RouterLink>
   </div>
-  <div class="avatar-container" v-show="showAvatar">
+  <RouterLink to="/profile" class="avatar-container" v-show="showAvatar">
     <img
       src="/src/assets/images/black-back.jpg"
       alt="black-jpg"
@@ -23,7 +23,7 @@
       v-show="isAvatarReady"
       @load="isAvatarReady = true"
     />
-  </div>
+  </RouterLink>
 </template>
 
 <script setup lang="ts">
@@ -88,6 +88,10 @@ watchEffect(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.avatar-container:hover {
+  cursor: pointer;
 }
 
 .avatar {

@@ -16,6 +16,7 @@ import SearchResultsPersonList from '@/components/movie-lists/SearchResultsPerso
 import LoginPage from '@/views/UserViews/LoginPage.vue'
 import AuthPage from '@/views/UserViews/AuthPage.vue'
 import AuthApprovedPage from '@/views/UserViews/AuthApprovedPage.vue'
+import ProfilePage from '@/views/UserViews/ProfilePage.vue'
 
 export type Path =
   | '/:catchAll(.*)'
@@ -35,6 +36,7 @@ export type Path =
   | '/login'
   | '/auth'
   | '/auth/approved'
+  | '/profile'
 
 interface IRoute {
   name?: string
@@ -135,6 +137,10 @@ const userRoutes: IRoute[] = [
   {
     path: '/auth/approved',
     component: AuthApprovedPage,
+  },
+  {
+    path: '/profile',
+    component: ProfilePage,
   },
 ]
 
