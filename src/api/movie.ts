@@ -1,5 +1,5 @@
 import { API_KEY } from '../keys'
-import type { IGenre } from '../interfaces/movie-types'
+import type { IFavoriteMovie, IGenre } from '../interfaces/movie-types'
 import type { IDiscoverOptions } from '../interfaces/movie-types'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 
@@ -265,16 +265,63 @@ const optionsAccountStates = {
   },
 }
 
-export const getAccountState = async (id: number) => {
+export const getAccountState = async (movie_id: number) => {
   const session_id = getSessionFromLocalStorage()
   const session_exist = session_id.length > 0
 
   const response = await (
     await fetch(
-      `https://api.themoviedb.org/3/movie/${id}/account_states?session_id=${session_id}`,
+      `https://api.themoviedb.org/3/movie/${movie_id}/account_states?session_id=${session_id}`,
       optionsAccountStates
     )
   ).json()
   console.log(response)
   return session_exist ? response.rated.value : false
+}
+
+// =========================================
+
+const optionsAccountMovieStates = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+export const getAccountMovieState = async (movie_id: number) => {
+  const session_id = getSessionFromLocalStorage()
+  const session_exist = session_id.length > 0
+
+  const response = await (
+    await fetch(
+      `https://api.themoviedb.org/3/movie/${movie_id}/account_states?session_id=${session_id}`,
+      optionsAccountStates
+    )
+  ).json()
+  console.log(response)
+  return session_exist ? response : false
+}
+
+// =========================================
+
+export const addToFavorite = async (account: number, body: IFavoriteMovie) => {
+  const optionsAddToFavorite = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      Authorization: API_KEY,
+    },
+    body: JSON.stringify(body),
+  }
+
+  const response = await (
+    await fetch(
+      `https://api.themoviedb.org/3/account/${account}/favorite`,
+      optionsAddToFavorite
+    )
+  ).json()
+  console.log(response)
+  return response
 }

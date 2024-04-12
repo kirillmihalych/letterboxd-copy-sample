@@ -157,3 +157,11 @@ export interface IImageParams {
   width: string
   height: string
 }
+
+type MovieMediaType = 'movie'
+
+export interface IFavoriteMovie {
+  media_type: MovieMediaType
+  media_id: number
+  favorite: boolean
+}

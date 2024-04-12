@@ -13,7 +13,6 @@ import { onMounted, ref, watchEffect } from 'vue'
 import type { IAccountDetails } from '@/interfaces/user-types'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 import type { IRatedMovie } from '@/interfaces/user-types'
-import FilmCard from '@/components/movie-cards/FilmCard.vue'
 
 const accountDetails = ref<IAccountDetails | null>(null)
 const error = ref<string | null>()
