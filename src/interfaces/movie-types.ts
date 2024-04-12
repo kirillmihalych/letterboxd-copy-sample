@@ -165,3 +165,9 @@ export interface IFavoriteMovie {
   media_id: number
   favorite: boolean
 }
+
+export interface IWatchListMovie {
+  media_type: MovieMediaType
+  media_id: number
+  watchlist: boolean
+}

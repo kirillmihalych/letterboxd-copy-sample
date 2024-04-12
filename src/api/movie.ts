@@ -1,5 +1,9 @@
 import { API_KEY } from '../keys'
-import type { IFavoriteMovie, IGenre } from '../interfaces/movie-types'
+import type {
+  IFavoriteMovie,
+  IGenre,
+  IWatchListMovie,
+} from '../interfaces/movie-types'
 import type { IDiscoverOptions } from '../interfaces/movie-types'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 
@@ -320,6 +324,42 @@ export const addToFavorite = async (account: number, body: IFavoriteMovie) => {
     await fetch(
       `https://api.themoviedb.org/3/account/${account}/favorite`,
       optionsAddToFavorite
+    )
+  ).json()
+  console.log(response)
+  return response
+}
+
+// ====================================
+
+const options = {
+  method: 'POST',
+  headers: {
+    accept: 'application/json',
+    'content-type': 'application/json',
+    Authorization: API_KEY,
+  },
+  body: JSON.stringify({ media_type: 'movie', media_id: 11, watchlist: true }),
+}
+
+export const addToWatchlist = async (
+  account: number,
+  body: IWatchListMovie
+) => {
+  const optionsAddToWatchlist = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      Authorization: API_KEY,
+    },
+    body: JSON.stringify(body),
+  }
+
+  const response = await (
+    await fetch(
+      `https://api.themoviedb.org/3/account/${account}/watchlist`,
+      optionsAddToWatchlist
     )
   ).json()
   console.log(response)

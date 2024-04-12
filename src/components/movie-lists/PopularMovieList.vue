@@ -1,18 +1,20 @@
 <template>
   <div class="popular-movies-container">
-    <MovieImgCard
+    <FilmCard v-for="movie in movieList" :key="movie.id" :movie="movie" />
+    <!-- <MovieImgCard
       v-for="movie in movieList"
       :key="movie.id"
       :movie="movie"
       :width="width"
       :height="height"
-    />
+    /> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import type { IMovie } from '@/interfaces/movie-types'
 import MovieImgCard from '../movie-cards/MovieImgCard.vue'
+import FilmCard from '../movie-cards/FilmCard.vue'
 import { ref } from 'vue'
 
 interface IPopularMovieListProps {

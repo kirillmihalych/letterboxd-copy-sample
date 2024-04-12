@@ -1,17 +1,19 @@
 <template>
   <div class="upcoming-movie-list">
-    <MovieImgCard
+    <FilmCard v-for="movie in movies" :key="movie.id" :movie="movie" />
+    <!-- <MovieImgCard
       v-for="movie in movies"
       :key="movie.id"
       :movie="movie"
       :width="imgWidth"
       :height="imgHeight"
-    />
+    /> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import type { IMovie } from '@/interfaces/movie-types'
+import FilmCard from '../movie-cards/FilmCard.vue'
 import MovieImgCard from '../movie-cards/MovieImgCard.vue'
 
 interface IUpcomingMovieList {

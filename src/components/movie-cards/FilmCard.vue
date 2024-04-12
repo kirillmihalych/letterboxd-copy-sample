@@ -1,46 +1,68 @@
 <template>
-  <div class="film-card">
-    <RouterLink :to="singleMovieURL">
-      <ImagePlaceholder
-        :src="poster"
-        :title="movie.title"
-        :imgParams="cssParams"
-      />
-    </RouterLink>
-    <div class="btn-container">
-      <button class="btn-options" @click="toggleMenu">
-        {{ isMenuOpen ? 'close' : 'open' }}
-      </button>
+  <article>
+    <div class="film-card">
+      <RouterLink :to="singleMovieURL">
+        <ImagePlaceholder
+          :src="poster"
+          :title="movie.title"
+          :imgParams="cssParams"
+        />
+      </RouterLink>
+      <div class="btn-container">
+        <button class="btn-options" @click="toggleMenu">
+          {{ isMenuOpen ? 'close' : 'open' }}
+        </button>
+      </div>
+      <!-- <div class="rating-input">
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>10</button>
+      </div> -->
+      <div class="lists-options" v-show="isMenuOpen">
+        <button
+          @click="fetchAddToFavorite(user.accountDetails?.id as number)"
+          :class="{ favorite: isFavorite }"
+        >
+          favorite
+        </button>
+        <button
+          @click="fetchAddToWatchlist(user.accountDetails?.id as number)"
+          :class="{ watchlist: isWatchlist }"
+        >
+          watchlist
+        </button>
+        <button>other</button>
+      </div>
     </div>
-    <div class="lists-options" v-show="isMenuOpen">
-      <button
-        @click="fetchAddToFavorite(user.accountDetails?.id as number)"
-        :class="{ favorite: isFavorite }"
-      >
-        favorite
-      </button>
-      <!-- <hr /> -->
-      <button>watchlist</button>
-      <!-- <hr /> -->
-      <button>other</button>
-    </div>
-  </div>
+  </article>
 </template>
 
 <script setup lang="ts">
-import {
-  onMounted,
-  onUpdated,
-  reactive,
-  ref,
-  watchEffect,
-  type CSSProperties,
-} from 'vue'
-import type { IFavoriteMovie, IMovie } from '@/interfaces/movie-types'
+// import ListOptions from '../lists-handling/ListOptions.vue'
+
+import { onMounted, reactive, ref, type CSSProperties } from 'vue'
+import type {
+  IFavoriteMovie,
+  IMovie,
+  IWatchListMovie,
+} from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
 import { useUserStore } from '@/stores/user'
-import { addToFavorite, getAccountMovieState } from '@/api/movie'
+import {
+  addToFavorite,
+  addToWatchlist,
+  getAccountMovieState,
+} from '@/api/movie'
+
+import FilmCardRating from './FilmCardRating.vue'
 
 const user = useUserStore()
 
@@ -62,6 +84,8 @@ const toggleMenu = () => (isMenuOpen.value = !isMenuOpen.value)
 const accountState = ref()
 const isFavorite = ref(false)
 const setIsFavorite = () => (isFavorite.value = accountState.value.favorite)
+const isWatchlist = ref(false)
+const setIsWatchlist = () => (isWatchlist.value = accountState.value.watchlist)
 
 const fetchAddToFavorite = async (account: number) => {
   const favoriteMovie: IFavoriteMovie = reactive({
@@ -84,6 +108,24 @@ const fetchAccountState = async () => {
   try {
     accountState.value = await getAccountMovieState(movie.value.id)
     setIsFavorite()
+    setIsWatchlist()
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.log(err.message.toString())
+    }
+  }
+}
+
+const fetchAddToWatchlist = async (account: number) => {
+  const watchlistMovie: IWatchListMovie = reactive({
+    media_type: 'movie',
+    media_id: movie.value.id,
+    watchlist: !accountState.value.watchlist,
+  })
+
+  try {
+    await addToWatchlist(account, watchlistMovie)
+    fetchAccountState()
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log(err.message.toString())
@@ -125,7 +167,7 @@ const singleMovieURL = `/films/movie_page/${movie.value.id}`
   z-index: 100;
   left: 0;
   right: 0;
-  bottom: 2rem;
+  bottom: 0;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -146,5 +188,15 @@ const singleMovieURL = `/films/movie_page/${movie.value.id}`
 
 .favorite {
   background: #2d8f4e;
+}
+
+.watchlist {
+  background: #2d8f4e;
+}
+
+.movie-card-rating {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 </style>

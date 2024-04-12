@@ -1,17 +1,19 @@
 <template>
   <div class="movie-list-top-rated">
-    <MovieImgCard
+    <FilmCard v-for="movie in props.movies" :key="movie.id" :movie="movie" />
+    <!-- <MovieImgCard
       v-for="movie in props.movies"
       :key="movie.id"
       :movie="movie"
       :width="imgWidth"
       :height="imgHeight"
-    />
+    /> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import type { IMovie } from '@/interfaces/movie-types'
+import FilmCard from '../movie-cards/FilmCard.vue'
 import MovieImgCard from '../movie-cards/MovieImgCard.vue'
 
 interface ITopRatedMovieList {
