@@ -36,5 +36,5 @@ export interface IRatedMovie {
   video: boolean
   vote_average: number
   vote_count: number
-  rating: number
+  rating?: number
 }

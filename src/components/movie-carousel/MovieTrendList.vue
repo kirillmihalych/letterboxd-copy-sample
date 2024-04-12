@@ -25,7 +25,7 @@ const movieList = props.movieList
 .movie-list {
   box-sizing: border-box;
   width: 950px;
-  height: 400px;
+  height: 500px;
   display: flex;
   align-items: center;
   gap: 5px;

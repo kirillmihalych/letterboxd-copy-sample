@@ -37,6 +37,10 @@ export type Path =
   | '/auth'
   | '/auth/approved'
   | '/profile'
+  | '/profile/favoritelist'
+  | '/profile/watchlist'
+  | '/profile/ratedlist'
+  | '/profile/customlists'
 
 interface IRoute {
   name?: string

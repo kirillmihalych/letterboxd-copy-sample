@@ -13,18 +13,30 @@
           {{ isMenuOpen ? 'close' : 'open' }}
         </button>
       </div>
-      <!-- <div class="rating-input">
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button>7</button>
-        <button>8</button>
-        <button>9</button>
-        <button>10</button>
-      </div> -->
+      <!-- title -->
+      <div class="card-footer">
+        <div>
+          <h1 class="card-title">{{ movie.title }}</h1>
+        </div>
+        <!-- rating -->
+        <div>
+          <span class="tmdb-rating">
+            TMDB rating:
+            <span class="rating-number">
+              {{ movie.vote_average.toFixed(0) }}
+            </span>
+          </span>
+        </div>
+        <div v-show="(movie as IRatedMovie).rating">
+          <span class="my-rating"
+            >My rating:
+            <span class="rating-number">{{
+              (movie as IRatedMovie).rating
+            }}</span></span
+          >
+        </div>
+      </div>
+      <!-- rating -->
       <div class="lists-options" v-show="isMenuOpen">
         <button
           @click="fetchAddToFavorite(user.accountDetails?.id as number)"
@@ -52,6 +64,7 @@ import type {
   IFavoriteMovie,
   IMovie,
   IWatchListMovie,
+  MovieForFilmCard,
 } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
@@ -63,15 +76,16 @@ import {
 } from '@/api/movie'
 
 import FilmCardRating from './FilmCardRating.vue'
+import type { IRatedMovie } from '@/interfaces/user-types'
 
 const user = useUserStore()
 
 interface FilmCardProps {
-  movie: IMovie
+  movie: IMovie | IRatedMovie
 }
 
 const props = defineProps<FilmCardProps>()
-const movie = ref<IMovie>(props.movie)
+const movie = ref<IMovie>(props.movie as IMovie)
 
 const cssParams: CSSProperties = {
   width: 235 + 'px',
@@ -199,4 +213,54 @@ const singleMovieURL = `/films/movie_page/${movie.value.id}`
   justify-content: flex-start;
   align-items: center;
 }
+
+.my-rating {
+  box-sizing: border-box;
+  display: block;
+  background: #222;
+  width: 235px;
+  padding: 0.2rem;
+  color: snow;
+  border-radius: 0.2rem;
+}
+
+.tmdb-rating {
+  box-sizing: border-box;
+  display: block;
+  background: #222;
+  width: 235px;
+  padding: 0.2rem;
+  color: snow;
+  border-radius: 0.2rem;
+  margin-bottom: 0.1rem;
+}
+
+.rating-number {
+  display: inline-block;
+  font-weight: bold;
+  background: snow;
+  color: #222;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  border-radius: 0.2rem;
+}
+
+.card-title {
+  /* text-align: center; */
+  height: 65px;
+  box-sizing: border-box;
+  display: block;
+  background: #222;
+  width: 235px;
+  padding: 0.2rem;
+  color: snow;
+  border-radius: 0.2rem;
+  margin: 0.1rem 0rem;
+  font-size: 1.25rem;
+}
+
+/* .card-footer {
+  height: 200px;
+} */
 </style>

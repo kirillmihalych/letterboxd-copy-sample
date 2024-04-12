@@ -1,3 +1,5 @@
+import type { IRatedMovie } from './user-types'
+
 export interface IMovie {
   adult?: boolean
   backdrop_path: string
@@ -171,3 +173,5 @@ export interface IWatchListMovie {
   media_id: number
   watchlist: boolean
 }
+
+export type MovieForFilmCard = IMovie | IRatedMovie

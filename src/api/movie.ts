@@ -365,3 +365,45 @@ export const addToWatchlist = async (
   console.log(response)
   return response
 }
+
+// =================================
+
+const optionsFavoriteMovies = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+export const loadFavoriteMovies = async (account: number) => {
+  const response = await (
+    await fetch(
+      `https://api.themoviedb.org/3/account/${account}/favorite/movies?language=en-US&page=1&sort_by=created_at.asc`,
+      optionsFavoriteMovies
+    )
+  ).json()
+  console.log(response)
+  return response
+}
+
+// ==================================
+
+const optionsWatchlistMovies = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+export const loadWatchlistMovies = async (account: number) => {
+  const response = await (
+    await fetch(
+      `https://api.themoviedb.org/3/account/${account}/watchlist/movies?language=en-US&page=1&sort_by=created_at.asc`,
+      optionsWatchlistMovies
+    )
+  ).json()
+  console.log(response)
+  return response
+}

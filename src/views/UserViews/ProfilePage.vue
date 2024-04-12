@@ -1,18 +1,21 @@
 <template>
   <div>{{ accountDetails?.username }}</div>
   <img :src="avatarUrl" alt="avatar" />
-  <div v-for="movie in ratedMovies" :key="movie.id">
-    <h3>{{ movie.title }}</h3>
-    <p>My rating is {{ movie.rating }}</p>
-  </div>
+  <FavoriteList :movies="favoriteMovies" />
+  <RatedList :movies="ratedMovies" />
+  <WatchlistList :movies="watchlistMovies" />
 </template>
 
 <script setup lang="ts">
+import RatedList from '@/components/movie-lists/RatedList.vue'
+import FavoriteList from '@/components/movie-lists/FavoriteList.vue'
 import { getAccountDetails, loadRatedMovies } from '@/api/user'
 import { onMounted, ref, watchEffect } from 'vue'
 import type { IAccountDetails } from '@/interfaces/user-types'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 import type { IRatedMovie } from '@/interfaces/user-types'
+import { loadFavoriteMovies, loadWatchlistMovies } from '@/api/movie'
+import WatchlistList from '@/components/movie-lists/WatchlistList.vue'
 
 const accountDetails = ref<IAccountDetails | null>(null)
 const error = ref<string | null>()
@@ -20,6 +23,8 @@ const loading = ref(false)
 const avatarUrl = ref('')
 
 const ratedMovies = ref<IRatedMovie[] | null>(null)
+const favoriteMovies = ref<IRatedMovie[] | null>(null)
+const watchlistMovies = ref<IRatedMovie[] | null>(null)
 const ratedMoviesError = ref<string | null>(null)
 const ratedMoviesLoading = ref(false)
 
@@ -54,6 +59,8 @@ const fetchRatedMovies = async (id: number) => {
   try {
     ratedMoviesLoading.value = true
     ratedMovies.value = (await loadRatedMovies(id)).results
+    favoriteMovies.value = (await loadFavoriteMovies(id)).results
+    watchlistMovies.value = (await loadWatchlistMovies(id)).results
   } catch (err: unknown) {
     if (err instanceof Error) {
       ratedMoviesError.value = err.message.toString()
