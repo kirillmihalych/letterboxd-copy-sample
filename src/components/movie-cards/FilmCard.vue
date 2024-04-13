@@ -50,7 +50,7 @@
         >
           watchlist
         </button>
-        <button>other</button>
+        <AddToList />
       </div>
     </div>
   </article>
@@ -58,7 +58,7 @@
 
 <script setup lang="ts">
 // import ListOptions from '../lists-handling/ListOptions.vue'
-
+import AddToList from '../user-lists/AddToList.vue'
 import { onMounted, reactive, ref, type CSSProperties } from 'vue'
 import type {
   IFavoriteMovie,

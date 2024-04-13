@@ -17,6 +17,7 @@ import LoginPage from '@/views/UserViews/LoginPage.vue'
 import AuthPage from '@/views/UserViews/AuthPage.vue'
 import AuthApprovedPage from '@/views/UserViews/AuthApprovedPage.vue'
 import ProfilePage from '@/views/UserViews/ProfilePage.vue'
+import NewList from '@/components/user-lists/NewList.vue'
 
 export type Path =
   | '/:catchAll(.*)'
@@ -41,6 +42,7 @@ export type Path =
   | '/profile/watchlist'
   | '/profile/ratedlist'
   | '/profile/customlists'
+  | '/lists/new'
 
 interface IRoute {
   name?: string
@@ -148,9 +150,17 @@ const userRoutes: IRoute[] = [
   },
 ]
 
+// ==================================
+const listRoutes: IRoute[] = [
+  {
+    path: '/lists/new',
+    component: NewList,
+  },
+]
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: routes.concat(userRoutes),
+  routes: routes.concat(userRoutes).concat(listRoutes),
 })
 
 export default router
