@@ -43,7 +43,6 @@ export const fetchByTitle = async (query: string) => {
       searchOptions
     )
   ).json()
-  console.log(response)
   return response.results
 }
 
@@ -303,7 +302,6 @@ export const getAccountMovieState = async (movie_id: number) => {
       optionsAccountStates
     )
   ).json()
-  console.log(response)
   return session_exist ? response : false
 }
 

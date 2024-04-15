@@ -9,8 +9,8 @@
             : `${props.list.item_count} item`
         }}
       </p>
-    </div></RouterLink
-  >
+    </div>
+  </RouterLink>
 </template>
 
 <script setup lang="ts">

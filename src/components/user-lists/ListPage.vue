@@ -9,11 +9,14 @@
       </h2>
       <hr />
       <SearchMovie />
+      <h3 v-show="list.items.length === 0">There is no items in a list yet</h3>
       <div class="items-container">
-        <h3 v-show="list.items.length === 0">
-          There is no items in a list yet
-        </h3>
-        <FilmCard v-for="movie in list.items" :key="movie.id" :movie="movie" />
+        <ListPageCard
+          v-for="movie in list.items"
+          :key="movie.id"
+          :movie="movie"
+          :list_id="list.id"
+        />
       </div>
     </div>
   </section>
@@ -27,12 +30,15 @@ import { useRoute } from 'vue-router'
 import SpinnerComp from '../error-handling/SpinnerComp.vue'
 import FilmCard from '../movie-cards/FilmCard.vue'
 import SearchMovie from '../movie-search/SearchMovie.vue'
+import ListPageCard from './ListPageCard.vue'
+import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 
 const route = useRoute()
 const id = route.params.id
 const list = ref<IList | null>(null)
 const error = ref<string | null>(null)
 const loading = ref(false)
+const session_id = ref<string>('')
 
 const fetchListById = async (id: string) => {
   list.value = null
@@ -63,7 +69,7 @@ watchEffect(() => {
 
 .items-container {
   width: 100%;
-  display: flex;
+  display: grid;
   gap: 1rem;
 }
 </style>

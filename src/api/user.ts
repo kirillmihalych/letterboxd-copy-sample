@@ -30,14 +30,12 @@ const accDetailsOptions = {
 }
 
 export const getAccountDetails = async (session: string) => {
-  // const session = getSessionFromLocalStorage()
   const response = await (
     await fetch(
       `https://api.themoviedb.org/3/account?api_key=ff02400cb67aaef08564df29807e137b&session_id=${session}`,
       accDetailsOptions
     )
   ).json()
-  console.log(response)
   return response
 }
 
