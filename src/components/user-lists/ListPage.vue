@@ -18,6 +18,7 @@
           :list_id="list.id"
         />
       </div>
+      <ClearListModal :list_id="list.id" />
     </div>
   </section>
 </template>
@@ -28,7 +29,7 @@ import type { IList } from '@/interfaces/lists-types'
 import { ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import SpinnerComp from '../error-handling/SpinnerComp.vue'
-import FilmCard from '../movie-cards/FilmCard.vue'
+import ClearListModal from '@/modals/ClearListModal.vue'
 import SearchMovie from '../movie-search/SearchMovie.vue'
 import ListPageCard from './ListPageCard.vue'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'

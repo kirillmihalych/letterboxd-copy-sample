@@ -1,8 +1,20 @@
-import type { IAddMovieToListArgs, INewList } from '@/interfaces/lists-types'
+import type {
+  IAddMovieToListArgs,
+  IClearList,
+  INewList,
+} from '@/interfaces/lists-types'
 import { API_KEY } from '@/keys'
 
 const getOptions = {
   method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+const optionsPost = {
+  method: 'POST',
   headers: {
     accept: 'application/json',
     Authorization: API_KEY,
@@ -94,6 +106,19 @@ export const postRemoveMovie = async (obj: IAddMovieToListArgs) => {
     await fetch(
       `https://api.themoviedb.org/3/list/${obj.list_id}/remove_item?session_id=${obj.session_id}`,
       optionsRemoveMovie
+    )
+  ).json()
+  console.log(response)
+  return response
+}
+
+// ====================================
+
+export const postClearMovies = async (obj: IClearList) => {
+  const response = await (
+    await fetch(
+      `https://api.themoviedb.org/3/list/${obj.list_id}/clear?session_id=${obj.session_id}&confirm=${obj.confirm}`,
+      optionsPost
     )
   ).json()
   console.log(response)

@@ -38,3 +38,9 @@ export interface IAddMovieToListArgs {
   session_id: string
   movie_id: number
 }
+
+export interface IClearList {
+  list_id: number
+  session_id: string
+  confirm: boolean
+}
