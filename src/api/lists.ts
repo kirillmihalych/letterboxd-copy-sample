@@ -1,8 +1,8 @@
 import type { INewList } from '@/interfaces/lists-types'
 import { API_KEY } from '@/keys'
-import { getSessionFromLocalStorage } from '@/local-storage/getSession'
+// import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 
-const session_id = getSessionFromLocalStorage()
+// const session_id = getSessionFromLocalStorage()
 
 export const postNewList = async (newList: INewList, session_id: number) => {
   const postNewListOptions = {
