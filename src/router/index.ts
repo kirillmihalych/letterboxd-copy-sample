@@ -107,10 +107,10 @@ export const routes: VueRouter.RouteRecordRaw[] = [
     path: '/lists',
     component: ListsView,
   },
-  {
-    path: '/:catchAll(.*)',
-    component: ErrorView,
-  },
+  // {
+  //   path: '/:catchAll(.*)',
+  //   component: ErrorView,
+  // },
   {
     path: '/:pathMatch(.*)*',
     redirect: '/',
