@@ -19,6 +19,7 @@ import AuthApprovedPage from '@/views/UserViews/AuthApprovedPage.vue'
 import ProfilePage from '@/views/UserViews/ProfilePage.vue'
 import NewList from '@/components/user-lists/NewList.vue'
 import ListPage from '@/components/user-lists/ListPage.vue'
+import * as VueRouter from 'vue-router'
 
 export type Path =
   | '/:catchAll(.*)'
@@ -45,14 +46,16 @@ export type Path =
   | '/profile/customlists'
   | '/lists/new'
   | '/lists/:id'
+  | '/:pathMatch(.*)*'
 
 interface IRoute {
   name?: string
   path: Path
-  component: Component
+  component?: Component
+  redirect?: string
 }
 
-export const routes: IRoute[] = [
+export const routes: VueRouter.RouteRecordRaw[] = [
   {
     path: '/',
     component: StartView,
@@ -108,6 +111,10 @@ export const routes: IRoute[] = [
     path: '/:catchAll(.*)',
     component: ErrorView,
   },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
+  },
 ]
 
 type NavbarPath = '/films' | '/lists'
@@ -133,7 +140,7 @@ export const navbarRoutes: INavbarRoute[] = [
 ]
 
 // =================================
-const userRoutes: IRoute[] = [
+const userRoutes: VueRouter.RouteRecordRaw[] = [
   {
     path: '/login',
     component: LoginPage,
@@ -153,7 +160,7 @@ const userRoutes: IRoute[] = [
 ]
 
 // ==================================
-const listRoutes: IRoute[] = [
+const listRoutes: VueRouter.RouteRecordRaw[] = [
   {
     path: '/lists/new',
     component: NewList,
