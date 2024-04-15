@@ -32,3 +32,9 @@ export interface IList {
   total_page: number
   total_results: number
 }
+
+export interface IAddMovieToListArgs {
+  list_id: number
+  session_id: string
+  movie_id: number
+}

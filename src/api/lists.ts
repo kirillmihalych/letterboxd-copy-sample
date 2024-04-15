@@ -1,4 +1,4 @@
-import type { INewList } from '@/interfaces/lists-types'
+import type { IAddMovieToListArgs, INewList } from '@/interfaces/lists-types'
 import { API_KEY } from '@/keys'
 
 const getOptions = {
@@ -56,11 +56,7 @@ export const loadListDetails = async (list_id: string) => {
 }
 
 // ===================================
-export const postMovieToList = async (
-  list_id: number,
-  session_id: string,
-  movie_id: number
-) => {
+export const postMovieToList = async (obj: IAddMovieToListArgs) => {
   const optionsPostMovieToList = {
     method: 'POST',
     headers: {
@@ -69,13 +65,13 @@ export const postMovieToList = async (
       Authorization: API_KEY,
     },
     body: JSON.stringify({
-      media_id: movie_id,
+      media_id: obj.movie_id,
     }),
   }
 
   const response = await (
     await fetch(
-      `https://api.themoviedb.org/3/list/${list_id}/add_item?session_id=${session_id}`,
+      `https://api.themoviedb.org/3/list/${obj.list_id}/add_item?session_id=${obj.session_id}`,
       optionsPostMovieToList
     )
   ).json()

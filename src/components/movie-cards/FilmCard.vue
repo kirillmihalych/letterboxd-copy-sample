@@ -51,7 +51,7 @@
           watchlist
         </button>
         <!-- <button @click="openTheModal">to lists</button> -->
-        <AddToListModal />
+        <AddToListModal :movie_id="movie.id" />
       </div>
     </div>
   </article>

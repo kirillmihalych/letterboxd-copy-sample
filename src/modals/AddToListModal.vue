@@ -5,10 +5,15 @@
       <div class="modal-bg" v-if="isModalOpen">
         <div class="modal">
           <div class="modal-title-container">
-            <h2>modal title</h2>
+            <h2>Select a list</h2>
             <button @click="closeTheModal">close</button>
           </div>
-          Click outside this modal to close it
+          <div>
+            <div>
+              <ListOfLists @select-list="setSelectedList" />
+            </div>
+            <button @click="addMovieToList(args)">add</button>
+          </div>
         </div>
       </div>
     </Transition>
@@ -16,11 +21,43 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
+import ListOfLists from '@/components/movie-cards/ListOfLists.vue'
+import { getSessionFromLocalStorage } from '@/local-storage/getSession'
+import type { IAddMovieToListArgs } from '@/interfaces/lists-types'
+import { postMovieToList } from '@/api/lists'
+
+interface IAddToListModalProps {
+  movie_id: number
+}
+
+const props = defineProps<IAddToListModalProps>()
+const movie_id = props.movie_id
 
 const isModalOpen = ref(false)
 const openTheModal = () => (isModalOpen.value = true)
 const closeTheModal = () => (isModalOpen.value = false)
+
+const session_id = getSessionFromLocalStorage()
+
+const list_id = ref<number | null>(null)
+const setSelectedList = (payload: number) => (args.list_id = payload)
+
+const args = reactive<IAddMovieToListArgs>({
+  list_id: list_id.value as number,
+  session_id,
+  movie_id,
+})
+
+const addMovieToList = async (obj: IAddMovieToListArgs) => {
+  try {
+    await postMovieToList(obj)
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.log(err.message.toString())
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -39,6 +76,8 @@ const closeTheModal = () => (isModalOpen.value = false)
 }
 
 .modal {
+  width: 400px;
+  height: 350px;
   position: relative;
   background: white;
   padding: 50px 100px;

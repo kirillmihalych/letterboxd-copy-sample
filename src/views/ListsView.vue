@@ -23,7 +23,6 @@ const error = ref<string | null>()
 const loading = ref(false)
 
 const fetchUsersLists = async () => {
-  console.log('is it work?')
   try {
     loading.value = true
     usersLists.value = (
