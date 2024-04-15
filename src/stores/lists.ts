@@ -6,14 +6,9 @@ export const useListsStore = defineStore('lists', () => {
   const isSearchSubmited = ref(false)
 
   const createNewList = async () => {
-
     try {
     } catch (error) {}
   }
 
   return { query, isSearchSubmited }
 })
-
-{name: 'test request',
- description: 'ops whoops',
- language: 'en'}
