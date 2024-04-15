@@ -18,6 +18,7 @@ import AuthPage from '@/views/UserViews/AuthPage.vue'
 import AuthApprovedPage from '@/views/UserViews/AuthApprovedPage.vue'
 import ProfilePage from '@/views/UserViews/ProfilePage.vue'
 import NewList from '@/components/user-lists/NewList.vue'
+import ListPage from '@/components/user-lists/ListPage.vue'
 
 export type Path =
   | '/:catchAll(.*)'
@@ -43,6 +44,7 @@ export type Path =
   | '/profile/ratedlist'
   | '/profile/customlists'
   | '/lists/new'
+  | '/lists/:id'
 
 interface IRoute {
   name?: string
@@ -155,6 +157,10 @@ const listRoutes: IRoute[] = [
   {
     path: '/lists/new',
     component: NewList,
+  },
+  {
+    path: '/lists/:id',
+    component: ListPage,
   },
 ]
 

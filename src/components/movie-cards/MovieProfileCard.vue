@@ -14,22 +14,20 @@
     </div>
     <div class="movie-info">
       <div class="rating-title-date-container">
-        <div class="tmdb-rating">
-          <span>{{ movieTmdbRating }}</span>
-        </div>
         <div class="title-date">
           <h2>{{ movieTitle }}</h2>
           <h3>{{ movieReleaseDate }}</h3>
         </div>
+        <div class="title-date">
+          <h2>{{ movieTmdbRating }}</h2>
+          <h3>{{ movieVoteCounts }}</h3>
+        </div>
       </div>
       <p class="movie-overview">{{ movieOverview }}</p>
       <div class="actions-with-movie-container">
-        <div class="your-rating-container">
-          <div class="movie-my-rating">
-            <span>{{ movieMyRating }}</span>
-          </div>
-          <h4>Your rating</h4>
-        </div>
+        <h4>
+          Your rating is <span>{{ movieMyRating }}</span>
+        </h4>
         <div>favorite</div>
         <div>add-to-list</div>
       </div>
@@ -53,6 +51,7 @@ const isImgReady = ref(false)
 const imgUrl = `https://image.tmdb.org/t/p/original/${movie.poster_path}`
 const movieTitle = movie.title
 const movieTmdbRating = movie.vote_average.toFixed(2)
+const movieVoteCounts = movie.vote_count
 const movieMyRating = movie.rating
 const movieReleaseDate = movie.release_date
 const movieOverview = movie.overview
@@ -92,9 +91,10 @@ const movieOverview = movie.overview
 .rating-title-date-container {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 1rem;
   margin-left: 1rem;
+  margin-right: 3rem;
   margin-top: 1rem;
 }
 
@@ -108,10 +108,11 @@ const movieOverview = movie.overview
 }
 
 .tmdb-rating {
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
-  border: 2px solid black;
+  justify-content: center; */
+  /* border: 2px solid black; */
+  border-radius: 0.2rem;
   background: lightgrey;
   width: 50px;
   height: 50px;
@@ -147,13 +148,4 @@ const movieOverview = movie.overview
   align-items: center;
   gap: 1rem;
 }
-
-/* .movie-my-rating span {
-  display: inline-block;
-  background: green;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  text-align: center;
-} */
 </style>
