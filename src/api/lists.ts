@@ -54,3 +54,31 @@ export const loadListDetails = async (list_id: string) => {
   console.log(response)
   return response
 }
+
+// ===================================
+export const postMovieToList = async (
+  list_id: number,
+  session_id: string,
+  movie_id: number
+) => {
+  const optionsPostMovieToList = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      Authorization: API_KEY,
+    },
+    body: JSON.stringify({
+      media_id: movie_id,
+    }),
+  }
+
+  const response = await (
+    await fetch(
+      `https://api.themoviedb.org/3/list/${list_id}/add_item?session_id=${session_id}`,
+      optionsPostMovieToList
+    )
+  ).json()
+  console.log(response)
+  return response
+}

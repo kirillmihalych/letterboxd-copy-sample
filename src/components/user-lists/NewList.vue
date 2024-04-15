@@ -21,7 +21,7 @@
         </div>
       </section>
       <section class="search-and-btns-container">
-        <div>search and add film</div>
+        <div></div>
         <div class="link-btn-container">
           <RouterLink
             to="/lists"
@@ -30,7 +30,7 @@
             >cancel</RouterLink
           >
           <RouterLink
-            to="/lists"
+            :to="`/lists/${newListId}`"
             @click="saveNewList(newList)"
             class="link-btn"
             v-show="isNameExist"
@@ -49,6 +49,9 @@ import type { INewList } from '@/interfaces/lists-types'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const session_id: number = getSessionFromLocalStorage()
 
@@ -58,16 +61,17 @@ const defaultNewList: INewList = {
   language: 'en',
 }
 const newList = ref<INewList>(defaultNewList)
+let newListId = ref()
 
 const isNameExist = computed(() => {
   return newList.value.name.length > 0
 })
-
 const saveNewList = async (list: INewList) => {
   try {
     if (newList.value.name.length > 0) {
-      await postNewList(list, session_id)
+      newListId.value = (await postNewList(list, session_id)).list_id
     }
+    router.replace(`/lists/${newListId.value}`)
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log(err.message.toString())

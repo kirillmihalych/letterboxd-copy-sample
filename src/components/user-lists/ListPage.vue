@@ -8,6 +8,7 @@
         by <span>{{ list?.created_by }}</span>
       </h2>
       <hr />
+      <SearchMovie />
       <div class="items-container">
         <h3 v-show="list.items.length === 0">
           There is no items in a list yet
@@ -21,10 +22,11 @@
 <script setup lang="ts">
 import { loadListDetails } from '@/api/lists'
 import type { IList } from '@/interfaces/lists-types'
-import { onMounted, ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import SpinnerComp from '../error-handling/SpinnerComp.vue'
 import FilmCard from '../movie-cards/FilmCard.vue'
+import SearchMovie from '../movie-search/SearchMovie.vue'
 
 const route = useRoute()
 const id = route.params.id
@@ -48,8 +50,8 @@ const fetchListById = async (id: string) => {
   }
 }
 
-onMounted(() => {
-  fetchListById(id as string)
+watchEffect(() => {
+  fetchListById(route.params.id as string)
 })
 </script>
 

@@ -50,7 +50,8 @@
         >
           watchlist
         </button>
-        <AddToList />
+        <!-- <button @click="openTheModal">to lists</button> -->
+        <AddToListModal />
       </div>
     </div>
   </article>
@@ -58,7 +59,7 @@
 
 <script setup lang="ts">
 // import ListOptions from '../lists-handling/ListOptions.vue'
-import AddToList from '../user-lists/AddToList.vue'
+import AddToListModal from '@/modals/AddToListModal.vue'
 import { onMounted, reactive, ref, type CSSProperties } from 'vue'
 import type {
   IFavoriteMovie,
@@ -153,6 +154,11 @@ onMounted(() => {
 
 const poster = `https://image.tmdb.org/t/p/original/${movie.value.poster_path}`
 const singleMovieURL = `/films/movie_page/${movie.value.id}`
+
+// add to list
+const isModalOpen = ref(false)
+const openTheModal = () => (isModalOpen.value = true)
+const closeTheModal = () => (isModalOpen.value = false)
 </script>
 
 <style scoped>
@@ -184,9 +190,11 @@ const singleMovieURL = `/films/movie_page/${movie.value.id}`
   bottom: 0;
   margin-left: auto;
   margin-right: auto;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   text-transform: capitalize;
 }
 
