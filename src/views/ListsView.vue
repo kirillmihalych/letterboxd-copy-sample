@@ -44,7 +44,6 @@ onMounted(() => {
 
 <style scoped>
 .lists-container {
-  /* background: red; */
   width: 950px;
 }
 

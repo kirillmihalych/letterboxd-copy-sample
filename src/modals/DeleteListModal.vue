@@ -1,18 +1,16 @@
 <template>
-  <button @click="openTheModal" class="clear-modal-btn">
-    clear all movies
-  </button>
+  <button @click="openTheModal" class="clear-modal-btn">delete list</button>
   <Teleport to="#modal">
     <Transition name="modal">
       <div class="modal-bg" v-if="isModalOpen">
         <div class="modal">
           <div class="modal-title-container">
-            <h2>Confrim a cleaning</h2>
-            <p class="warning">All items from a list will be deleted!</p>
+            <h2>Confrim a delete</h2>
+            <p class="warning">This list will be deleted completly</p>
           </div>
           <div class="btns-container">
             <button @click="closeTheModal">cancel</button>
-            <button @click="clearList">confirm</button>
+            <button @click="fetchDeleteList">confirm</button>
           </div>
         </div>
       </div>
@@ -23,8 +21,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
-import { postClearMovies } from '@/api/lists'
-import type { IClearList } from '@/interfaces/lists-types'
+import { delimiter } from 'path'
+import type { IDeleteList } from '@/interfaces/lists-types'
+import { deleteList } from '@/api/lists'
 
 interface IClearListModalProps {
   list_id: number
@@ -37,14 +36,13 @@ const isModalOpen = ref(false)
 const openTheModal = () => (isModalOpen.value = true)
 const closeTheModal = () => (isModalOpen.value = false)
 
-const clearList = async () => {
-  let clearArgs: IClearList = {
+const fetchDeleteList = async () => {
+  let deleteArgs: IDeleteList = {
     list_id,
     session_id: getSessionFromLocalStorage(),
-    confirm: true,
   }
   try {
-    await postClearMovies(clearArgs)
+    await deleteList(deleteArgs)
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log(err.message.toString())

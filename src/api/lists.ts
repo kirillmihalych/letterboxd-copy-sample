@@ -1,6 +1,7 @@
 import type {
   IAddMovieToListArgs,
   IClearList,
+  IDeleteList,
   INewList,
 } from '@/interfaces/lists-types'
 import { API_KEY } from '@/keys'
@@ -15,6 +16,14 @@ const getOptions = {
 
 const optionsPost = {
   method: 'POST',
+  headers: {
+    accept: 'application/json',
+    Authorization: API_KEY,
+  },
+}
+
+const optionsDelete = {
+  method: 'DELETE',
   headers: {
     accept: 'application/json',
     Authorization: API_KEY,
@@ -119,6 +128,19 @@ export const postClearMovies = async (obj: IClearList) => {
     await fetch(
       `https://api.themoviedb.org/3/list/${obj.list_id}/clear?session_id=${obj.session_id}&confirm=${obj.confirm}`,
       optionsPost
+    )
+  ).json()
+  console.log(response)
+  return response
+}
+
+// ====================================
+
+export const deleteList = async (obj: IDeleteList) => {
+  const response = await (
+    await fetch(
+      `https://api.themoviedb.org/3/list/${obj.list_id}?session_id=${obj.session_id}`,
+      optionsDelete
     )
   ).json()
   console.log(response)

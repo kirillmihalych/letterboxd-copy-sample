@@ -19,6 +19,7 @@
         />
       </div>
       <ClearListModal :list_id="list.id" />
+      <DeleteListModal :list_id="list.id" />
     </div>
   </section>
 </template>
@@ -32,7 +33,7 @@ import SpinnerComp from '../error-handling/SpinnerComp.vue'
 import ClearListModal from '@/modals/ClearListModal.vue'
 import SearchMovie from '../movie-search/SearchMovie.vue'
 import ListPageCard from './ListPageCard.vue'
-import { getSessionFromLocalStorage } from '@/local-storage/getSession'
+import DeleteListModal from '@/modals/DeleteListModal.vue'
 
 const route = useRoute()
 const id = route.params.id

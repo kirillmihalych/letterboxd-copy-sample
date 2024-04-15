@@ -44,3 +44,8 @@ export interface IClearList {
   session_id: string
   confirm: boolean
 }
+
+export interface IDeleteList {
+  list_id: number
+  session_id: string
+}
