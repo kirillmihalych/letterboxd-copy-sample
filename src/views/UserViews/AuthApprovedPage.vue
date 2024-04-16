@@ -46,7 +46,7 @@ const createSession = async () => {
   ).json()
   setSessionIdToLocalStorage(response.session_id)
   console.log('is it worked?')
-  window.location.replace('http://localhost:5173/films')
+  window.location.replace('https://f1re-movie-finder.netlify.app/films')
   return response.session_id
 }
 
