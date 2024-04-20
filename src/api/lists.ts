@@ -93,7 +93,6 @@ export const postMovieToList = async (obj: IAddMovieToListArgs) => {
       optionsPostMovieToList
     )
   ).json()
-  console.log(response)
   return response
 }
 
@@ -117,7 +116,6 @@ export const postRemoveMovie = async (obj: IAddMovieToListArgs) => {
       optionsRemoveMovie
     )
   ).json()
-  console.log(response)
   return response
 }
 
@@ -130,7 +128,6 @@ export const postClearMovies = async (obj: IClearList) => {
       optionsPost
     )
   ).json()
-  console.log(response)
   return response
 }
 
@@ -143,6 +140,5 @@ export const deleteList = async (obj: IDeleteList) => {
       optionsDelete
     )
   ).json()
-  console.log(response)
   return response
 }

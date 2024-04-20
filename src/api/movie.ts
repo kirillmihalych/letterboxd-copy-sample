@@ -23,7 +23,6 @@ export const loadMovieById = async (id: string) => {
       movieDetailsOptions
     )
   ).json()
-  console.log(movieDetails)
   return movieDetails
 }
 
@@ -55,7 +54,6 @@ export const fetchMultiResultsByQuery = async (query: string) => {
       searchOptions
     )
   ).json()
-  console.log(response)
   return response
 }
 
@@ -82,7 +80,6 @@ export const loadPopularMovies = async (options: IDiscoverOptions) => {
       optionsPopular
     )
   ).json()
-  console.log(response)
   return response.results
 }
 
@@ -139,7 +136,6 @@ export const loadTopRatedMovies = async (options: IDiscoverOptions) => {
       optionsTopRated
     )
   ).json()
-  console.log(response)
   return response.results
 }
 
@@ -227,7 +223,6 @@ export const doDiscoverMovies = async (options: IDiscoverOptions) => {
       optionsSort
     )
   ).json()
-  console.log(response)
   return response
 }
 
@@ -252,7 +247,6 @@ export const addRating = async (rating: string, id: number) => {
       optionsAddRating
     )
   ).json()
-  console.log(response)
   return response
 }
 
@@ -278,7 +272,6 @@ export const getAccountState = async (movie_id: number) => {
       optionsAccountStates
     )
   ).json()
-  console.log(response)
   return session_exist ? response.rated.value : false
 }
 
@@ -324,7 +317,6 @@ export const addToFavorite = async (account: number, body: IFavoriteMovie) => {
       optionsAddToFavorite
     )
   ).json()
-  console.log(response)
   return response
 }
 
@@ -360,7 +352,6 @@ export const addToWatchlist = async (
       optionsAddToWatchlist
     )
   ).json()
-  console.log(response)
   return response
 }
 
@@ -381,7 +372,6 @@ export const loadFavoriteMovies = async (account: number) => {
       optionsFavoriteMovies
     )
   ).json()
-  console.log(response)
   return response
 }
 
@@ -402,6 +392,5 @@ export const loadWatchlistMovies = async (account: number) => {
       optionsWatchlistMovies
     )
   ).json()
-  console.log(response)
   return response
 }

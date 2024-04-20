@@ -16,7 +16,6 @@ export const createRequestToken = async () => {
       createRequestOptions
     )
   ).json()
-  console.log(response)
   return response.request_token
 }
 
@@ -56,6 +55,5 @@ export const loadRatedMovies = async (account_id: number) => {
       optionsRatedMovies
     )
   ).json()
-  console.log(response)
   return response
 }
