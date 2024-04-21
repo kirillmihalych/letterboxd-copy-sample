@@ -21,7 +21,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
-import { delimiter } from 'path'
 import type { IDeleteList } from '@/interfaces/lists-types'
 import { deleteList } from '@/api/lists'
 

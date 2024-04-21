@@ -23,9 +23,6 @@ export const useUserStore = defineStore('user', () => {
     try {
       loading.value = true
       accountDetails.value = await getAccountDetails(sessionID)
-      // if (accountDetails.value) {
-      //   avatarUrl.value = `https://image.tmdb.org/t/p/w200${accountDetails.value.avatar.tmdb.avatar_path}`
-      // }
     } catch (err: unknown) {
       if (err instanceof Error) {
         error.value = err.message.toString()
@@ -38,7 +35,6 @@ export const useUserStore = defineStore('user', () => {
   const isSessionCreated = (session: string): void => {
     if (session) {
       showLogin.value = false
-      // showAvatar.value = true
       isCreated.value = true
     }
   }

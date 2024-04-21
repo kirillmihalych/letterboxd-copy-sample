@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import FilmsView from '@/views/FilmsView.vue'
 import ListsView from '@/views/ListsView.vue'
-import ErrorView from '@/views/ErrorView.vue'
 import StartView from '@/views/StartView.vue'
 import type { Component } from 'vue'
 import SingleFilmView from '@/views/SingleFilmView.vue'
@@ -107,10 +106,6 @@ export const routes: VueRouter.RouteRecordRaw[] = [
     path: '/lists',
     component: ListsView,
   },
-  // {
-  //   path: '/:catchAll(.*)',
-  //   component: ErrorView,
-  // },
   {
     path: '/:pathMatch(.*)*',
     redirect: '/',
