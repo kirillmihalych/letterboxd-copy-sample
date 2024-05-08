@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import FilmsView from '@/views/FilmsView.vue'
+import BaseLayout from '@/views/BaseLayout.vue'
 import ListsView from '@/views/ListsView.vue'
 import StartView from '@/views/StartView.vue'
 import type { Component } from 'vue'
@@ -62,7 +62,7 @@ export const routes: VueRouter.RouteRecordRaw[] = [
   {
     name: 'films',
     path: '/films',
-    component: FilmsView,
+    component: BaseLayout,
   },
   {
     path: '/films/movie_page/:id',
@@ -124,7 +124,7 @@ interface INavbarRoute {
 export const navbarRoutes: INavbarRoute[] = [
   {
     name: 'Films',
-    component: FilmsView,
+    component: BaseLayout,
     path: '/films',
   },
   {

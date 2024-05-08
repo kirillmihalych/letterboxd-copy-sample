@@ -10,12 +10,12 @@
     <RouterLink to="/auth" class="login-link">Log in</RouterLink>
   </div>
   <RouterLink to="/profile" class="avatar-container" v-show="showAvatar">
-    <img
+    <!-- <img
       src="/src/assets/images/black-back.jpg"
-      alt="black-jpg"
+      alt="black-back"
       class="avatar"
       v-if="!isAvatarReady"
-    />
+    /> -->
     <img
       :src="avatarUrl"
       alt="wow-wow-wow"
