@@ -1,4 +1,4 @@
-import { API_KEY } from '../keys'
+import { ACCESS_TOKEN } from '../keys'
 import type {
   IFavoriteMovie,
   IGenre,
@@ -12,7 +12,7 @@ const movieDetailsOptions = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -31,7 +31,7 @@ const searchOptions = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -63,7 +63,7 @@ const optionsPopular = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -89,7 +89,7 @@ const optionsUpcoming = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -118,7 +118,7 @@ const optionsTopRated = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -145,7 +145,7 @@ const optionsVideo = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -168,7 +168,7 @@ const optionsTrending = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -187,7 +187,7 @@ const optionsGenreList = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -207,7 +207,7 @@ const optionsSort = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -236,7 +236,7 @@ export const addRating = async (rating: string, id: number) => {
     headers: {
       accept: 'application/json',
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: API_KEY,
+      Authorization: ACCESS_TOKEN,
     },
     body: `{"value":${rating}}`,
   }
@@ -258,7 +258,7 @@ const optionsAccountStates = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -281,7 +281,7 @@ const optionsAccountMovieStates = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -306,7 +306,7 @@ export const addToFavorite = async (account: number, body: IFavoriteMovie) => {
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
-      Authorization: API_KEY,
+      Authorization: ACCESS_TOKEN,
     },
     body: JSON.stringify(body),
   }
@@ -327,7 +327,7 @@ const options = {
   headers: {
     accept: 'application/json',
     'content-type': 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
   body: JSON.stringify({ media_type: 'movie', media_id: 11, watchlist: true }),
 }
@@ -341,7 +341,7 @@ export const addToWatchlist = async (
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
-      Authorization: API_KEY,
+      Authorization: ACCESS_TOKEN,
     },
     body: JSON.stringify(body),
   }
@@ -361,7 +361,7 @@ const optionsFavoriteMovies = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -381,7 +381,7 @@ const optionsWatchlistMovies = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 

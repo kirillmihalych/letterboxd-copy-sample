@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import BaseLayout from '@/views/BaseLayout.vue'
 import ListsView from '@/views/ListsView.vue'
-import StartView from '@/views/StartView.vue'
+import HomeView from '@/views/HomeView.vue'
 import type { Component } from 'vue'
 import SingleFilmView from '@/views/SingleFilmView.vue'
 import SearchResultsListView from '@/views/SearchResultsListView.vue'
@@ -12,8 +12,6 @@ import DiscoveredMovieListView from '@/views/FIlteredMovieViews/DiscoveredMovieL
 import SearchResultsMovieList from '@/components/movie-lists/SearchResultsMovieList.vue'
 import SearchResultsTvList from '@/components/movie-lists/SearchResultsTvList.vue'
 import SearchResultsPersonList from '@/components/movie-lists/SearchResultsPersonList.vue'
-import LoginPage from '@/views/UserViews/LoginPage.vue'
-import AuthPage from '@/views/UserViews/AuthPage.vue'
 import AuthApprovedPage from '@/views/UserViews/AuthApprovedPage.vue'
 import ProfilePage from '@/views/UserViews/ProfilePage.vue'
 import NewList from '@/components/user-lists/NewList.vue'
@@ -57,7 +55,7 @@ interface IRoute {
 export const routes: VueRouter.RouteRecordRaw[] = [
   {
     path: '/',
-    component: StartView,
+    component: HomeView,
   },
   {
     name: 'films',
@@ -112,8 +110,8 @@ export const routes: VueRouter.RouteRecordRaw[] = [
   },
 ]
 
-type NavbarPath = '/films' | '/lists'
-type NavbarName = 'Films' | 'Lists'
+type NavbarPath = '/films' | '/lists' | '/'
+type NavbarName = 'Films' | 'Lists' | 'Home'
 
 interface INavbarRoute {
   name: NavbarName
@@ -132,18 +130,15 @@ export const navbarRoutes: INavbarRoute[] = [
     component: ListsView,
     path: '/lists',
   },
+  {
+    name: 'Home',
+    component: HomeView,
+    path: '/',
+  },
 ]
 
 // =================================
 const userRoutes: VueRouter.RouteRecordRaw[] = [
-  {
-    path: '/login',
-    component: LoginPage,
-  },
-  {
-    path: '/auth',
-    component: AuthPage,
-  },
   {
     path: '/auth/approved',
     component: AuthApprovedPage,

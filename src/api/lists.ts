@@ -4,13 +4,13 @@ import type {
   IDeleteList,
   INewList,
 } from '@/interfaces/lists-types'
-import { API_KEY } from '@/keys'
+import { ACCESS_TOKEN } from '@/keys'
 
 const getOptions = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -18,7 +18,7 @@ const optionsPost = {
   method: 'POST',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -26,7 +26,7 @@ const optionsDelete = {
   method: 'DELETE',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 
@@ -36,7 +36,7 @@ export const postNewList = async (newList: INewList, session_id: number) => {
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
-      Authorization: API_KEY,
+      Authorization: ACCESS_TOKEN,
     },
     body: JSON.stringify(newList),
   }
@@ -51,10 +51,13 @@ export const postNewList = async (newList: INewList, session_id: number) => {
 
 // ==============================
 
-export const loadUsersLists = async (account_id: number) => {
+export const loadUsersLists = async (
+  account_id: number,
+  session_id: string
+) => {
   const response = await (
     await fetch(
-      `https://api.themoviedb.org/3/account/${account_id}/lists?page=1`,
+      `https://api.themoviedb.org/3/account/${account_id}/lists?page=1&session_id=${session_id}`,
       getOptions
     )
   ).json()
@@ -80,7 +83,7 @@ export const postMovieToList = async (obj: IAddMovieToListArgs) => {
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
-      Authorization: API_KEY,
+      Authorization: ACCESS_TOKEN,
     },
     body: JSON.stringify({
       media_id: obj.movie_id,
@@ -103,7 +106,7 @@ export const postRemoveMovie = async (obj: IAddMovieToListArgs) => {
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
-      Authorization: API_KEY,
+      Authorization: ACCESS_TOKEN,
     },
     body: JSON.stringify({
       media_id: obj.movie_id,

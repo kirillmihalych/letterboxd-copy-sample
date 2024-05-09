@@ -1,11 +1,18 @@
 <template>
   <div class="carousel" id="slider">
-    <slot name="films"></slot>
-    <slot name="people"></slot>
+    <div v-for="item in props.items" :key="item.id">
+      <slot name="item" :item="item"></slot>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface ICarousel {
+  items: any[]
+}
+
+const props = defineProps<ICarousel>()
+</script>
 
 <style scoped>
 .carousel {

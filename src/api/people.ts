@@ -1,10 +1,10 @@
-import { API_KEY } from '@/keys'
+import { ACCESS_TOKEN } from '@/keys'
 
 const optionsGet = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: API_KEY,
+    Authorization: ACCESS_TOKEN,
   },
 }
 

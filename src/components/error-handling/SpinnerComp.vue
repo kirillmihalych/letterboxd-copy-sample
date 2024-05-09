@@ -1,18 +1,17 @@
 <template>
-  <div class="spinner-container" :style="cssParams">
+  <div class="spinner-container" :style="props.cssParams">
     <div class="lds-dual-ring"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { CSSProperties } from 'vue'
+import { reactive, type CSSProperties } from 'vue'
 
 interface ISpinnerCompProps {
   cssParams?: CSSProperties
 }
 
 const props = defineProps<ISpinnerCompProps>()
-const cssStyles = props.cssParams
 </script>
 
 <style scoped>
@@ -21,10 +20,8 @@ const cssStyles = props.cssParams
   align-items: center;
   justify-content: center;
 }
-
 .lds-dual-ring {
-  /* change color here */
-  color: #222;
+  color: darkgrey;
 }
 .lds-dual-ring,
 .lds-dual-ring:after {

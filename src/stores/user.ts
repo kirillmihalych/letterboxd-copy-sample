@@ -22,7 +22,9 @@ export const useUserStore = defineStore('user', () => {
 
     try {
       loading.value = true
-      accountDetails.value = await getAccountDetails(sessionID)
+      if (session_id.value) {
+        accountDetails.value = await getAccountDetails(sessionID)
+      }
     } catch (err: unknown) {
       if (err instanceof Error) {
         error.value = err.message.toString()

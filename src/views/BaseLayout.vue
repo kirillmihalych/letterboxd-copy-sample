@@ -4,29 +4,34 @@
     <SearchMovie />
   </header>
   <main>
-    <CarouselComponent>
-      <template #films>
-        <div class="fetch-handle-container" v-if="loadingMovie">
-          <SpinnerComp />
-        </div>
-        <div v-if="errorMovie">{{ errorMovie }}</div>
-        <FilmCard v-for="movie in movieList" :key="movie.id" :movie="movie" />
-      </template>
-    </CarouselComponent>
+    <div>
+      <div class="fetch-handle-container" v-if="loadingMovie">
+        <SpinnerComp />
+      </div>
+      <div v-if="errorMovie">{{ errorMovie }}</div>
+      <div v-if="movieList">
+        <CarouselComponent :items="movieList">
+          <template #item="slotProps">
+            <FilmCard :movie="slotProps.item" />
+          </template>
+        </CarouselComponent>
+      </div>
+    </div>
+
     <hr />
-    <CarouselComponent>
-      <template #people>
-        <div class="fetch-handle-container" v-if="loadingPeople">
-          <SpinnerComp />
-        </div>
-        <div v-if="errorPeople">{{ errorPeople }}</div>
-        <PersonCard
-          v-for="person in people"
-          :key="person.id"
-          :person="person"
-        />
-      </template>
-    </CarouselComponent>
+    <div>
+      <div class="fetch-handle-container" v-if="loadingPeople">
+        <SpinnerComp />
+      </div>
+      <div v-if="errorPeople">{{ errorPeople }}</div>
+      <div v-if="people">
+        <CarouselComponent :items="people">
+          <template #item="slotProps">
+            <PersonCard :person="slotProps.item" />
+          </template>
+        </CarouselComponent>
+      </div>
+    </div>
   </main>
 </template>
 

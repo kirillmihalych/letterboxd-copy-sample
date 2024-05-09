@@ -3,7 +3,6 @@
     <nav class="navbar">
       <div class="left-part-navbar-container">
         <NavbarMenu />
-        <NavbarHomeLink />
       </div>
       <NavbarSearch />
       <NavbarUsersProfile />
@@ -12,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import NavbarHomeLink from './NavbarHomeLink.vue'
 import NavbarSearch from './NavbarSearch.vue'
 import NavbarMenu from './NavbarMenu.vue'
 import NavbarUsersProfile from './NavbarUsersProfile.vue'
@@ -40,8 +38,9 @@ import NavbarUsersProfile from './NavbarUsersProfile.vue'
 }
 
 .left-part-navbar-container {
+  width: 200px;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   gap: 0.5rem;
 }

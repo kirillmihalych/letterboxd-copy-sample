@@ -50,22 +50,31 @@
         >
           watchlist
         </button>
-        <!-- <button @click="openTheModal">to lists</button> -->
-        <AddToListModal :movie_id="movie.id" />
+        <ModalListHandler
+          :movie_id="movie.id"
+          @add="(payload) => addMovieToList(payload)"
+        >
+          <template #modal-header>
+            <h3>Select a list for the movie</h3>
+          </template>
+          <template #modal-actions="{ add, close }">
+            <button @click="add" :disabled="isUserAuthorized">
+              add to the selected list
+            </button>
+          </template>
+        </ModalListHandler>
       </div>
     </div>
   </article>
 </template>
 
 <script setup lang="ts">
-// import ListOptions from '../lists-handling/ListOptions.vue'
-import AddToListModal from '@/modals/AddToListModal.vue'
+import ModalListHandler from '@/modals/ModalListHandler.vue'
 import { onMounted, reactive, ref, type CSSProperties } from 'vue'
 import type {
   IFavoriteMovie,
   IMovie,
   IWatchListMovie,
-  MovieForFilmCard,
 } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
@@ -75,11 +84,13 @@ import {
   addToWatchlist,
   getAccountMovieState,
 } from '@/api/movie'
-
-import FilmCardRating from './FilmCardRating.vue'
 import type { IRatedMovie } from '@/interfaces/user-types'
+import type { IAddMovieToListArgs } from '@/interfaces/lists-types'
+import { postMovieToList } from '@/api/lists'
+import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 
 const user = useUserStore()
+const isUserAuthorized = getSessionFromLocalStorage() ? false : true
 
 interface FilmCardProps {
   movie: IMovie | IRatedMovie
@@ -156,9 +167,17 @@ const poster = `https://image.tmdb.org/t/p/original/${movie.value.poster_path}`
 const singleMovieURL = `/films/movie_page/${movie.value.id}`
 
 // add to list
-const isModalOpen = ref(false)
-const openTheModal = () => (isModalOpen.value = true)
-const closeTheModal = () => (isModalOpen.value = false)
+const addMovieToList = async (obj: IAddMovieToListArgs) => {
+  try {
+    if (obj.session_id !== null) {
+      await postMovieToList(obj)
+    }
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.log(err.message.toString())
+    }
+  }
+}
 </script>
 
 <style scoped>

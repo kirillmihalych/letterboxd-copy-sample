@@ -2,17 +2,19 @@
   <button @click="openTheModal" class="add-modal-btn">lists</button>
   <Teleport to="#modal">
     <Transition name="modal">
-      <div class="modal-bg" v-if="isModalOpen">
-        <div class="modal">
+      <div class="modal-bg" v-if="isModalOpen" @click="closeTheModal">
+        <div class="modal" @click.stop>
           <div class="modal-title-container">
-            <h2>Select a list</h2>
+            <slot name="modal-header"></slot>
             <button @click="closeTheModal">close</button>
           </div>
           <div>
             <div>
-              <ListOfLists @select-list="setSelectedList" />
+              <UsersLists @select-list="setSelectedList" />
             </div>
-            <button @click="addMovieToList(args)">add</button>
+            <div class="modal-actions">
+              <slot name="modal-actions" :add="add" :close="close"></slot>
+            </div>
           </div>
         </div>
       </div>
@@ -21,43 +23,37 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import ListOfLists from '@/components/movie-cards/ListOfLists.vue'
+import { ref } from 'vue'
+import UsersLists from '@/components/movie-cards/UsersLists.vue'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 import type { IAddMovieToListArgs } from '@/interfaces/lists-types'
-import { postMovieToList } from '@/api/lists'
 
 interface IAddToListModalProps {
   movie_id: number
 }
 
 const props = defineProps<IAddToListModalProps>()
-const movie_id = props.movie_id
+const emits = defineEmits<{
+  (e: 'add', id: IAddMovieToListArgs): void
+  (e: 'close'): void
+}>()
+
+const session_id = getSessionFromLocalStorage()
+const list_id = ref<number | null>(null)
+const setSelectedList = (payload: number) => (payloadObject.list_id = payload)
+
+const payloadObject = {
+  list_id: list_id.value as number,
+  session_id,
+  movie_id: props.movie_id,
+}
+
+const add = () => emits('add', payloadObject)
+const close = () => emits('close')
 
 const isModalOpen = ref(false)
 const openTheModal = () => (isModalOpen.value = true)
 const closeTheModal = () => (isModalOpen.value = false)
-
-const session_id = getSessionFromLocalStorage()
-
-const list_id = ref<number | null>(null)
-const setSelectedList = (payload: number) => (args.list_id = payload)
-
-const args = reactive<IAddMovieToListArgs>({
-  list_id: list_id.value as number,
-  session_id,
-  movie_id,
-})
-
-const addMovieToList = async (obj: IAddMovieToListArgs) => {
-  try {
-    await postMovieToList(obj)
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      console.log(err.message.toString())
-    }
-  }
-}
 </script>
 
 <style scoped>
