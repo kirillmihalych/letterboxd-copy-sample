@@ -1,13 +1,6 @@
 import { ACCESS_TOKEN } from './keys'
-import type {
-  IFavoriteMovie,
-  IGenre,
-  IWatchListMovie,
-} from '../interfaces/movie-types'
 import type { IDiscoverOptions } from '../interfaces/movie-types'
-import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 
-// ===========================================
 const movieDetailsOptions = {
   method: 'GET',
   headers: {
@@ -26,7 +19,6 @@ export const loadMovieById = async (id: string) => {
   return movieDetails
 }
 
-// ================================
 const searchOptions = {
   method: 'GET',
   headers: {
@@ -45,8 +37,6 @@ export const fetchByTitle = async (query: string) => {
   return response.results
 }
 
-// =======================================
-
 export const fetchMultiResultsByQuery = async (query: string) => {
   const response = await (
     await fetch(
@@ -56,8 +46,6 @@ export const fetchMultiResultsByQuery = async (query: string) => {
   ).json()
   return response
 }
-
-// =======================================
 
 const optionsPopular = {
   method: 'GET',
@@ -225,83 +213,6 @@ export const doDiscoverMovies = async (options: IDiscoverOptions) => {
   ).json()
   return response
 }
-
-// ==================================
-
-export const addRating = async (rating: string, id: number) => {
-  const session_id = getSessionFromLocalStorage()
-
-  const optionsAddRating = {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: ACCESS_TOKEN,
-    },
-    body: `{"value":${rating}}`,
-  }
-
-  const response = await (
-    await fetch(
-      `https://api.themoviedb.org/3/movie/${id}/rating?session_id=${session_id}`,
-      optionsAddRating
-    )
-  ).json()
-  return response
-}
-
-// =====================================
-
-// 21030265
-
-const optionsAccountStates = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: ACCESS_TOKEN,
-  },
-}
-
-export const getAccountState = async (movie_id: number) => {
-  const session_id = getSessionFromLocalStorage()
-  const session_exist = session_id.length > 0
-
-  const response = await (
-    await fetch(
-      `https://api.themoviedb.org/3/movie/${movie_id}/account_states?session_id=${session_id}`,
-      optionsAccountStates
-    )
-  ).json()
-  return session_exist ? response.rated.value : false
-}
-
-// =========================================
-
-const optionsAccountMovieStates = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: ACCESS_TOKEN,
-  },
-}
-
-export const getAccountMovieState = async (movie_id: number) => {
-  const session_id = getSessionFromLocalStorage()
-  const session_exist = session_id.length > 0
-
-  const response = await (
-    await fetch(
-      `https://api.themoviedb.org/3/movie/${movie_id}/account_states?session_id=${session_id}`,
-      optionsAccountMovieStates
-    )
-  ).json()
-  return session_exist ? response : false
-}
-
-// =========================================
-
-// ====================================
-// =================================
 
 const optionsFavoriteMovies = {
   method: 'GET',
