@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN } from '@/keys'
+import { ACCESS_TOKEN } from '../keys'
 import { getToken } from '@/local-storage/getToken'
 import setSession from '@/local-storage/setSession'
 
@@ -26,6 +26,7 @@ const createSession = async () => {
   setSession(response.session_id)
   // window.location.replace('https://f1re-movie-finder.netlify.app/films')
   window.location.href = 'http://localhost:5173/films'
+
   return response.session_id
 }
 

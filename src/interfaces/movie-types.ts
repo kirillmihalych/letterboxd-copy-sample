@@ -1,4 +1,4 @@
-import type { IRatedMovie } from './user-types'
+import type { IRatedMovie } from './account-types'
 
 export interface IMovie {
   adult?: boolean

@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IRatedMovie } from '@/interfaces/user-types'
+import type { IRatedMovie } from '@/interfaces/account-types'
 import MovieProfileCard from '../movie-cards/MovieProfileCard.vue'
 
 interface IWatchlistListProps {

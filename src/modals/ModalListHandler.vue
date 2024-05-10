@@ -1,12 +1,11 @@
 <template>
-  <button @click="openTheModal" class="add-modal-btn">lists</button>
   <Teleport to="#modal">
     <Transition name="modal">
-      <div class="modal-bg" v-if="isModalOpen" @click="closeTheModal">
+      <div class="modal-bg" v-show="props.isOpen" @click="closeTheModal">
         <div class="modal" @click.stop>
           <div class="modal-title-container">
             <slot name="modal-header"></slot>
-            <button @click="closeTheModal">close</button>
+            <button @click="close" class="close-modal-btn">X</button>
           </div>
           <div>
             <div>
@@ -30,6 +29,7 @@ import type { IAddMovieToListArgs } from '@/interfaces/lists-types'
 
 interface IAddToListModalProps {
   movie_id: number
+  isOpen: boolean
 }
 
 const props = defineProps<IAddToListModalProps>()
@@ -39,20 +39,20 @@ const emits = defineEmits<{
 }>()
 
 const session_id = getSessionFromLocalStorage()
-const list_id = ref<number | null>(null)
-const setSelectedList = (payload: number) => (payloadObject.list_id = payload)
 
-const payloadObject = {
+const list_id = ref<number | null>(null)
+const setSelectedList = (payload: number) => (addMovieObject.list_id = payload)
+
+const addMovieObject = {
   list_id: list_id.value as number,
   session_id,
   movie_id: props.movie_id,
 }
 
-const add = () => emits('add', payloadObject)
+const add = () => emits('add', addMovieObject)
 const close = () => emits('close')
 
-const isModalOpen = ref(false)
-const openTheModal = () => (isModalOpen.value = true)
+const isModalOpen = ref(props.isOpen)
 const closeTheModal = () => (isModalOpen.value = false)
 </script>
 
@@ -106,5 +106,17 @@ const closeTheModal = () => (isModalOpen.value = false)
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.close-modal-btn {
+  border: none;
+  padding: 0.5rem 1rem;
+  background: slategray;
+  text-transform: capitalize;
+}
+
+.close-modal-btn:hover {
+  cursor: pointer;
+  background: lightgrey;
 }
 </style>

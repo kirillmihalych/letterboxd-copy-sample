@@ -4,7 +4,7 @@ import type {
   IDeleteList,
   INewList,
 } from '@/interfaces/lists-types'
-import { ACCESS_TOKEN } from '@/keys'
+import { ACCESS_TOKEN } from './keys'
 
 const getOptions = {
   method: 'GET',
@@ -77,27 +77,6 @@ export const loadListDetails = async (list_id: string) => {
 }
 
 // ===================================
-export const postMovieToList = async (obj: IAddMovieToListArgs) => {
-  const optionsPostMovieToList = {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      Authorization: ACCESS_TOKEN,
-    },
-    body: JSON.stringify({
-      media_id: obj.movie_id,
-    }),
-  }
-
-  const response = await (
-    await fetch(
-      `https://api.themoviedb.org/3/list/${obj.list_id}/add_item?session_id=${obj.session_id}`,
-      optionsPostMovieToList
-    )
-  ).json()
-  return response
-}
 
 // ====================================
 export const postRemoveMovie = async (obj: IAddMovieToListArgs) => {

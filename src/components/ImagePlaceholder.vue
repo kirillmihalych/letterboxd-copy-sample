@@ -32,19 +32,19 @@ const src = ref(props.src)
 
 <style scoped>
 .img-card img {
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   /* width: 75px;
   height: 110px; */
   object-fit: fill;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
+  /* border: 1px solid transparent; */
+  /* border-radius: 0.25rem; */
   transition: border 0.1s linear;
 }
 
-.img-card img:hover {
+/* .img-card img:hover {
   cursor: pointer;
-  border: 1px solid #222;
-}
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+} */
 
 .img-card-menu {
   position: absolute;

@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN } from '../keys'
+import { ACCESS_TOKEN } from './keys'
 import type {
   IFavoriteMovie,
   IGenre,
@@ -292,7 +292,7 @@ export const getAccountMovieState = async (movie_id: number) => {
   const response = await (
     await fetch(
       `https://api.themoviedb.org/3/movie/${movie_id}/account_states?session_id=${session_id}`,
-      optionsAccountStates
+      optionsAccountMovieStates
     )
   ).json()
   return session_exist ? response : false
@@ -300,61 +300,7 @@ export const getAccountMovieState = async (movie_id: number) => {
 
 // =========================================
 
-export const addToFavorite = async (account: number, body: IFavoriteMovie) => {
-  const optionsAddToFavorite = {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      Authorization: ACCESS_TOKEN,
-    },
-    body: JSON.stringify(body),
-  }
-
-  const response = await (
-    await fetch(
-      `https://api.themoviedb.org/3/account/${account}/favorite`,
-      optionsAddToFavorite
-    )
-  ).json()
-  return response
-}
-
 // ====================================
-
-const options = {
-  method: 'POST',
-  headers: {
-    accept: 'application/json',
-    'content-type': 'application/json',
-    Authorization: ACCESS_TOKEN,
-  },
-  body: JSON.stringify({ media_type: 'movie', media_id: 11, watchlist: true }),
-}
-
-export const addToWatchlist = async (
-  account: number,
-  body: IWatchListMovie
-) => {
-  const optionsAddToWatchlist = {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      Authorization: ACCESS_TOKEN,
-    },
-    body: JSON.stringify(body),
-  }
-
-  const response = await (
-    await fetch(
-      `https://api.themoviedb.org/3/account/${account}/watchlist`,
-      optionsAddToWatchlist
-    )
-  ).json()
-  return response
-}
-
 // =================================
 
 const optionsFavoriteMovies = {

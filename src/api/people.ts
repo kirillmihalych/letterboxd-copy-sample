@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN } from '@/keys'
+import { ACCESS_TOKEN } from './keys'
 
 const optionsGet = {
   method: 'GET',

@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN } from '@/keys'
+import { ACCESS_TOKEN } from '../keys'
 import setToken from '@/local-storage/setToken'
 
 const createRequestOptions = {

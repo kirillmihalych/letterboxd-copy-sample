@@ -9,13 +9,14 @@
 <script setup lang="ts">
 import RatedList from '@/components/movie-lists/RatedList.vue'
 import FavoriteList from '@/components/movie-lists/FavoriteList.vue'
-import { getAccountDetails, loadRatedMovies } from '@/api/user'
+import { loadRatedMovies } from '@/api/user'
 import { onMounted, ref, watchEffect } from 'vue'
-import type { IAccountDetails } from '@/interfaces/user-types'
+import type { IAccountDetails } from '@/interfaces/account-types'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
-import type { IRatedMovie } from '@/interfaces/user-types'
+import type { IRatedMovie } from '@/interfaces/account-types'
 import { loadFavoriteMovies, loadWatchlistMovies } from '@/api/movie'
 import WatchlistList from '@/components/movie-lists/WatchlistList.vue'
+import getAccountDetails from '@/api/account/getAccountDetails'
 
 const accountDetails = ref<IAccountDetails | null>(null)
 const error = ref<string | null>()
@@ -36,7 +37,7 @@ const fetchAccountDetails = async (sessionID: string) => {
 
   try {
     loading.value = true
-    accountDetails.value = await getAccountDetails(sessionID)
+    accountDetails.value = await getAccountDetails()
     if (accountDetails.value) {
       avatarUrl.value = `https://image.tmdb.org/t/p/w200${accountDetails.value.avatar.tmdb.avatar_path}`
     }
