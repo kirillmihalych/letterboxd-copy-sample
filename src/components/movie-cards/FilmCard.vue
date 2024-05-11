@@ -69,21 +69,13 @@
 
 <script setup lang="ts">
 import ModalListHandler from '@/modals/ModalListHandler.vue'
-import {
-  onMounted,
-  onUpdated,
-  reactive,
-  ref,
-  watchEffect,
-  type CSSProperties,
-} from 'vue'
+import { onMounted, reactive, ref, type CSSProperties } from 'vue'
 import type {
   IFavoriteMovie,
   IMovie,
   IWatchListMovie,
 } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
-import ImagePlaceholder from '../ImagePlaceholder.vue'
 import { useUserStore } from '@/stores/user'
 import getAccountState from '@/api/account/getAccountState'
 import toggleWatchlist from '@/api/account/toggleWatchlist'
@@ -92,14 +84,15 @@ import type { IRatedMovie } from '@/interfaces/account-types'
 import type { IAddMovieToListArgs } from '@/interfaces/lists-types'
 import addMovie from '@/api/lists/addMovie'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
+import ImagePlaceholder from '../ImagePlaceholder.vue'
 import RatingHandler from './RatingHandler.vue'
-
-const user = useUserStore()
-const isUserAuthorized = getSessionFromLocalStorage() ? false : true
 
 interface FilmCardProps {
   movie: IMovie | IRatedMovie
 }
+
+const user = useUserStore()
+const isUserAuthorized = getSessionFromLocalStorage() ? false : true
 
 const props = defineProps<FilmCardProps>()
 const movie = ref<IMovie>(props.movie as IMovie)

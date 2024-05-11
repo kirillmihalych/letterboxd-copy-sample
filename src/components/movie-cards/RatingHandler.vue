@@ -17,7 +17,9 @@
       <span class="my-rating">{{
         isRatingLoading ? '...' : props.rating
       }}</span>
-      <button @click="deleteRatingHandler">Delete</button>
+      <button @click="deleteRatingHandler" class="delete-my-rating">
+        Delete
+      </button>
     </div>
   </div>
 </template>
@@ -104,6 +106,11 @@ const values = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 .my-rating-container button {
   border: none;
   padding: 0.5rem;
+}
+
+.my-rating-container button:hover {
+  cursor: pointer;
+  background: snow;
 }
 
 .my-rating {

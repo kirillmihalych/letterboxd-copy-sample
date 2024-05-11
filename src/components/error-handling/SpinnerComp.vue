@@ -1,5 +1,5 @@
 <template>
-  <div class="spinner-container">
+  <div class="spinner-container" :style="props.cssParams">
     <div class="lds-dual-ring"></div>
   </div>
 </template>

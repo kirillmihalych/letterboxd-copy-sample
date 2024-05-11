@@ -24,7 +24,11 @@
       </p>
       <!--  -->
       <hr />
-      <MovieRatingComponent :id="movieDetails.id" />
+      <RatingHandler
+        :movie_id="movieDetails.id"
+        :rating="rating"
+        @update="(new_rating) => updateRatingHandler(new_rating)"
+      />
       <hr />
       <!--  -->
       <p class="movie-overview">{{ movieDetails.overview }}</p>
@@ -37,8 +41,10 @@
 <script setup lang="ts">
 import ImagePlaceholder from '../ImagePlaceholder.vue'
 import FilmInfoList from './movie-info/FilmInfoList.vue'
-import MovieRatingComponent from './MovieRatingComponent.vue'
 import type { ICrewMember, IMovie } from '@/interfaces/movie-types'
+import RatingHandler from '../movie-cards/RatingHandler.vue'
+import getAccountState from '@/api/account/getAccountState'
+import { onMounted, ref } from 'vue'
 
 interface MovieDetailsProps {
   movieDetails: IMovie
@@ -61,10 +67,26 @@ const imgParams = {
   height: 375 + 'px',
 }
 
-// ================================
-// branestrom
-// 2) сделать плеер и загружать трейлеры
-// 3) добавить ссылку на год в названии, чтобы открывался список фильмов по годам
+const accountState = ref()
+const rating = ref<number | undefined>(undefined)
+const updateRatingHandler = (new_rating: number | undefined) => {
+  rating.value = new_rating
+}
+
+const getAccountStateHandler = async () => {
+  try {
+    accountState.value = await getAccountState(movieDetails.id)
+    rating.value = accountState.value?.rated?.value
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.log(err.message.toString())
+    }
+  }
+}
+
+onMounted(() => {
+  getAccountStateHandler()
+})
 </script>
 
 <style scoped>
