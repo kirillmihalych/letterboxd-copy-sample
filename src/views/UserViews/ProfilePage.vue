@@ -1,60 +1,32 @@
 <template>
-  <div>{{ accountDetails?.username }}</div>
-  <img :src="avatarUrl" alt="avatar" />
+  <UserInfo @load="(id) => setAccountId(id)" />
+  <!-- navbar -->
+  <!-- generic list -->
   <FavoriteList :movies="favoriteMovies" />
   <RatedList :movies="ratedMovies" />
   <WatchlistList :movies="watchlistMovies" />
 </template>
 
 <script setup lang="ts">
+import UserInfo from './UserInfo.vue'
 import RatedList from '@/components/movie-lists/RatedList.vue'
 import FavoriteList from '@/components/movie-lists/FavoriteList.vue'
 import { loadRatedMovies } from '@/api/user'
-import { onMounted, ref, watchEffect } from 'vue'
-import type { IAccountDetails } from '@/interfaces/account-types'
-import { getSessionFromLocalStorage } from '@/local-storage/getSession'
+import { ref, watchEffect } from 'vue'
 import type { IRatedMovie } from '@/interfaces/account-types'
 import { loadFavoriteMovies, loadWatchlistMovies } from '@/api/movie'
 import WatchlistList from '@/components/movie-lists/WatchlistList.vue'
-import getAccountDetails from '@/api/account/getAccountDetails'
 
-const accountDetails = ref<IAccountDetails | null>(null)
-const error = ref<string | null>()
-const loading = ref(false)
-const avatarUrl = ref('')
+const account_id = ref<number | null>(null)
+const setAccountId = (id: number) => {
+  account_id.value = id
+}
 
 const ratedMovies = ref<IRatedMovie[] | null>(null)
 const favoriteMovies = ref<IRatedMovie[] | null>(null)
 const watchlistMovies = ref<IRatedMovie[] | null>(null)
 const ratedMoviesError = ref<string | null>(null)
 const ratedMoviesLoading = ref(false)
-
-const session_id = getSessionFromLocalStorage()
-
-const fetchAccountDetails = async (sessionID: string) => {
-  error.value = null
-  accountDetails.value = null
-
-  try {
-    loading.value = true
-    accountDetails.value = await getAccountDetails()
-    if (accountDetails.value) {
-      avatarUrl.value = `https://image.tmdb.org/t/p/w200${accountDetails.value.avatar.tmdb.avatar_path}`
-    }
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      error.value = err.message.toString()
-    }
-  } finally {
-    loading.value = false
-  }
-}
-
-onMounted(() => {
-  if (session_id) {
-    fetchAccountDetails(session_id)
-  }
-})
 
 const fetchRatedMovies = async (id: number) => {
   try {
@@ -72,7 +44,7 @@ const fetchRatedMovies = async (id: number) => {
 }
 
 watchEffect(() => {
-  fetchRatedMovies(accountDetails.value?.id as number)
+  fetchRatedMovies(account_id.value as number)
 })
 </script>
 

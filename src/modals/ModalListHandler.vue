@@ -9,7 +9,10 @@
           </div>
           <div>
             <div>
-              <UsersLists @select-list="setSelectedList" />
+              <UsersLists
+                @select-list="setSelectedList"
+                :isModalOpen="props.isOpen"
+              />
             </div>
             <div class="modal-actions">
               <slot name="modal-actions" :add="add" :close="close"></slot>

@@ -45,9 +45,7 @@
       >
         {{ toggleWatchlistLoading ? '...' : 'Watchlist' }}
       </button>
-      <button class="list-actions-btn" @click="isModalOpen = true">
-        lists
-      </button>
+      <button class="list-actions-btn" @click="openModalHandler">lists</button>
     </div>
     <ModalListHandler
       :isOpen="isModalOpen"
@@ -191,6 +189,10 @@ const addMovieToList = async (obj: IAddMovieToListArgs) => {
       console.log(err.message.toString())
     }
   }
+}
+
+const openModalHandler = () => {
+  isModalOpen.value = true
 }
 </script>
 

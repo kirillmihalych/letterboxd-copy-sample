@@ -21,7 +21,6 @@ const getAccountState = async (movie_id: number) => {
       )
     ).json()
   }
-
   return response
 }
 

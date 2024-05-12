@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 260px">
     <SpinnerComp v-if="loading" />
     <div v-if="error" class="lists-container">{{ error }}</div>
     <section v-if="usersLists" class="lists-container">
@@ -23,18 +23,20 @@
 </template>
 
 <script setup lang="ts">
-import { loadUsersLists } from '@/api/lists'
 import type { ICreatedList } from '@/interfaces/lists-types'
-import { useUserStore } from '@/stores/user'
-import { onMounted, ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
-import { getSessionFromLocalStorage } from '@/local-storage/getSession'
+import getLists from '@/api/account/getLists'
 
+interface IUsersLists {
+  isModalOpen: boolean
+}
+
+const props = defineProps<IUsersLists>()
 const emits = defineEmits<{
   (e: 'select-list', payload: number): void
 }>()
 
-const user = useUserStore()
 const usersLists = ref<ICreatedList[] | null>(null)
 const error = ref<string | null>()
 const loading = ref(false)
@@ -43,29 +45,28 @@ const selectList = (id: number) => {
   selectedList.value = id
   emits('select-list', selectedList.value)
 }
-const session_id = getSessionFromLocalStorage()
+
+let count = 0
 
 const fetchUsersLists = async () => {
+  count++
   try {
     loading.value = true
-    if (user.accountDetails !== null && session_id) {
-      usersLists.value = (
-        await loadUsersLists(user.accountDetails.id, session_id)
-      ).results
-    } else {
-      error.value = 'You are not authorized'
-    }
+    usersLists.value = (await getLists()).results
   } catch (err: unknown) {
     if (err instanceof Error) {
       error.value = err.message.toString()
     }
   } finally {
     loading.value = false
+    console.log(count)
   }
 }
 
-onMounted(() => {
-  fetchUsersLists()
+watchEffect(() => {
+  if (props.isModalOpen) {
+    fetchUsersLists()
+  }
 })
 
 const activeClass = ref('active')

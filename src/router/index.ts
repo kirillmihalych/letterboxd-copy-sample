@@ -147,6 +147,10 @@ const userRoutes: VueRouter.RouteRecordRaw[] = [
     path: '/profile',
     component: ProfilePage,
   },
+  // {
+  //   path: '/profile/favorite/movies',
+  //   component:
+  // }
 ]
 
 // ==================================

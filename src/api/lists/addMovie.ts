@@ -21,11 +21,12 @@ const addMovie = async (obj: IAddMovieToListArgs) => {
   if (session_id) {
     response = await (
       await fetch(
-        `https://api.themoviedb.org/3/list/${obj.list_id}/add_item?session_id=${obj.session_id}`,
+        `https://api.themoviedb.org/3/list/${obj.list_id}/add_item?session_id=${session_id}`,
         optionsPostMovieToList
       )
     ).json()
   }
+  console.log(response)
   return response
 }
 

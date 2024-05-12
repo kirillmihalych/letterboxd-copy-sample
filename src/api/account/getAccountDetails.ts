@@ -1,5 +1,6 @@
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 import { ACCESS_TOKEN, API_KEY } from '../keys'
+import { ACCOUNT_ID } from '@/local-storage/keys'
 
 const session_id = getSessionFromLocalStorage()
 
@@ -21,6 +22,7 @@ const getAccountDetails = async () => {
       )
     ).json()
   }
+  localStorage.setItem(ACCOUNT_ID, JSON.stringify(response.id))
   return response
 }
 
