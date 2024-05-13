@@ -22,45 +22,56 @@
         </span>
       </div>
     </div>
-    <div class="rating-container" v-show="isMenuOpen">
-      <RatingHandler
-        :movie_id="movie.id"
-        :rating="rating"
-        :isRatingLoading="isAccountStateLoading"
-        @update="(value) => updateRatingHandler(value)"
-      />
+    <div v-show="isMenuOpen">
+      <div v-show="!isUserAuthorized" class="user-not-authorized">
+        You are not an authorized.
+      </div>
+      <div v-show="isUserAuthorized">
+        <div class="rating-container">
+          <RatingHandler
+            :movie_id="movie.id"
+            :rating="rating"
+            :isRatingLoading="isAccountStateLoading"
+            @update="(value) => updateRatingHandler(value)"
+          />
+        </div>
+        <div class="list-actions">
+          <button
+            class="list-actions-btn"
+            @click="postToggleFavorite(user.accountDetails?.id as number)"
+            :class="{ favorite: isFavorite }"
+          >
+            {{ toggleFavoriteLoading ? '...' : 'Favorite' }}
+          </button>
+          <button
+            class="list-actions-btn"
+            @click="fetchAddToWatchlist(user.accountDetails?.id as number)"
+            :class="{ watchlist: isWatchlist }"
+          >
+            {{ toggleWatchlistLoading ? '...' : 'Watchlist' }}
+          </button>
+          <button class="list-actions-btn" @click="openModalHandler">
+            lists
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="list-actions" v-show="isMenuOpen">
-      <button
-        class="list-actions-btn"
-        @click="postToggleFavorite(user.accountDetails?.id as number)"
-        :class="{ favorite: isFavorite }"
-      >
-        {{ toggleFavoriteLoading ? '...' : 'Favorite' }}
-      </button>
-      <button
-        class="list-actions-btn"
-        @click="fetchAddToWatchlist(user.accountDetails?.id as number)"
-        :class="{ watchlist: isWatchlist }"
-      >
-        {{ toggleWatchlistLoading ? '...' : 'Watchlist' }}
-      </button>
-      <button class="list-actions-btn" @click="openModalHandler">lists</button>
-    </div>
+
     <ModalListHandler
       :isOpen="isModalOpen"
       :movie_id="movie.id"
-      @add="(addMovieToListObject) => addMovieToList(addMovieToListObject)"
       @close="isModalOpen = false"
     >
       <template #modal-header>
         <h3>Select a list</h3>
       </template>
-      <template #modal-actions="{ add }">
-        <button class="add-movie-btn" @click="add" :disabled="isUserAuthorized">
-          Confirm addition
-        </button>
+      <template #modal-content>
+        <ListsComponent :isModalOpen="isModalOpen" :movie_id="movie.id" />
       </template>
+      <!-- <template #modal-actions>
+        <button class="add-movie-btn" :disabled="isUserAuthorized">
+        </button>
+      </template> -->
     </ModalListHandler>
   </div>
 </template>
@@ -79,18 +90,17 @@ import getAccountState from '@/api/account/getAccountState'
 import toggleWatchlist from '@/api/account/toggleWatchlist'
 import toggleFavorite from '@/api/account/toggleFavorite'
 import type { IRatedMovie } from '@/interfaces/account-types'
-import type { IAddMovieToListArgs } from '@/interfaces/lists-types'
-import addMovie from '@/api/lists/addMovie'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
 import RatingHandler from './RatingHandler.vue'
+import ListsComponent from './ListsComponent.vue'
 
 interface FilmCardProps {
   movie: IMovie | IRatedMovie
 }
 
 const user = useUserStore()
-const isUserAuthorized = getSessionFromLocalStorage() ? false : true
+const isUserAuthorized = getSessionFromLocalStorage() ? true : false
 
 const props = defineProps<FilmCardProps>()
 const movie = ref<IMovie>(props.movie as IMovie)
@@ -178,18 +188,6 @@ onMounted(() => {
 
 const poster = `https://image.tmdb.org/t/p/original/${movie.value.poster_path}`
 const singleMovieURL = `/films/movie_page/${movie.value.id}`
-
-const addMovieToList = async (obj: IAddMovieToListArgs) => {
-  try {
-    if (obj.session_id !== null) {
-      await addMovie(obj)
-    }
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      console.log(err.message.toString())
-    }
-  }
-}
 
 const openModalHandler = () => {
   isModalOpen.value = true
@@ -362,5 +360,20 @@ const openModalHandler = () => {
   color: #222;
   text-transform: capitalize;
   cursor: pointer;
+}
+
+.user-not-authorized {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: darkgrey;
+  color: #222;
+  position: absolute;
+  z-index: 100;
+  height: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-top: 2px solid #222;
 }
 </style>

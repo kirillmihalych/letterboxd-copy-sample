@@ -9,13 +9,10 @@
           </div>
           <div>
             <div>
-              <UsersLists
-                @select-list="setSelectedList"
-                :isModalOpen="props.isOpen"
-              />
+              <slot name="modal-content"></slot>
             </div>
             <div class="modal-actions">
-              <slot name="modal-actions" :add="add" :close="close"></slot>
+              <slot name="modal-actions" :close="close"></slot>
             </div>
           </div>
         </div>
@@ -26,7 +23,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UsersLists from '@/components/movie-cards/UsersLists.vue'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 import type { IAddMovieToListArgs } from '@/interfaces/lists-types'
 
@@ -44,15 +40,7 @@ const emits = defineEmits<{
 const session_id = getSessionFromLocalStorage()
 
 const list_id = ref<number | null>(null)
-const setSelectedList = (payload: number) => (addMovieObject.list_id = payload)
 
-const addMovieObject = {
-  list_id: list_id.value as number,
-  session_id,
-  movie_id: props.movie_id,
-}
-
-const add = () => emits('add', addMovieObject)
 const close = () => emits('close')
 
 const isModalOpen = ref(props.isOpen)
