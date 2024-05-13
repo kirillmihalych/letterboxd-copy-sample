@@ -17,6 +17,7 @@ import ProfilePage from '@/views/UserViews/ProfilePage.vue'
 import NewList from '@/components/user-lists/NewList.vue'
 import ListPage from '@/components/user-lists/ListPage.vue'
 import * as VueRouter from 'vue-router'
+import PaginatedList from '@/views/UserViews/PaginatedList.vue'
 
 export type Path =
   | '/:catchAll(.*)'
@@ -160,14 +161,40 @@ const listRoutes: VueRouter.RouteRecordRaw[] = [
     component: NewList,
   },
   {
-    path: '/lists/:id',
+    path: '/profile/lists/:id',
     component: ListPage,
+  },
+]
+
+export const profileNavbarRoutes: VueRouter.RouteRecordRaw[] = [
+  {
+    name: 'Favorites',
+    path: '/profile/favorites/movies',
+    component: ProfilePage,
+  },
+  {
+    name: 'Rated',
+    path: '/profile/rated/movies',
+    component: ProfilePage,
+  },
+  {
+    name: 'Watchlist',
+    path: '/profile/watchlist/movies',
+    component: ProfilePage,
+  },
+  {
+    name: 'Lists',
+    path: '/profile/lists',
+    component: ProfilePage,
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: routes.concat(userRoutes).concat(listRoutes),
+  routes: routes
+    .concat(userRoutes)
+    .concat(listRoutes)
+    .concat(profileNavbarRoutes),
 })
 
 export default router
