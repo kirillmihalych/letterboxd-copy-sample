@@ -28,6 +28,7 @@ import NavbarUsersProfile from './NavbarUsersProfile.vue'
 }
 
 .navbar {
+  background: green;
   width: 950px;
   height: 60px;
   padding: 0.25rem 1rem;

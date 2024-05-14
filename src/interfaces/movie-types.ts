@@ -114,10 +114,11 @@ export interface IFilters {
   genre: number | null
 }
 
-export interface IDiscoverOptions {
+export interface IFilterOptions {
   genres: number[] | []
   sort_by: string | ''
   min_amount_votes: string
+  page: number
   from_primary_release: string
   to_primary_release: string
 }
@@ -172,6 +173,11 @@ export interface IWatchListMovie {
   media_type: MovieMediaType
   media_id: number
   watchlist: boolean
+}
+
+export type UpcomingRelease = {
+  from_date: string
+  to_date: string
 }
 
 export type MovieForFilmCard = IMovie | IRatedMovie

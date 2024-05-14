@@ -1,14 +1,14 @@
 import { ref, type Ref, watchEffect } from 'vue'
 import { defineStore } from 'pinia'
-import type { IDiscoverOptions, IGenre, IMovie } from '@/interfaces/movie-types'
+import type { IFilterOptions, IGenre, IMovie } from '@/interfaces/movie-types'
 import { doDiscoverMovies } from '@/api/movie'
 
 interface IFilterStore {
-  selectedOptions: Ref<IDiscoverOptions>
+  selectedOptions: Ref<IFilterOptions>
 }
 
 const useFiltersStore = defineStore('filters', () => {
-  const defaultOptions: IDiscoverOptions = {
+  const defaultOptions: IFilterOptions = {
     genres: [],
     sort_by: '',
     min_amount_votes: '250',
@@ -16,13 +16,13 @@ const useFiltersStore = defineStore('filters', () => {
     to_primary_release: '',
   }
 
-  const selectedOptions = ref<IDiscoverOptions>(defaultOptions)
+  const selectedOptions = ref<IFilterOptions>(defaultOptions)
   const discoveredMovieList = ref<IMovie[] | null>(null)
   const amountOfMovies = ref(0)
   const error = ref<string | null>(null)
   const loading = ref(false)
 
-  const fetchDiscoveredMovies = async (options: IDiscoverOptions) => {
+  const fetchDiscoveredMovies = async (options: IFilterOptions) => {
     discoveredMovieList.value = null
     error.value = null
 

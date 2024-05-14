@@ -1,4 +1,5 @@
 <template>
+  <slot name="header"></slot>
   <div class="carousel" id="slider">
     <div v-for="item in props.items" :key="item.id">
       <slot name="item" :item="item"></slot>

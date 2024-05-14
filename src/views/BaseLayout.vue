@@ -1,8 +1,4 @@
 <template>
-  <header class="films-view-header">
-    <MovieNavbar />
-    <SearchMovie />
-  </header>
   <main>
     <div>
       <div class="fetch-handle-container" v-if="loadingMovie">
@@ -11,6 +7,12 @@
       <div v-if="errorMovie">{{ errorMovie }}</div>
       <div v-if="movieList">
         <CarouselComponent :items="movieList">
+          <template #header>
+            <header class="films-view-header">
+              <MovieNavbar />
+              <SearchMovie />
+            </header>
+          </template>
           <template #item="slotProps">
             <FilmCard :movie="slotProps.item" />
           </template>

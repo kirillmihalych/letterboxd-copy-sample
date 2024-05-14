@@ -1,21 +1,24 @@
 <template>
   <div class="films-navbar">
-    <h3>Browse by</h3>
-    <RouterLink to="/films/popular">Popularity</RouterLink>
-    <RouterLink to="/films/upcoming">Upcoming</RouterLink>
-    <RouterLink to="/films/top_rated">Top rated </RouterLink>
-    <RouterLink to="/films/discovered_list">Free discover</RouterLink>
+    <h3>Browse movies by</h3>
+    <RouterLink
+      v-for="route in filterMoviesRoutes"
+      :key="route.path"
+      :to="route.path"
+    >
+      {{ route.name }}
+    </RouterLink>
   </div>
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { filterMoviesRoutes } from '@/router'
 </script>
 
 <style scoped>
 .films-navbar {
   box-sizing: border-box;
-
   display: flex;
   justify-content: center;
   align-items: center;

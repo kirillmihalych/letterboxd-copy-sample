@@ -2,42 +2,46 @@
   <div class="paginated-list">
     <div class="btns-container">
       <button
-        @click="page -= 1"
+        @click="setPrevPage"
         :disabled="page === 1"
         class="page-control-btn"
       >
         prev page
       </button>
       <button
-        v-for="n in total_pages"
+        v-for="n in props.total_pages"
         :key="n"
-        @click="page = n"
+        @click="setPage(n)"
         class="page-control-btn"
         :class="{ active: n === page }"
       >
         {{ n }}
       </button>
       <button
-        @click="page += 1"
-        :disabled="page === total_pages"
+        @click="setNextPage"
+        :disabled="page === props.total_pages"
         class="page-control-btn"
       >
         next page
       </button>
     </div>
-    <div v-if="isLoading" class="loading">
+    <div v-if="props.isLoading" class="loading">
       <SpinnerComp />
     </div>
-    <div v-if="error && !isLoading" class="error-message">
-      {{ error }}
+    <div v-if="props.error && !props.isLoading" class="error-message">
+      {{ props.error }}
     </div>
-    <div v-if="!isLoading && !error" class="page-content">
+    <div v-if="!props.isLoading && !props.error" class="page-content">
       <div class="movies-container" v-if="movies">
-        <FilmCard v-for="movie in movies" :key="movie.id" :movie="movie" />
+        <FilmCard
+          v-for="movie in props.movies"
+          :key="movie.id"
+          :movie="movie"
+        />
       </div>
       <div v-if="lists" class="lists-container">
         <RouterLink
-          v-for="list in lists"
+          v-for="list in props.lists"
           :key="list.id"
           :list="list"
           :to="`/profile/lists/${list.id}`"
@@ -52,72 +56,48 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
-import { useRoute } from 'vue-router'
 import type { IRatedMovie } from '@/interfaces/account-types'
-import type { IMovie } from '@/interfaces/movie-types'
-import FilmCard from '@/components/movie-cards/FilmCard.vue'
-import getFavoritesMovies from '@/api/account/getFavorites'
-import getWatchlistMovies from '@/api/account/getWatchlist'
-import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 import type { IList } from '@/interfaces/lists-types'
-import getLists from '@/api/account/getLists'
-import getRatedMovies from '@/api/account/getRatedMovies'
+import type { IMovie } from '@/interfaces/movie-types'
+import { ref } from 'vue'
+import FilmCard from '@/components/movie-cards/FilmCard.vue'
+import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 
-const route = useRoute()
-const movies = ref<IRatedMovie[] | IMovie[] | null>()
-const lists = ref<IList[] | null>(null)
-const error = ref<string | null>(null)
-const isLoading = ref(false)
-const page = ref(1)
-const total_pages = ref(1)
-
-const fetchList = async (route_name: string, page_value: number) => {
-  let response = null
-  isLoading.value = true
-  error.value = null
-  movies.value = null
-  lists.value = null
-  try {
-    if (route_name.toLowerCase() === 'favorites') {
-      response = await getFavoritesMovies(page_value)
-      movies.value = response.results
-      total_pages.value = response.total_pages
-    }
-    if (route_name.toLowerCase() === 'watchlist') {
-      response = await getWatchlistMovies(page_value)
-      movies.value = response.results
-      total_pages.value = response.total_pages
-    }
-    if (route_name.toLowerCase() === 'lists') {
-      response = await getLists()
-      lists.value = response.results
-      total_pages.value = response.total_pages
-    }
-    if (route_name.toLowerCase() === 'rated') {
-      response = await getRatedMovies(page_value)
-      movies.value = response.results
-      total_pages.value = response.total_pages
-    }
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      error.value =
-        err.message.toString() + '. ' + 'Probably, your vpn is turned off.'
-    }
-  } finally {
-    isLoading.value = false
-  }
+interface IPaginatedList {
+  lists?: IList[] | null
+  movies?: IMovie[] | IRatedMovie[] | null
+  total_pages: number
+  isLoading: boolean
+  error: string | null
 }
 
-watchEffect(() => {
-  if (route.name || page.value) {
-    fetchList(route.name as string, page.value)
-  }
-})
+const props = defineProps<IPaginatedList>()
+const emits = defineEmits<{
+  (e: 'set-next-page', payload: number): void
+  (e: 'set-prev-page', payload: number): void
+  (e: 'set-this-page', payload: number): void
+}>()
+
+const page = ref(1)
+const setNextPage = () => {
+  page.value += 1
+  emits('set-next-page', page.value)
+}
+
+const setPrevPage = () => {
+  page.value -= 1
+  emits('set-prev-page', page.value)
+}
+
+const setPage = (selected_page: number) => {
+  page.value = selected_page
+  emits('set-this-page', page.value)
+}
 </script>
 
 <style scoped>
 .paginated-list {
+  /* width: 950px; */
   display: flex;
   justify-content: center;
   align-items: start;
@@ -146,6 +126,7 @@ watchEffect(() => {
 }
 
 .loading {
+  width: 100%;
   min-height: 350px;
   display: flex;
   align-items: center;

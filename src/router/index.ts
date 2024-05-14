@@ -5,10 +5,7 @@ import HomeView from '@/views/HomeView.vue'
 import type { Component } from 'vue'
 import SingleFilmView from '@/views/SingleFilmView.vue'
 import SearchResultsListView from '@/views/SearchResultsListView.vue'
-import PopularMovieListView from '@/views/FIlteredMovieViews/PopularMovieListView.vue'
-import UpcomingMovieListView from '@/views/FIlteredMovieViews/UpcomingMovieListView.vue'
-import TopRatedMovieListView from '@/views/FIlteredMovieViews/TopRatedMovieListView.vue'
-import DiscoveredMovieListView from '@/views/FIlteredMovieViews/DiscoveredMovieListView.vue'
+import FilmsView from '@/views/FilmsView.vue'
 import SearchResultsMovieList from '@/components/movie-lists/SearchResultsMovieList.vue'
 import SearchResultsTvList from '@/components/movie-lists/SearchResultsTvList.vue'
 import SearchResultsPersonList from '@/components/movie-lists/SearchResultsPersonList.vue'
@@ -17,7 +14,6 @@ import ProfilePage from '@/views/UserViews/ProfilePage.vue'
 import NewList from '@/components/user-lists/NewList.vue'
 import ListPage from '@/components/user-lists/ListPage.vue'
 import * as VueRouter from 'vue-router'
-import PaginatedList from '@/views/UserViews/PaginatedList.vue'
 
 export type Path =
   | '/:catchAll(.*)'
@@ -60,7 +56,7 @@ export const routes: VueRouter.RouteRecordRaw[] = [
   },
   {
     name: 'films',
-    path: '/films',
+    path: '/base-layout',
     component: BaseLayout,
   },
   {
@@ -83,22 +79,8 @@ export const routes: VueRouter.RouteRecordRaw[] = [
     path: '/films/search_results/person',
     component: SearchResultsPersonList,
   },
-  {
-    path: '/films/discovered_list',
-    component: DiscoveredMovieListView,
-  },
-  {
-    path: '/films/popular',
-    component: PopularMovieListView,
-  },
-  {
-    path: '/films/upcoming',
-    component: UpcomingMovieListView,
-  },
-  {
-    path: '/films/top_rated',
-    component: TopRatedMovieListView,
-  },
+  // ================================
+
   // ==============================
   {
     name: 'lists',
@@ -111,8 +93,8 @@ export const routes: VueRouter.RouteRecordRaw[] = [
   },
 ]
 
-type NavbarPath = '/films' | '/lists' | '/'
-type NavbarName = 'Films' | 'Lists' | 'Home'
+type NavbarPath = '/base-layout' | '/lists' | '/'
+type NavbarName = 'Main' | 'Lists' | 'Home'
 
 interface INavbarRoute {
   name: NavbarName
@@ -122,9 +104,9 @@ interface INavbarRoute {
 
 export const navbarRoutes: INavbarRoute[] = [
   {
-    name: 'Films',
+    name: 'Main',
     component: BaseLayout,
-    path: '/films',
+    path: '/base-layout',
   },
   {
     name: 'Lists',
@@ -189,12 +171,35 @@ export const profileNavbarRoutes: VueRouter.RouteRecordRaw[] = [
   },
 ]
 
+export const filterMoviesRoutes: VueRouter.RouteRecordRaw[] = [
+  // {
+  //   path: '/films/discovered_list',
+  //   component: DiscoveredMovieListView,
+  // },
+  {
+    name: 'Popularity',
+    path: '/films/popular',
+    component: FilmsView,
+  },
+  {
+    name: 'Upcoming release',
+    path: '/films/upcoming',
+    component: FilmsView,
+  },
+  {
+    name: 'Top rating',
+    path: '/films/top_rated',
+    component: FilmsView,
+  },
+]
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: routes
     .concat(userRoutes)
     .concat(listRoutes)
-    .concat(profileNavbarRoutes),
+    .concat(profileNavbarRoutes)
+    .concat(filterMoviesRoutes),
 })
 
 export default router

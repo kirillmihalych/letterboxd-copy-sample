@@ -1,8 +1,7 @@
 import getAccountDetails from '@/api/account/getAccountDetails'
 import type { IAccountDetails } from '@/interfaces/account-types'
-import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 import { defineStore } from 'pinia'
-import { onMounted, ref, watchEffect } from 'vue'
+import { onMounted, ref } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
   const accountDetails = ref<IAccountDetails | null>(null)
