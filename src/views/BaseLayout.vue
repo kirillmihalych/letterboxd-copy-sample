@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="base-layout-container">
     <div>
       <div class="fetch-handle-container" v-if="loadingMovie">
         <SpinnerComp />
@@ -100,6 +100,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.base-layout-container {
+  width: 950px;
+  margin: 0 auto;
+}
+
 .films-view-header {
   box-sizing: border-box;
   margin: 0 auto;
