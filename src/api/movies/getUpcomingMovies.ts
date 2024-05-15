@@ -29,7 +29,6 @@ const getUpcomingMovies = async (options: IFilterOptions) => {
       optionsUpcoming
     )
   ).json()
-  console.log(`upcomings fetched ${response.results}`)
   return response
 }
 

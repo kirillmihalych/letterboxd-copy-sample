@@ -2,7 +2,11 @@
   <div class="films-page-container">
     <nav class="filters-container">
       <MovieNavbar />
-      <FilterList @set-genres="(genres) => setGenres(genres)" />
+      <FilterList
+        @set-genres="(genres) => setGenres(genres)"
+        @set-sort-option="(option) => setSortOption(option)"
+        @set-votes-amount="(votes) => setVotesAmount(votes)"
+      />
     </nav>
     <main class="movies-content">
       <PaginatedList
@@ -49,6 +53,12 @@ const setPage = (new_page: number) => {
 }
 const setGenres = (genres: number[]) => {
   options.value.genres = genres
+}
+const setSortOption = (option: string) => {
+  options.value.sort_by = option
+}
+const setVotesAmount = (votes: string) => {
+  options.value.min_amount_votes = votes
 }
 const total_pages = ref(1)
 const total_results = ref(0)
