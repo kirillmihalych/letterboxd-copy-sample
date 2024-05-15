@@ -1,6 +1,14 @@
 <template>
   <div class="paginated-list">
+    <div class="active info-display">
+      <p v-if="isLoading">...</p>
+      <p v-if="!isLoading">
+        There are {{ total_pages }} pages and {{ props.total_results }} movies
+      </p>
+    </div>
+
     <div class="btns-container">
+      <p class="active page-display">You are on a page {{ page }}</p>
       <button
         @click="setPrevPage"
         :disabled="page === 1"
@@ -8,15 +16,18 @@
       >
         prev page
       </button>
+
       <button
-        v-for="n in props.total_pages"
+        v-for="n in range"
         :key="n"
         @click="setPage(n)"
         class="page-control-btn"
         :class="{ active: n === page }"
+        :disabled="n > total_pages"
       >
         {{ n }}
       </button>
+      <button class="page-control-btn" @click="displayMorePages">more</button>
       <button
         @click="setNextPage"
         :disabled="page === props.total_pages"
@@ -66,6 +77,7 @@ import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 interface IPaginatedList {
   lists?: IList[] | null
   movies?: IMovie[] | IRatedMovie[] | null
+  total_results?: number
   total_pages: number
   isLoading: boolean
   error: string | null
@@ -80,7 +92,14 @@ const emits = defineEmits<{
 
 const page = ref(1)
 const setNextPage = () => {
-  page.value += 1
+  if (range.value.includes(page.value)) {
+    page.value += 1
+  } else {
+    console.log(range.value)
+    page.value = range.value[0]
+  }
+  console.log()
+
   emits('set-next-page', page.value)
 }
 
@@ -93,11 +112,20 @@ const setPage = (selected_page: number) => {
   page.value = selected_page
   emits('set-this-page', page.value)
 }
+
+const range = ref<number[]>([1, 2, 3, 4, 5])
+
+const displayMorePages = () => {
+  for (let i = 0; i < 5; i++) {
+    range.value[i] = range.value[i] + 5
+  }
+}
 </script>
 
 <style scoped>
 .paginated-list {
   /* width: 950px; */
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: start;
@@ -144,14 +172,41 @@ const setPage = (selected_page: number) => {
 .btns-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 950px;
   gap: 0.5rem;
 }
 
 .page-control-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 50px;
   border: none;
   padding: 0.75rem;
   background: darkgray;
+}
+
+.page-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 50px;
+  font-weight: bold;
+  color: #222;
+  box-sizing: border-box;
+}
+
+.info-display {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 .page-control-btn:hover {
@@ -160,6 +215,7 @@ const setPage = (selected_page: number) => {
 }
 
 .active {
+  border: #651fff 2px solid;
   background: lightgrey;
 }
 

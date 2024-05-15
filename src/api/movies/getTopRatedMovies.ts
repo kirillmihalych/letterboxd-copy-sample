@@ -15,13 +15,13 @@ const getTopRatedMovies = async (options: IFilterOptions) => {
     ''
   )
   const votes_option = options.min_amount_votes
+  // sort_by param is hardcoded, so when list will be loaded, user can specify other params and still be on a certain page
   const response = await (
     await fetch(
       `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${options.page}&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=${votes_option}&primary_release_date.gte=${options.from_primary_release}&primary_release_date.lte=${options.to_primary_release}&with_genres=${genre_option}`,
       optionsTopRated
     )
   ).json()
-  // console.log(`top rated fetched ${response}`)
   return response
 }
 

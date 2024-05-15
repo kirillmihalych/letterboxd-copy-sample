@@ -8,6 +8,7 @@
       :movies="movies"
       :lists="lists"
       :total_pages="total_pages"
+      :total_results="total_results"
       @set-next-page="(new_page) => setPage(new_page)"
       @set-prev-page="(new_page) => setPage(new_page)"
       @set-this-page="(new_page) => setPage(new_page)"
@@ -44,6 +45,7 @@ const setPage = (new_page: number) => {
   page.value = new_page
 }
 const total_pages = ref(1)
+const total_results = ref(1)
 
 const fetchList = async (route_name: string, page_value: number) => {
   let response = null
@@ -56,21 +58,25 @@ const fetchList = async (route_name: string, page_value: number) => {
       response = await getFavoritesMovies(page_value)
       movies.value = response.results
       total_pages.value = response.total_pages
+      total_results.value = response.total_results
     }
     if (route_name.toLowerCase() === 'watchlist') {
       response = await getWatchlistMovies(page_value)
       movies.value = response.results
       total_pages.value = response.total_pages
+      total_results.value = response.total_results
     }
     if (route_name.toLowerCase() === 'lists') {
       response = await getLists()
       lists.value = response.results
       total_pages.value = response.total_pages
+      total_results.value = response.total_results
     }
     if (route_name.toLowerCase() === 'rated') {
       response = await getRatedMovies(page_value)
       movies.value = response.results
       total_pages.value = response.total_pages
+      total_results.value = response.total_results
     }
   } catch (err: unknown) {
     if (err instanceof Error) {

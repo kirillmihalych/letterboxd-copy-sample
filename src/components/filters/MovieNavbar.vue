@@ -1,10 +1,12 @@
 <template>
   <div class="films-navbar">
-    <h3>Browse movies by</h3>
+    <h3>Browse by</h3>
     <RouterLink
       v-for="route in filterMoviesRoutes"
       :key="route.path"
       :to="route.path"
+      class="movie-navbar-link"
+      :class="{ active: location.name === route.name }"
     >
       {{ route.name }}
     </RouterLink>
@@ -12,29 +14,40 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import { filterMoviesRoutes } from '@/router'
+
+const location = useRoute()
 </script>
 
 <style scoped>
 .films-navbar {
   box-sizing: border-box;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  gap: 0.25rem;
+  gap: 1rem;
 }
 
-.films-navbar a {
+.movie-navbar-link {
   text-decoration: none;
-  color: snow;
-  background: #222;
-  padding: 0.1rem 0.2rem;
-  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 50px;
+  font-weight: bold;
+  background: darkgray;
+  color: #222;
+  box-sizing: border-box;
 }
 
-.films-navbar a:hover {
-  background: darkgrey;
-  transition: all 0.1s;
+.movie-navbar-link:hover {
+  background: lightgray;
+}
+
+.active {
+  border: #651fff 2px solid;
+  background: lightgrey;
 }
 </style>

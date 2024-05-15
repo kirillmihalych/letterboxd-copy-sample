@@ -9,7 +9,8 @@
         :isLoading="isLoading"
         :error="error"
         :movies="movies"
-        :total_pages="10"
+        :total_pages="total_pages"
+        :total_results="total_results"
         @set-next-page="(new_page) => setPage(new_page)"
         @set-prev-page="(new_page) => setPage(new_page)"
         @set-this-page="(new_page) => setPage(new_page)"
@@ -48,29 +49,34 @@ const setPage = (new_page: number) => {
   options.value.page = new_page
 }
 const total_pages = ref(1)
+const total_results = ref(0)
 
 const fetchFilteredMovies = async () => {
   let response = null
+  total_pages.value = 10
   isLoading.value = true
   error.value = null
   movies.value = null
   try {
     if ((route.name as string).toLowerCase() === 'popularity') {
-      console.log('pop')
       response = await getPopularMovies(options.value)
       movies.value = response.results
+      total_pages.value = response.total_pages
+      total_results.value = response.total_results
     }
 
     if ((route.name as string).toLowerCase() === 'upcoming release') {
-      console.log('upcoming')
       response = await getUpcomingMovies(options.value)
       movies.value = response.results
+      total_pages.value = response.total_pages
+      total_results.value = response.total_results
     }
 
     if ((route.name as string).toLowerCase() === 'top rating') {
-      console.log('top')
       response = await getTopRatedMovies(options.value)
       movies.value = response.results
+      total_pages.value = response.total_pages
+      total_results.value = response.total_results
     }
   } catch (err: unknown) {
     if (err instanceof Error) {
@@ -84,7 +90,6 @@ const fetchFilteredMovies = async () => {
 
 watchEffect(() => {
   if (route.name) {
-    console.log('hello there')
     fetchFilteredMovies()
   }
 })

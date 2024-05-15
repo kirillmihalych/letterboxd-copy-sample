@@ -15,13 +15,13 @@ const getFilteredMovies = async (options: IFilterOptions) => {
     ''
   )
   const votes_option = options.min_amount_votes
+  // sort_by param is hardcoded, so when list will be loaded, user can specify other params and still be on a certain page
   const response = await (
     await fetch(
       `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${options.page}&sort_by=popularity.desc&with_genres=${genre_option}&vote_count.gte=${votes_option}`,
       fetch_options
     )
   ).json()
-  console.log(`popular fetched ${response.results}`)
   return response
 }
 
