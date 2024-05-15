@@ -5,16 +5,14 @@
       type="checkbox"
       :id="genre.name"
       :value="genre.id"
-      v-model="filterStore.selectedOptions.genres"
+      @change="(e) => setSelectedGenre(e, genre.id)"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 import type { IGenre } from '@/interfaces/movie-types'
-import useFiltersStore from '@/stores/filters'
-
-const filterStore = useFiltersStore()
+import { ref } from 'vue'
 
 interface IGenreCardProps {
   genre: IGenre
@@ -22,6 +20,20 @@ interface IGenreCardProps {
 
 const props = defineProps<IGenreCardProps>()
 const genre = props.genre
+const emits = defineEmits<{
+  (e: 'add-genre', genre_id: number): void
+  (e: 'remove-genre', genre_id: number): void
+}>()
+const selectedGenre = ref(1)
+const setSelectedGenre = (e: Event, genre_id: number) => {
+  const checked = (e.target as HTMLInputElement).checked
+  selectedGenre.value = genre_id
+  if (checked) {
+    emits('add-genre', selectedGenre.value)
+  } else {
+    emits('remove-genre', selectedGenre.value)
+  }
+}
 </script>
 
 <style scoped>

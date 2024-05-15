@@ -11,7 +11,13 @@
       v-show="isGenresShowed"
       @mouseleave="() => (isGenresShowed = false)"
     >
-      <GenreCard v-for="genre in genreList" :key="genre.id" :genre="genre" />
+      <GenreCard
+        v-for="genre in genreList"
+        :key="genre.id"
+        :genre="genre"
+        @add-genre="(genre_id) => addSelectedGenre(genre_id)"
+        @remove-genre="(genre_id) => removeSelectedGenre(genre_id)"
+      />
     </div>
   </div>
 </template>
@@ -19,13 +25,24 @@
 <script setup lang="ts">
 import { loadGenreList } from '@/api/movie'
 import type { IGenre } from '@/interfaces/movie-types'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 import GenreCard from './GenreCard.vue'
+const emits = defineEmits<{
+  (e: 'update-genres', payload: number[]): void
+}>()
 
 const genreList = ref<IGenre[] | null>(null)
 const error = ref<string | null>(null)
 const loading = ref(false)
 const isGenresShowed = ref(false)
+
+const selectedGenres = ref<number[]>([])
+const addSelectedGenre = (genre_id: number) => {
+  selectedGenres.value = [...selectedGenres.value, genre_id]
+}
+const removeSelectedGenre = (genre_id: number) => {
+  selectedGenres.value = selectedGenres.value.filter((id) => id !== genre_id)
+}
 
 const fetchGenreList = async () => {
   genreList.value = null
@@ -45,6 +62,10 @@ const fetchGenreList = async () => {
 
 onMounted(() => {
   fetchGenreList()
+})
+
+watchEffect(() => {
+  emits('update-genres', selectedGenres.value)
 })
 
 const showGenres = (): void => {

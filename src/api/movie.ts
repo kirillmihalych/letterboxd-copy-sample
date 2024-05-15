@@ -47,29 +47,25 @@ export const fetchMultiResultsByQuery = async (query: string) => {
   return response
 }
 
-const optionsPopular = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: ACCESS_TOKEN,
-  },
-}
+// const optionsPopular = {
+//   method: 'GET',
+//   headers: {
+//     accept: 'application/json',
+//     Authorization: ACCESS_TOKEN,
+//   },
+// }
 
-export const loadPopularMovies = async (options: IFilterOptions) => {
-  const sort_option = 'popularity.desc'
-  const genre_option = options.genres.reduce(
-    (accStr, currStr) => (accStr += `${currStr}%2C`),
-    ''
-  )
-  const votes_option = options.min_amount_votes
-  const response = await (
-    await fetch(
-      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=${sort_option}&with_genres=${genre_option}&vote_count.gte=${votes_option}`,
-      optionsPopular
-    )
-  ).json()
-  return response.results
-}
+// export const loadPopularMovies = async (options: IFilterOptions) => {
+//   const sort_option = 'popularity.desc'
+//   const votes_option = options.min_amount_votes
+//   const response = await (
+//     await fetch(
+//       `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=${sort_option}&with_genres=${genre_option}&vote_count.gte=${votes_option}`,
+//       optionsPopular
+//     )
+//   ).json()
+//   return response.results
+// }
 
 // ========================================
 

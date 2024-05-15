@@ -2,7 +2,7 @@
   <div class="films-page-container">
     <nav class="filters-container">
       <MovieNavbar />
-      <FilterList />
+      <FilterList @set-genres="(genres) => setGenres(genres)" />
     </nav>
     <main class="movies-content">
       <PaginatedList
@@ -43,10 +43,12 @@ const defaultOptions: IFilterOptions = {
   to_primary_release: '',
 }
 const options = ref<IFilterOptions>(defaultOptions)
-const page = ref(1)
 const setPage = (new_page: number) => {
   // @ts-ignore
   options.value.page = new_page
+}
+const setGenres = (genres: number[]) => {
+  options.value.genres = genres
 }
 const total_pages = ref(1)
 const total_results = ref(0)
