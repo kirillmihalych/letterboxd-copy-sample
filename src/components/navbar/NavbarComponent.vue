@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import NavbarSearch from './NavbarSearch.vue'
+import NavbarSearch from './search/NavbarSearch.vue'
 import NavbarMenu from './NavbarMenu.vue'
 import NavbarUsersProfile from './NavbarUsersProfile.vue'
 </script>

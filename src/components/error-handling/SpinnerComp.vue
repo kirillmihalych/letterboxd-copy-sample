@@ -1,14 +1,15 @@
 <template>
   <div class="spinner-container" :style="props.cssParams">
-    <div class="lds-dual-ring"></div>
+    <div class="lds-dual-ring" :style="{ color: props.color }"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, type CSSProperties } from 'vue'
+import { type CSSProperties } from 'vue'
 
 interface ISpinnerCompProps {
   cssParams?: CSSProperties
+  color?: string
 }
 
 const props = defineProps<ISpinnerCompProps>()

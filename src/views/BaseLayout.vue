@@ -10,7 +10,6 @@
           <template #header>
             <header class="films-view-header">
               <MovieNavbar />
-              <SearchMovie />
             </header>
           </template>
           <template #item="slotProps">
