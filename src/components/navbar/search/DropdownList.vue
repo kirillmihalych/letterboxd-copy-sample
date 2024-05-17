@@ -3,38 +3,17 @@
     <div v-if="props.isLoading" class="loading">
       <SpinnerComp :color="'snow'" />
     </div>
-    <div v-if="props.error">
+    <div v-if="props.error" class="error">
       {{ props.error }}
     </div>
     <div v-if="!props.isLoading" class="content-container">
-      <section class="media-results" v-if="props.media?.length">
-        <h1>Movies and TV</h1>
-        <div>
-          <MediaCard
-            v-for="media in props.media"
-            :key="media.id"
-            :media="media"
-          />
-        </div>
-      </section>
-      <section v-if="props.persons?.length" class="person-results">
-        <h1>Persons</h1>
-        <div>
-          <PersonCard
-            v-for="person in props.persons"
-            :key="person.id"
-            :person="person"
-          />
-        </div>
-      </section>
+      <slot name="content"></slot>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { IMovie, IPerson, ITVShow } from '@/interfaces/movie-types'
-import MediaCard from './MediaCard.vue'
-import PersonCard from './PersonCard.vue'
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 
 interface IDropdownList {
@@ -64,6 +43,14 @@ const props = defineProps<IDropdownList>()
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 200px;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222;
   height: 200px;
 }
 </style>

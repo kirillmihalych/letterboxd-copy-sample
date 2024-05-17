@@ -4,16 +4,62 @@
       <div class="left-part-navbar-container">
         <NavbarMenu />
       </div>
-      <NavbarSearch />
+      <SearchModule>
+        <template
+          v-slot="{
+            media_array,
+            isLoading,
+            persons,
+            error,
+            isMediaFound,
+            isPersonsFound,
+            isQueryEntered,
+          }"
+        >
+          <DropdownList
+            v-show="isQueryEntered"
+            :persons="persons"
+            :media="media_array"
+            :isLoading="isLoading"
+            :error="error"
+          >
+            <template #content>
+              <section v-if="isMediaFound">
+                <h1>Movies and TV</h1>
+                <div>
+                  <MediaLinkCard
+                    v-for="media in media_array"
+                    :key="media.id"
+                    :media="media"
+                  />
+                </div>
+              </section>
+              <section v-if="isPersonsFound">
+                <h1>Persons</h1>
+                <div>
+                  <PersonLinkCard
+                    v-for="person in persons"
+                    :key="person.id"
+                    :person="person"
+                  />
+                </div>
+              </section>
+            </template>
+          </DropdownList>
+        </template>
+      </SearchModule>
       <NavbarUsersProfile />
     </nav>
   </div>
 </template>
 
 <script setup lang="ts">
-import NavbarSearch from './search/NavbarSearch.vue'
+import SearchModule from './search/SearchModule.vue'
 import NavbarMenu from './NavbarMenu.vue'
 import NavbarUsersProfile from './NavbarUsersProfile.vue'
+import DropdownList from './search/DropdownList.vue'
+import MediaLinkCard from './search/MediaLinkCard.vue'
+import PersonLinkCard from './search/PersonLinkCard.vue'
 </script>
 
 <style scoped>

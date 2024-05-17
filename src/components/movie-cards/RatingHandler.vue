@@ -1,26 +1,28 @@
 <template>
-  <div v-if="!isMovieReleased">This movie is not released yet.</div>
-  <div class="rating-handler-container" v-if="isMovieReleased">
-    <div class="add-rating-container">
-      <button
-        v-for="value in values"
-        :key="value"
-        @click="addRatingHandler(value)"
-      >
-        {{ value }}
-      </button>
-    </div>
-    <div v-show="!props.rating">
-      <p>Not rated yet</p>
-    </div>
-    <div class="my-rating-container" v-show="props.rating">
-      <p>My rating is</p>
-      <span class="my-rating">{{
-        isRatingLoading ? '...' : props.rating
-      }}</span>
-      <button @click="deleteRatingHandler" class="delete-my-rating">
-        Delete
-      </button>
+  <div class="rating-handler-container">
+    <div v-if="!isMovieReleased">This movie is not released yet.</div>
+    <div v-if="isMovieReleased">
+      <div class="add-rating-container">
+        <button
+          v-for="value in values"
+          :key="value"
+          @click="addRatingHandler(value)"
+        >
+          {{ value }}
+        </button>
+      </div>
+      <div v-show="!props.rating">
+        <p>Not rated yet</p>
+      </div>
+      <div class="my-rating-container" v-show="props.rating">
+        <p>My rating is</p>
+        <span class="my-rating">{{
+          isRatingLoading ? '...' : props.rating
+        }}</span>
+        <button @click="deleteRatingHandler" class="delete-my-rating">
+          Delete
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -29,8 +31,7 @@
 import { ref } from 'vue'
 import addRating from '@/api/movies/addRating'
 import deleteRating from '@/api/movies/deleteRating'
-// [x] получить дату релиза фильма
-// [__] сранивать дату с текущей датой и на основе этого отображать или нет рейтинг
+
 interface IRatingHandlerProps {
   rating: number | undefined
   movie_id: number

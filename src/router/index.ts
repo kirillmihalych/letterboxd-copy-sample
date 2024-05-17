@@ -6,7 +6,7 @@ import SingleFilmView from '@/views/SingleFilmView.vue'
 import FilmsView from '@/views/FilmsView.vue'
 import AuthApprovedPage from '@/views/UserViews/AuthApprovedPage.vue'
 import ProfilePage from '@/views/UserViews/ProfilePage.vue'
-import NewList from '@/components/user-lists/NewList.vue'
+import ManageListView from '@/components/user-lists/ManageListView.vue'
 import ListPage from '@/components/user-lists/ListPage.vue'
 import * as VueRouter from 'vue-router'
 import PersonView from '@/views/Persons/PersonView.vue'
@@ -97,21 +97,18 @@ const userRoutes: VueRouter.RouteRecordRaw[] = [
     path: '/profile',
     component: ProfilePage,
   },
-  // {
-  //   path: '/profile/favorite/movies',
-  //   component:
-  // }
 ]
 
 // ==================================
 const listRoutes: VueRouter.RouteRecordRaw[] = [
   {
-    path: '/lists/new',
-    component: NewList,
+    name: 'create',
+    path: '/profile/lists/create',
+    component: ManageListView,
   },
   {
     path: '/profile/lists/:id',
-    component: ListPage,
+    component: ManageListView,
   },
 ]
 

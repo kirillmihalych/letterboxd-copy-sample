@@ -34,7 +34,7 @@ const getSearchResults = async (query: string, page: number) => {
       persons.push(result)
     }
   })
-  return { media: media.slice(0, 3), persons: persons.slice(0, 3) }
+  return { media: media, persons: persons }
 }
 
 export default getSearchResults

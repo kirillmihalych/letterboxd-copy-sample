@@ -8,43 +8,62 @@
         class="navbar-search-input"
       />
     </div>
-    <DropdownList
-      v-show="query.length"
+    <slot
       :persons="persons"
-      :media="media"
+      :media_array="media_array"
       :isLoading="isLoading"
       :error="error"
-    />
+      :isMediaFound="isMediaFound"
+      :isPersonsFound="isPersonsFound"
+      :isQueryEntered="isQueryEntered"
+    ></slot>
   </div>
 </template>
 
 <script setup lang="ts">
 import getSearchResults from '@/api/search/getSearchResults'
 import _ from 'lodash'
-import { ref, watch } from 'vue'
-import DropdownList from './DropdownList.vue'
+import { computed, ref, watch } from 'vue'
 import type { IMovie, IPerson, ITVShow } from '@/interfaces/movie-types'
-// [__] для муви и сериалов создать дженерик страницу или перенаправлять на разные страницы в зависимости от типы-медиа
-// [__] сделать navbar fixed
 
 const query = ref('')
-const media = ref<(IMovie | ITVShow)[] | null>(null)
+const isQueryEntered = computed(() => {
+  return query.value.length > 0
+})
+const media_array = ref<(IMovie | ITVShow)[] | null>(null)
 const persons = ref<IPerson[] | null>(null)
 const error = ref<string | null>(null)
 const isLoading = ref(false)
+
+const isPersonsFound = computed(() => {
+  return persons.value !== null && persons.value.length > 0
+})
+
+const isMediaFound = computed(() => {
+  return media_array.value !== null && media_array.value.length > 0
+})
 
 const getSearchResultsHandler = async () => {
   if (query.value.length > 0) {
     try {
       isLoading.value = true
-      media.value = (await getSearchResults(query.value, 1)).media
-      persons.value = (await getSearchResults(query.value, 1)).persons
+      media_array.value = (await getSearchResults(query.value, 1)).media.slice(
+        0,
+        3
+      )
+      persons.value = (await getSearchResults(query.value, 1)).persons.slice(
+        0,
+        3
+      )
     } catch (err: unknown) {
       if (err instanceof Error) {
         error.value = err.message.toString()
       }
       console.log(error)
     } finally {
+      if (!isMediaFound.value && !isPersonsFound.value) {
+        error.value = 'There is no results by your query'
+      }
       isLoading.value = false
     }
   }

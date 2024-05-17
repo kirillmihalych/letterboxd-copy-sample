@@ -23,6 +23,11 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
   box-sizing: border-box;
 }
 
+div[disabled] {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
 html {
   overflow-y: scroll;
 }

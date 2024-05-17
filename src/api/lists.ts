@@ -29,26 +29,6 @@ const optionsDelete = {
     Authorization: ACCESS_TOKEN,
   },
 }
-
-export const postNewList = async (newList: INewList, session_id: number) => {
-  const postNewListOptions = {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      Authorization: ACCESS_TOKEN,
-    },
-    body: JSON.stringify(newList),
-  }
-  const response = await (
-    await fetch(
-      `https://api.themoviedb.org/3/list?session_id=${session_id}`,
-      postNewListOptions
-    )
-  ).json()
-  return response
-}
-
 // ==============================
 
 export const loadUsersLists = async (
