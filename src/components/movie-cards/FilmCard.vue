@@ -31,6 +31,7 @@
           <RatingHandler
             :movie_id="movie.id"
             :rating="rating"
+            :release="movie.release_date"
             :isRatingLoading="isAccountStateLoading"
             @update="(value) => updateRatingHandler(value)"
           />

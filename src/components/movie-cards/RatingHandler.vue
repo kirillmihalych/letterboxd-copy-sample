@@ -1,5 +1,6 @@
 <template>
-  <div class="rating-handler-container">
+  <div v-if="!isMovieReleased">This movie is not released yet.</div>
+  <div class="rating-handler-container" v-if="isMovieReleased">
     <div class="add-rating-container">
       <button
         v-for="value in values"
@@ -28,10 +29,12 @@
 import { ref } from 'vue'
 import addRating from '@/api/movies/addRating'
 import deleteRating from '@/api/movies/deleteRating'
-
+// [x] получить дату релиза фильма
+// [__] сранивать дату с текущей датой и на основе этого отображать или нет рейтинг
 interface IRatingHandlerProps {
   rating: number | undefined
   movie_id: number
+  release: string
 }
 
 const props = defineProps<IRatingHandlerProps>()
@@ -39,6 +42,10 @@ const emits = defineEmits<{
   (e: 'update', rating: number | undefined): void
 }>()
 const isRatingLoading = ref(false)
+
+const releaseDate = new Date(props.release)
+const currentDate = new Date()
+const isMovieReleased = releaseDate <= currentDate
 
 const addRatingHandler = async (value: number) => {
   isRatingLoading.value = true

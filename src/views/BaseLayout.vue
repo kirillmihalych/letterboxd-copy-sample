@@ -18,7 +18,6 @@
         </CarouselComponent>
       </div>
     </div>
-
     <hr />
     <div>
       <div class="fetch-handle-container" v-if="loadingPeople">

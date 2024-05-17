@@ -9,7 +9,6 @@
     <div v-if="!props.isLoading" class="content-container">
       <section class="media-results" v-if="props.media?.length">
         <h1>Movies and TV</h1>
-        <!-- [__] этот лист можно сделать переиспользуемым со слотами -->
         <div>
           <MediaCard
             v-for="media in props.media"
@@ -20,7 +19,6 @@
       </section>
       <section v-if="props.persons?.length" class="person-results">
         <h1>Persons</h1>
-        <!-- [__] этот лист можно сделать переиспользуемым со слотами -->
         <div>
           <PersonCard
             v-for="person in props.persons"

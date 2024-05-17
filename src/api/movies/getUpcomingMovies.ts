@@ -29,6 +29,7 @@ const getUpcomingMovies = async (options: IFilterOptions) => {
       optionsUpcoming
     )
   ).json()
+  console.log(response)
   return response
 }
 

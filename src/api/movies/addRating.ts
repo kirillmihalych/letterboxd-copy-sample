@@ -16,7 +16,7 @@ const addRating = async (rating: number, id: number) => {
 
   let response = null
   if (session_id) {
-    await (
+    response = await (
       await fetch(
         `https://api.themoviedb.org/3/movie/${id}/rating?session_id=${session_id}`,
         optionsAddRating
