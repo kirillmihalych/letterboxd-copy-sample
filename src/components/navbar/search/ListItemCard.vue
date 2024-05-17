@@ -1,6 +1,9 @@
 <template>
   <div class="media-card-container">
-    <div class="content-container">
+    <div
+      class="content-container"
+      @click="addMedia(props.media.id, props.list?.id as number)"
+    >
       <img :src="poster" alt="poster" class="poster" />
       <div class="media-info">
         <h1>
@@ -21,15 +24,22 @@
 </template>
 
 <script setup lang="ts">
+import addMovie from '@/api/lists/addMovie'
+import type { IList } from '@/interfaces/lists-types'
 import type { IMovie, ITVShow } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
 
 interface IMediaCard {
   media: IMovie | ITVShow
+  list: IList | null
 }
 
 const props = defineProps<IMediaCard>()
 const poster = `https://image.tmdb.org/t/p/original/${props.media.poster_path}`
+
+const addMedia = async (media_id: number, list_id: number) => {
+  await addMovie(media_id, list_id)
+}
 </script>
 
 <style scoped>

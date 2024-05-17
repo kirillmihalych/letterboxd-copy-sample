@@ -64,6 +64,7 @@
                     v-for="media in media_array"
                     :key="media.id"
                     :media="media"
+                    :list="list"
                   />
                 </template>
               </DropdownList>
@@ -87,17 +88,19 @@ import createList from '@/api/lists/createList'
 import getListDetails from '@/api/lists/getListDetails'
 import { type IList } from '@/interfaces/lists-types'
 import { computed, ref, watchEffect } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import SpinnerComp from '../error-handling/SpinnerComp.vue'
 import DropdownList from '../navbar/search/DropdownList.vue'
-import SearchBar from '../navbar/search/SearchModule.vue'
 import ListItemCard from '../navbar/search/ListItemCard.vue'
+import SearchModule from '../navbar/search/SearchModule.vue'
+import addMovie from '@/api/lists/addMovie'
 
+const route = useRoute()
 const router = useRouter()
 const title = ref('')
 const description = ref('')
 const listId = ref<number | null>(null)
-const list = ref<IList | null>()
+const list = ref<IList | null>(null)
 const errorCreate = ref<string | null>()
 const errorLoad = ref<string | null>()
 const isCreating = ref(false)
@@ -132,9 +135,10 @@ const createListHandler = async () => {
 
 const getList = async () => {
   isLoading.value = true
+  let id = route.params.id ? route.params.id : listId.value
   try {
-    if (listId.value) {
-      list.value = await getListDetails(listId.value)
+    if (id) {
+      list.value = await getListDetails(id as number)
     }
   } catch (err: unknown) {
     if (err instanceof Error) {
@@ -144,12 +148,10 @@ const getList = async () => {
     isLoading.value = false
   }
 }
-
+// 8300686
 watchEffect(() => {
   getList()
 })
-
-// router.replace(`/lists/${newListId.value}`)
 </script>
 
 <style scoped>

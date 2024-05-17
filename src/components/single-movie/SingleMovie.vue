@@ -27,6 +27,7 @@
       <RatingHandler
         :movie_id="movieDetails.id"
         :rating="rating"
+        :release="movieDetails.release_date"
         @update="(new_rating) => updateRatingHandler(new_rating)"
       />
       <hr />
