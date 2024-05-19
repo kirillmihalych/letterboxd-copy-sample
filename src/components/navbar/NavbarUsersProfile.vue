@@ -6,6 +6,7 @@
     <div v-if="errorRequestToken" class="error-request-token">
       {{ errorRequestToken }}
     </div>
+    <LogoutButton />
     <button
       class="login-link"
       @click="fetchRequestToken"
@@ -32,6 +33,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import LogoutButton from './LogoutButton.vue'
 import getRequestToken from '@/api/authentication/getRequestToken'
 import SpinnerComp from '../error-handling/SpinnerComp.vue'
 import { useUserStore } from '@/stores/user'
