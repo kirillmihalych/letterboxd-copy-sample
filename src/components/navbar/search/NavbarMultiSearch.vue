@@ -6,17 +6,23 @@
         v-model="query"
         placeholder="Movies, TV series, persons"
         class="navbar-search-input"
+        @blur="closeDropdown"
+        @focus="openDropdown"
       />
     </div>
-    <slot
-      :persons="persons"
-      :media_array="media_array"
-      :isLoading="isLoading"
-      :error="error"
-      :isMediaFound="isMediaFound"
-      :isPersonsFound="isPersonsFound"
-      :isQueryEntered="isQueryEntered"
-    ></slot>
+    <SearchDropdownList :isDropdownShown="isDropdownShown">
+      <template #dropdown-list>
+        <SearchResults
+          :items="media_array"
+          :isLoading="isLoading"
+          :error="error"
+        >
+          <template #item="{ item }">
+            <LinkCard :item="item" />
+          </template>
+        </SearchResults>
+      </template>
+    </SearchDropdownList>
   </div>
 </template>
 
@@ -25,11 +31,14 @@ import getSearchResults from '@/api/search/getSearchResults'
 import _ from 'lodash'
 import { computed, ref, watch } from 'vue'
 import type { IMovie, IPerson, ITVShow } from '@/interfaces/movie-types'
+import SearchResults from '@/components/user-lists/SearchResults.vue'
+import LinkCard from './LinkCard.vue'
+import SearchDropdownList from '@/components/user-lists/SearchDropdownList.vue'
 
 const query = ref('')
-const isQueryEntered = computed(() => {
-  return query.value.length > 0
-})
+const isDropdownShown = ref(false)
+const openDropdown = () => (isDropdownShown.value = true)
+const closeDropdown = () => (isDropdownShown.value = false)
 const media_array = ref<(IMovie | ITVShow)[] | null>(null)
 const persons = ref<IPerson[] | null>(null)
 const error = ref<string | null>(null)
@@ -47,14 +56,8 @@ const getSearchResultsHandler = async () => {
   if (query.value.length > 0) {
     try {
       isLoading.value = true
-      media_array.value = (await getSearchResults(query.value, 1)).media.slice(
-        0,
-        3
-      )
-      persons.value = (await getSearchResults(query.value, 1)).persons.slice(
-        0,
-        3
-      )
+      media_array.value = await getSearchResults(query.value, 1)
+      openDropdown()
     } catch (err: unknown) {
       if (err instanceof Error) {
         error.value = err.message.toString()
@@ -80,6 +83,7 @@ watch(
 <style scoped>
 .navbar-search-container {
   display: flex;
+  z-index: 200;
 }
 
 .toggle-search-bar {

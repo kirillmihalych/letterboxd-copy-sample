@@ -41,35 +41,7 @@
           <p>Create it using the form above</p>
         </div>
         <div>
-          <SearchModule>
-            <template
-              v-slot="{
-                media_array,
-                isLoading,
-                persons,
-                error,
-                isMediaFound,
-                isQueryEntered,
-              }"
-            >
-              <DropdownList
-                v-show="isQueryEntered"
-                :persons="persons"
-                :media="media_array"
-                :isLoading="isLoading"
-                :error="error"
-              >
-                <template #content>
-                  <ListItemCard
-                    v-for="media in media_array"
-                    :key="media.id"
-                    :media="media"
-                    :list="list"
-                  />
-                </template>
-              </DropdownList>
-            </template>
-          </SearchModule>
+          <SearchMovies />
         </div>
         <div v-if="isListEmpty">
           <p>Your list is created, but it is empty</p>
@@ -87,13 +59,13 @@
 import createList from '@/api/lists/createList'
 import getListDetails from '@/api/lists/getListDetails'
 import { type IList } from '@/interfaces/lists-types'
-import { computed, ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect, type InjectionKey } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import SpinnerComp from '../error-handling/SpinnerComp.vue'
-import DropdownList from '../navbar/search/DropdownList.vue'
-import ListItemCard from '../navbar/search/ListItemCard.vue'
-import SearchModule from '../navbar/search/SearchModule.vue'
-import addMovie from '@/api/lists/addMovie'
+import searchMovies from '@/api/search/searchMovies'
+import SearchMovies from './SearchMovies.vue'
+import { provide } from 'vue'
+import { listKey } from './provideInjectKeys'
 
 const route = useRoute()
 const router = useRouter()
@@ -148,7 +120,9 @@ const getList = async () => {
     isLoading.value = false
   }
 }
-// 8300686
+
+provide(listKey, list.value)
+
 watchEffect(() => {
   getList()
 })

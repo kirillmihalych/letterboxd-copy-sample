@@ -7,7 +7,6 @@ import FilmsView from '@/views/FilmsView.vue'
 import AuthApprovedPage from '@/views/UserViews/AuthApprovedPage.vue'
 import ProfilePage from '@/views/UserViews/ProfilePage.vue'
 import ManageListView from '@/components/user-lists/ManageListView.vue'
-import ListPage from '@/components/user-lists/ListPage.vue'
 import * as VueRouter from 'vue-router'
 import PersonView from '@/views/Persons/PersonView.vue'
 

@@ -24,17 +24,17 @@ const getSearchResults = async (query: string, page: number) => {
       options
     )
   ).json()
-  response.results.forEach((result: any) => {
-    if (
-      result.media_type === mediaTypes.movie ||
-      result.media_type === mediaTypes.tv
-    ) {
-      media.push(result)
-    } else if (result.media_type === mediaTypes.person) {
-      persons.push(result)
-    }
-  })
-  return { media: media, persons: persons }
+  // response.results.forEach((result: any) => {
+  //   if (
+  //     result.media_type === mediaTypes.movie ||
+  //     result.media_type === mediaTypes.tv
+  //   ) {
+  //     media.push(result)
+  //   } else if (result.media_type === mediaTypes.person) {
+  //     persons.push(result)
+  //   }
+  // })
+  return response.results
 }
 
 export default getSearchResults

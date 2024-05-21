@@ -1,38 +1,41 @@
 <template>
   <div class="media-card-container">
-    <RouterLink
-      :to="`/films/movie_page/${props.media.id}`"
+    <div
       class="content-container"
+      @click="addMedia(props.movie.id, list?.id as number)"
     >
       <img :src="poster" alt="poster" class="poster" />
       <div class="media-info">
         <h1>
-          {{ (props.media as IMovie).title || (props.media as ITVShow).name }}
+          {{ props.movie.title }}
         </h1>
         <div class="additional-info">
-          <p>{{ props.media.vote_average.toFixed(2) }}</p>
-          <p>
-            {{
-              (props.media as IMovie).original_title ||
-              (props.media as ITVShow).original_name
-            }}
-          </p>
+          <p>{{ props.movie.vote_average.toFixed(2) }}</p>
         </div>
       </div>
-    </RouterLink>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import addMovie from '@/api/lists/addMovie'
 import type { IMovie, ITVShow } from '@/interfaces/movie-types'
+import { inject } from 'vue'
 import { RouterLink } from 'vue-router'
+import { listKey } from './provideInjectKeys'
+
+const list = inject(listKey)
 
 interface IMediaCard {
-  media: IMovie | ITVShow
+  movie: IMovie
 }
 
 const props = defineProps<IMediaCard>()
-const poster = `https://image.tmdb.org/t/p/original/${props.media.poster_path}`
+const poster = `https://image.tmdb.org/t/p/original/${props.movie.poster_path}`
+
+const addMedia = async (movie_id: number, list_id: number) => {
+  await addMovie(movie_id, list_id)
+}
 </script>
 
 <style scoped>
