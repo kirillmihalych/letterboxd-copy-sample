@@ -20,31 +20,31 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { getSessionFromLocalStorage } from '@/local-storage/getSession'
-import type { IDeleteList } from '@/interfaces/lists-types'
-import { deleteList } from '@/api/lists'
+import deleteList from '@/api/lists/deleteList'
+import { useRouter } from 'vue-router'
 
 interface IClearListModalProps {
   list_id: number
 }
 
 const props = defineProps<IClearListModalProps>()
-const list_id = props.list_id
+const isListDeleted = ref(false)
+const router = useRouter()
 
 const isModalOpen = ref(false)
 const openTheModal = () => (isModalOpen.value = true)
 const closeTheModal = () => (isModalOpen.value = false)
 
 const fetchDeleteList = async () => {
-  let deleteArgs: IDeleteList = {
-    list_id,
-    session_id: getSessionFromLocalStorage(),
-  }
   try {
-    await deleteList(deleteArgs)
+    isListDeleted.value = await deleteList(props.list_id)
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log(err.message.toString())
+    }
+  } finally {
+    if (isListDeleted) {
+      router.replace('/profile/lists')
     }
   }
 }

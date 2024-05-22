@@ -10,9 +10,7 @@
 import doLogout from '@/api/account/doLogout'
 import { ACCOUNT_ID, SESSION, TOKEN_KEY } from '@/local-storage/keys'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
 const isSuccess = ref(false)
 const isLoading = ref(false)
 const error = ref<string | null>(null)

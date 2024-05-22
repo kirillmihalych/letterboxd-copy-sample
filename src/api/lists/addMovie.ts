@@ -26,7 +26,7 @@ const addMovie = async (movie_id: number, list_id: number) => {
       )
     ).json()
   }
-  console.log(response)
+  console.log(movie_id, list_id, response)
   return response
 }
 

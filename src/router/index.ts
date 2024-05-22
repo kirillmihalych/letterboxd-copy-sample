@@ -132,6 +132,11 @@ export const profileNavbarRoutes: VueRouter.RouteRecordRaw[] = [
     path: '/profile/lists',
     component: ProfilePage,
   },
+  {
+    name: 'Create new list',
+    path: '/profile/lists/create',
+    component: ManageListView,
+  },
 ]
 
 export const filterMoviesRoutes: VueRouter.RouteRecordRaw[] = [

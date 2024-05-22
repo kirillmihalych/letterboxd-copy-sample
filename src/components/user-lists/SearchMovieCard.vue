@@ -1,9 +1,6 @@
 <template>
-  <div class="media-card-container">
-    <div
-      class="content-container"
-      @click="addMedia(props.movie.id, list?.id as number)"
-    >
+  <div class="media-card-container" @click="addMedia(props.movie.id, id)">
+    <div class="content-container">
       <img :src="poster" alt="poster" class="poster" />
       <div class="media-info">
         <h1>
@@ -19,22 +16,35 @@
 
 <script setup lang="ts">
 import addMovie from '@/api/lists/addMovie'
-import type { IMovie, ITVShow } from '@/interfaces/movie-types'
-import { inject } from 'vue'
-import { RouterLink } from 'vue-router'
-import { listKey } from './provideInjectKeys'
-
-const list = inject(listKey)
+import type { IMovie } from '@/interfaces/movie-types'
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 interface IMediaCard {
   movie: IMovie
 }
 
+const emits = defineEmits<{
+  (e: 'update-list-items'): void
+}>()
+
+const route = useRoute()
+const id = Number(route.params.id)
 const props = defineProps<IMediaCard>()
 const poster = `https://image.tmdb.org/t/p/original/${props.movie.poster_path}`
 
+const isMovieAdded = ref(false)
+
 const addMedia = async (movie_id: number, list_id: number) => {
-  await addMovie(movie_id, list_id)
+  try {
+    isMovieAdded.value = (await addMovie(movie_id, list_id)).success
+  } catch (error) {
+    console.log(error)
+  } finally {
+    if (isMovieAdded.value) {
+      emits('update-list-items')
+    }
+  }
 }
 </script>
 

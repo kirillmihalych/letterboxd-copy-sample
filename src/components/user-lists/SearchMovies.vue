@@ -1,12 +1,12 @@
 <template>
   <div>
     <div>
+      <button @click="closeDropdown">close</button>
       <input
         type="text"
         v-model="query"
         placeholder="Movies, TV series, persons"
         class="search-movie-input"
-        @blur="closeDropdown"
         @focus="openDropdown"
       />
     </div>
@@ -14,7 +14,10 @@
       <template #dropdown-list>
         <SearchResults :items="movies" :is-loading="isLoading" :error="error">
           <template #item="{ item: movie }">
-            <SearchMovieCard :movie="movie" />
+            <SearchMovieCard
+              :movie="movie"
+              @update-list-items="doUpdateListItems"
+            />
           </template>
         </SearchResults>
       </template>
@@ -25,11 +28,16 @@
 <script setup lang="ts">
 import type { IMovie } from '@/interfaces/movie-types'
 import searchMovies from '@/api/search/searchMovies'
-import { computed, ref, watch, watchEffect } from 'vue'
+import { ref, watch } from 'vue'
 import _ from 'lodash'
 import SearchResults from './SearchResults.vue'
 import SearchMovieCard from './SearchMovieCard.vue'
 import SearchDropdownList from './SearchDropdownList.vue'
+
+const emits = defineEmits<{
+  (e: 'update-list-items'): void
+}>()
+const doUpdateListItems = () => emits('update-list-items')
 
 const query = ref('')
 const movies = ref<IMovie[] | null>(null)
@@ -42,10 +50,10 @@ const closeDropdown = () => (isDropdownShown.value = false)
 const searchMoviesHandler = async () => {
   movies.value = null
   error.value = null
-
+  let value = query.value.trim()
   try {
     isLoading.value = true
-    movies.value = await searchMovies(query.value)
+    movies.value = await searchMovies(value)
     openDropdown()
   } catch (err: unknown) {
     if (err instanceof Error) {

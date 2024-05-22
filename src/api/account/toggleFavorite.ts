@@ -17,7 +17,7 @@ const toggleFavorite = async (account_id: number, body: IFavoriteMovie) => {
 
   let response = null
   if (session_id) {
-    await (
+    response = await (
       await fetch(
         `https://api.themoviedb.org/3/account/${account_id}/favorite?session_id=${session_id}`,
         optionsAddToFavorite

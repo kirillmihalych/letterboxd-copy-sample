@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import addMovie from '@/api/lists/addMovie'
-import type { IList } from '@/interfaces/lists-types'
 import type { IMovie, IPerson, ITVShow } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
 
@@ -39,10 +38,6 @@ const tvShowPoster = `https://image.tmdb.org/t/p/original/${
 const personImage = `https://image.tmdb.org/t/p/original/${
   (props.item as IPerson).profile_path
 }`
-
-const addMedia = async (movie_id: number, list_id: number) => {
-  await addMovie(movie_id, list_id)
-}
 </script>
 
 <style scoped>

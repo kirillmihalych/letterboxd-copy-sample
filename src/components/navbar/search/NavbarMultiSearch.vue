@@ -54,9 +54,10 @@ const isMediaFound = computed(() => {
 
 const getSearchResultsHandler = async () => {
   if (query.value.length > 0) {
+    let value = query.value.trim()
     try {
       isLoading.value = true
-      media_array.value = await getSearchResults(query.value, 1)
+      media_array.value = await getSearchResults(value, 1)
       openDropdown()
     } catch (err: unknown) {
       if (err instanceof Error) {

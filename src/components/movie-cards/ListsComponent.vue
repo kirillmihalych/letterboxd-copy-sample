@@ -51,6 +51,7 @@ watchEffect(() => {
 
 <style scoped>
 .lists-container {
+  height: 265px;
   display: flex;
   justify-content: start;
   align-items: start;

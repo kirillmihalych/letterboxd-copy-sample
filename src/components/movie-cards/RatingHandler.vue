@@ -11,14 +11,12 @@
           {{ value }}
         </button>
       </div>
-      <div v-show="!props.rating">
-        <p>Not rated yet</p>
+      <div v-show="!rating">
+        <p>{{ isLoading ? '...' : 'Not rated yet' }}</p>
       </div>
-      <div class="my-rating-container" v-show="props.rating">
+      <div class="my-rating-container" v-show="rating">
         <p>My rating is</p>
-        <span class="my-rating">{{
-          isRatingLoading ? '...' : props.rating
-        }}</span>
+        <span class="my-rating">{{ isLoading ? '...' : rating }}</span>
         <button @click="deleteRatingHandler" class="delete-my-rating">
           Delete
         </button>
@@ -28,56 +26,62 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 import addRating from '@/api/movies/addRating'
 import deleteRating from '@/api/movies/deleteRating'
+import getAccountState from '@/api/account/getAccountState'
 
 interface IRatingHandlerProps {
-  rating: number | undefined
   movie_id: number
   release: string
 }
 
 const props = defineProps<IRatingHandlerProps>()
-const emits = defineEmits<{
-  (e: 'update', rating: number | undefined): void
-}>()
-const isRatingLoading = ref(false)
+const rating = ref<number | null>(null)
+const isLoading = ref(false)
 
 const releaseDate = new Date(props.release)
 const currentDate = new Date()
 const isMovieReleased = releaseDate <= currentDate
 
-const addRatingHandler = async (value: number) => {
-  isRatingLoading.value = true
-
+const getAccountStateHandler = async () => {
   try {
+    rating.value = (await getAccountState(props.movie_id)).rated.value
+  } catch (err) {
+    if (err instanceof Error) {
+      console.log('Error in getting an account state' + err.message.toString())
+    }
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const addRatingHandler = async (value: number) => {
+  try {
+    rating.value = value
     await addRating(value, props.movie_id)
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log(err)
     }
-  } finally {
-    emits('update', value)
-    isRatingLoading.value = false
   }
 }
 
 const deleteRatingHandler = async () => {
-  isRatingLoading.value = true
   try {
     await deleteRating(props.movie_id)
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log(err.message.toString())
     }
-  } finally {
-    emits('update', undefined)
-    isRatingLoading.value = false
   }
 }
 
 const values = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+watchEffect(() => {
+  getAccountStateHandler()
+})
 </script>
 
 <style scoped>
@@ -128,7 +132,6 @@ const values = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
   background: #651fff;
   height: 31px;
   width: 51px;
-  /* padding: 0.4rem; */
   color: snow;
 }
 </style>

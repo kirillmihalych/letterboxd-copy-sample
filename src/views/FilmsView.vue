@@ -4,7 +4,6 @@
       <MovieNavbar />
       <FilterList
         @set-genres="(genres) => setGenres(genres)"
-        @set-sort-option="(option) => setSortOption(option)"
         @set-votes-amount="(votes) => setVotesAmount(votes)"
       />
     </nav>
@@ -53,9 +52,6 @@ const setPage = (new_page: number) => {
 }
 const setGenres = (genres: number[]) => {
   options.value.genres = genres
-}
-const setSortOption = (option: string) => {
-  options.value.sort_by = option
 }
 const setVotesAmount = (votes: string) => {
   options.value.min_amount_votes = votes

@@ -63,8 +63,8 @@ const closeTheModal = () => (isModalOpen.value = false)
 }
 
 .modal {
-  width: 400px;
-  height: 350px;
+  width: 600px;
+  height: 450px;
   position: relative;
   background: white;
   padding: 50px 100px;

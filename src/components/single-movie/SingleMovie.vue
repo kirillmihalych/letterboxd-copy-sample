@@ -24,11 +24,9 @@
       </p>
       <!--  -->
       <hr />
-      <RatingHandler
+      <UserActionsMenu
         :movie_id="movieDetails.id"
-        :rating="rating"
-        :release="movieDetails.release_date"
-        @update="(new_rating) => updateRatingHandler(new_rating)"
+        :release="movieDetails.release_data"
       />
       <hr />
       <!--  -->
@@ -43,7 +41,7 @@
 import ImagePlaceholder from '../ImagePlaceholder.vue'
 import FilmInfoList from './movie-info/FilmInfoList.vue'
 import type { ICrewMember, IMovie } from '@/interfaces/movie-types'
-import RatingHandler from '../movie-cards/RatingHandler.vue'
+import UserActionsMenu from '../movie-cards/UserActionsMenu.vue'
 import getAccountState from '@/api/account/getAccountState'
 import { onMounted, ref } from 'vue'
 

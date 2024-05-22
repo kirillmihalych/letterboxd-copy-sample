@@ -22,13 +22,6 @@ const optionsPost = {
   },
 }
 
-const optionsDelete = {
-  method: 'DELETE',
-  headers: {
-    accept: 'application/json',
-    Authorization: ACCESS_TOKEN,
-  },
-}
 // ==============================
 
 export const loadUsersLists = async (
@@ -94,13 +87,3 @@ export const postClearMovies = async (obj: IClearList) => {
 }
 
 // ====================================
-
-export const deleteList = async (obj: IDeleteList) => {
-  const response = await (
-    await fetch(
-      `https://api.themoviedb.org/3/list/${obj.list_id}?session_id=${obj.session_id}`,
-      optionsDelete
-    )
-  ).json()
-  return response
-}

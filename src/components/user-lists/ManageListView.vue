@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <div class="create-list-container">
+    <div v-if="!isListCreated" class="create-list-container">
       <h1>Create list</h1>
       <label for="name">Title</label>
       <input
@@ -19,7 +19,6 @@
         class="list-input"
       />
       <div class="btns-container">
-        <button disabled>cancel</button>
         <button
           v-if="!isListCreated"
           :disabled="!isTitleEntered"
@@ -27,29 +26,36 @@
         >
           Create
         </button>
-        <button v-if="isListCreated">save</button>
       </div>
-      <main>
-        <div v-if="isLoading" class="loading">
-          <SpinnerComp />
-        </div>
-        <div v-if="errorLoad">
-          {{ errorLoad }}
-        </div>
-        <div v-if="!isListCreated">
-          <p>List is not created yet</p>
-          <p>Create it using the form above</p>
-        </div>
-        <div>
-          <SearchMovies />
-        </div>
-        <div v-if="isListEmpty">
-          <p>Your list is created, but it is empty</p>
-          <p>Add films or tvs using the field above</p>
-        </div>
-        <div v-if="!isListEmpty">items</div>
-      </main>
     </div>
+    <div v-if="isListCreated" class="list-title-container">
+      <h1>{{ title }}</h1>
+      <p>{{ description }}</p>
+      <div class="btns-container">
+        <button :disabled="true">Save</button>
+        <DeleteListModal :list_id="list?.id as number" />
+      </div>
+    </div>
+    <main>
+      <div v-if="isLoading" class="loading">
+        <SpinnerComp />
+      </div>
+      <div v-if="errorLoad">
+        {{ errorLoad }}
+      </div>
+      <div v-if="!isListCreated">
+        <p>List is not created yet</p>
+        <p>Create it using the form above</p>
+      </div>
+      <div v-if="isListCreated">
+        <SearchMovies @update-list-items="getList" />
+      </div>
+      <div v-if="isListEmpty">
+        <p>Your list is created, but it is empty</p>
+        <p>Add films or tvs using the field above</p>
+      </div>
+      <ListMovies :movies="list?.items" @update-list-items="getList" />
+    </main>
 
     <div class="edit-list-container"></div>
   </div>
@@ -59,13 +65,12 @@
 import createList from '@/api/lists/createList'
 import getListDetails from '@/api/lists/getListDetails'
 import { type IList } from '@/interfaces/lists-types'
-import { computed, ref, watchEffect, type InjectionKey } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import SpinnerComp from '../error-handling/SpinnerComp.vue'
-import searchMovies from '@/api/search/searchMovies'
 import SearchMovies from './SearchMovies.vue'
-import { provide } from 'vue'
-import { listKey } from './provideInjectKeys'
+import ListMovies from './ListMovies.vue'
+import DeleteListModal from '@/modals/DeleteListModal.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -83,7 +88,7 @@ const isTitleEntered = computed(() => {
 })
 
 const isListCreated = computed(() => {
-  return listId.value !== null
+  return list.value !== null
 })
 
 const isListEmpty = computed(() => {
@@ -92,7 +97,6 @@ const isListEmpty = computed(() => {
 
 const createListHandler = async () => {
   isCreating.value = true
-
   try {
     listId.value = (await createList(title.value, description.value)).list_id
   } catch (err: unknown) {
@@ -117,11 +121,13 @@ const getList = async () => {
       errorLoad.value = err.message.toString()
     }
   } finally {
+    if (list.value) {
+      title.value = list.value.name
+      description.value = list.value.description
+    }
     isLoading.value = false
   }
 }
-
-provide(listKey, list.value)
 
 watchEffect(() => {
   getList()
