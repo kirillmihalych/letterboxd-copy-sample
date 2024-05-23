@@ -1,5 +1,5 @@
 <template>
-  <main class="base-layout-container">
+  <div class="base-layout-container">
     <div>
       <div class="fetch-handle-container" v-if="loadingMovie">
         <SpinnerComp />
@@ -32,13 +32,12 @@
         </CarouselComponent>
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 import CarouselComponent from '@/components/generic-carousel/CarouselComponent.vue'
-import SearchMovie from '@/components/movie-search/SearchMovie.vue'
 import MovieNavbar from '@/components/filters/MovieNavbar.vue'
 import FilmCard from '@/components/movie-cards/FilmCard.vue'
 import PersonCard from '@/components/movie-cards/PersonCard.vue'

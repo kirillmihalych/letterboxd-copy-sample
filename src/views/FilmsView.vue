@@ -7,7 +7,7 @@
         @set-votes-amount="(votes) => setVotesAmount(votes)"
       />
     </nav>
-    <main class="movies-content">
+    <div class="movies-content">
       <PaginatedList
         :isLoading="isLoading"
         :error="error"
@@ -18,7 +18,7 @@
         @set-prev-page="(new_page) => setPage(new_page)"
         @set-this-page="(new_page) => setPage(new_page)"
       />
-    </main>
+    </div>
   </div>
 </template>
 

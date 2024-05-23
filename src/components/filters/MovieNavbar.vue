@@ -1,6 +1,7 @@
 <template>
   <div class="films-navbar">
     <h3>Browse by</h3>
+
     <RouterLink
       v-for="route in filterMoviesRoutes"
       :key="route.path"

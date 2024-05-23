@@ -5,13 +5,13 @@
   <div v-if="props.items?.length === 0" class="loading-error-handle-class">
     <p>There is no results by your query.</p>
   </div>
-  <div
+  <ul
     v-for="item in props.items"
     :key="item.id"
     class="search-results-container"
   >
-    <slot name="item" :item="item"></slot>
-  </div>
+    <li><slot name="item" :item="item"></slot></li>
+  </ul>
 </template>
 
 <script setup lang="ts">

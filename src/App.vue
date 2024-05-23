@@ -15,12 +15,16 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
 </template>
 
 <style>
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   border: 0;
   font-size: 100%;
   box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
 }
 
 div[disabled] {

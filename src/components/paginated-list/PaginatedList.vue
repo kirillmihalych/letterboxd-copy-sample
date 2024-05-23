@@ -1,5 +1,5 @@
 <template>
-  <div class="paginated-list">
+  <article class="paginated-list">
     <div class="active info-display">
       <p v-if="isLoading">...</p>
       <p v-if="!isLoading">
@@ -63,7 +63,7 @@
         </RouterLink>
       </div>
     </div>
-  </div>
+  </article>
 </template>
 
 <script setup lang="ts">

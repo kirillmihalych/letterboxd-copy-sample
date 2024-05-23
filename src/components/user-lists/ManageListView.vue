@@ -36,7 +36,7 @@
         <DeleteListModal :list_id="list?.id as number" />
       </div>
     </div>
-    <main>
+    <div>
       <div v-if="isLoading" class="loading">
         <SpinnerComp />
       </div>
@@ -55,7 +55,7 @@
         <p>Add films or tvs using the field above</p>
       </div>
       <ListMovies :movies="list?.items" @update-list-items="getList" />
-    </main>
+    </div>
 
     <div class="edit-list-container"></div>
   </div>

@@ -3,9 +3,9 @@
     <div class="content-container">
       <img :src="poster" alt="poster" class="poster" />
       <div class="media-info">
-        <h1>
+        <h2>
           {{ props.movie.title }}
-        </h1>
+        </h2>
         <div class="additional-info">
           <p>{{ props.movie.vote_average.toFixed(2) }}</p>
         </div>

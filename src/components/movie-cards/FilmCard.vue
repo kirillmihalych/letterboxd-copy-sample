@@ -47,14 +47,14 @@ const props = defineProps<FilmCardProps>()
 const movie = ref<IMovie>(props.movie as IMovie)
 
 const cssParams: CSSProperties = {
-  width: 235 + 'px',
-  height: 351 + 'px',
+  width: 185 + 'px',
+  height: 277.5 + 'px',
 }
 
 const isMenuOpen = ref(false)
 const toggleMenu = () => (isMenuOpen.value = !isMenuOpen.value)
 
-const poster = `https://image.tmdb.org/t/p/original/${movie.value.poster_path}`
+const poster = `https://image.tmdb.org/t/p/w185/${movie.value.poster_path}`
 const singleMovieURL = `/films/movie_page/${movie.value.id}`
 </script>
 
