@@ -1,5 +1,5 @@
 <template>
-  <div class="img-card" :style="imgParams">
+  <figure class="img-card" :style="imgParams">
     <img
       :src="src"
       :alt="title"
@@ -9,7 +9,7 @@
       :style="imgParams"
     />
     <SpinnerComp v-if="!ready" :cssParams="imgParams" />
-  </div>
+  </figure>
 </template>
 
 <script setup lang="ts">

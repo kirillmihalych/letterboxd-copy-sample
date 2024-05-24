@@ -22,7 +22,7 @@ const location = useRoute()
 </script>
 
 <style scoped>
-.films-navbar {
+/* .films-navbar {
   box-sizing: border-box;
   display: flex;
   justify-content: start;
@@ -50,5 +50,5 @@ const location = useRoute()
 .active {
   border: #651fff 2px solid;
   background: lightgrey;
-}
+} */
 </style>
