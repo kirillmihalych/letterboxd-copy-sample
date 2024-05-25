@@ -1,5 +1,5 @@
 <template>
-  <figure class="img-card" :style="imgParams">
+  <div class="img-wrapper">
     <img
       :src="src"
       :alt="title"
@@ -9,7 +9,7 @@
       :style="imgParams"
     />
     <SpinnerComp v-if="!ready" :cssParams="imgParams" />
-  </figure>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -32,13 +32,7 @@ const src = ref(props.src)
 </script>
 
 <style scoped>
-.img-card img {
-  object-fit: fill;
-  transition: border 0.1s linear;
-}
-
-.img-card-menu {
-  position: absolute;
-  bottom: 0;
+.img-wrapper {
+  grid-row: 1/3;
 }
 </style>

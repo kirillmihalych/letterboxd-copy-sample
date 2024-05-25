@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import BaseLayout from '@/views/BaseLayout.vue'
 import HomeView from '@/views/HomeView.vue'
 import type { Component } from 'vue'
-import SingleFilmView from '@/views/SingleFilmView.vue'
+import MovieView from '@/views/MovieView.vue'
 import FilmsView from '@/views/FilmsView.vue'
 import AuthApprovedPage from '@/views/UserViews/AuthApprovedPage.vue'
 import ProfilePage from '@/views/UserViews/ProfilePage.vue'
@@ -55,8 +55,8 @@ export const movieRoutes: VueRouter.RouteRecordRaw[] = [
     component: BaseLayout,
   },
   {
-    path: '/films/movie_page/:id',
-    component: SingleFilmView,
+    path: '/movies/movie_page/:id',
+    component: MovieView,
   },
   {
     path: '/:pathMatch(.*)*',

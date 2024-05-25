@@ -1,23 +1,23 @@
 import { ACCESS_TOKEN } from './keys'
 import type { IFilterOptions } from '../interfaces/movie-types'
 
-const movieDetailsOptions = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: ACCESS_TOKEN,
-  },
-}
+// const movieDetailsOptions = {
+//   method: 'GET',
+//   headers: {
+//     accept: 'application/json',
+//     Authorization: ACCESS_TOKEN,
+//   },
+// }
 
-export const loadMovieById = async (id: string) => {
-  const movieDetails = await (
-    await fetch(
-      `https://api.themoviedb.org/3/movie/${id}?language=en-EN&append_to_response=credits`,
-      movieDetailsOptions
-    )
-  ).json()
-  return movieDetails
-}
+// export const loadMovieById = async (id: string) => {
+//   const movieDetails = await (
+//     await fetch(
+//       `https://api.themoviedb.org/3/movie/${id}?language=en-EN&append_to_response=credits`,
+//       movieDetailsOptions
+//     )
+//   ).json()
+//   return movieDetails
+// }
 
 const searchOptions = {
   method: 'GET',

@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import UserActionsMenu from './UserActionsMenu.vue'
+import UserActionsMenu from '@/user-actions/UserActionsMenu.vue'
 import { ref, type CSSProperties } from 'vue'
 import type { IMovie } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
@@ -55,7 +55,7 @@ const isMenuOpen = ref(false)
 const toggleMenu = () => (isMenuOpen.value = !isMenuOpen.value)
 
 const poster = `https://image.tmdb.org/t/p/w185/${movie.value.poster_path}`
-const singleMovieURL = `/films/movie_page/${movie.value.id}`
+const singleMovieURL = `/movies/movie_page/${movie.value.id}`
 </script>
 
 <style scoped>

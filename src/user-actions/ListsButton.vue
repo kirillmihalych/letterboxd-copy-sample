@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import ListsComponent from './ListsComponent.vue'
+import ListsComponent from '@/components/movie-cards/ListsComponent.vue'
 import ModalListHandler from '@/modals/ModalListHandler.vue'
 
 interface IListButton {

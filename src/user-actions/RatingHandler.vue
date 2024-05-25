@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watchEffect } from 'vue'
+import { ref, watchEffect } from 'vue'
 import addRating from '@/api/movies/addRating'
 import deleteRating from '@/api/movies/deleteRating'
 import getAccountState from '@/api/account/getAccountState'
@@ -69,6 +69,7 @@ const addRatingHandler = async (value: number) => {
 
 const deleteRatingHandler = async () => {
   try {
+    rating.value = null
     await deleteRating(props.movie_id)
   } catch (err: unknown) {
     if (err instanceof Error) {

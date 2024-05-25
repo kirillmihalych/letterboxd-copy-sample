@@ -36,7 +36,6 @@ const showedCastMembers = computed((): ICastMember[] => {
 
 <style scoped>
 .cast-list {
-  width: 450px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

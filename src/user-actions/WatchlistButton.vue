@@ -46,6 +46,7 @@ const toggleWatchlistHandler = async () => {
   }
 
   try {
+    isLoading.value = true
     await toggleWatchlist(account_id, WatchlistMovie)
     getAccountStateHandler()
   } catch (err: unknown) {

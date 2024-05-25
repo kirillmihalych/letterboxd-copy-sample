@@ -35,7 +35,7 @@ const isUserAuthorized = getSessionFromLocalStorage() ? true : false
 
 <style scoped>
 .user-actions-container {
-  background: red;
+  background-color: var(--light-grey);
 }
 
 .rating-container {

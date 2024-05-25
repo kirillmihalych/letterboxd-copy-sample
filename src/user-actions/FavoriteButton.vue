@@ -46,6 +46,7 @@ const toggleFavoriteHandler = async () => {
   }
 
   try {
+    isLoading.value = true
     await toggleFavorite(account_id, favoriteMovie)
     getAccountStateHandler()
   } catch (err: unknown) {
