@@ -48,9 +48,9 @@ const isUserAuthorized = getSessionFromLocalStorage() ? true : false
 .list-actions {
   background: darkgrey;
   color: #222;
-  height: 75px;
+  height: 45px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 2fr 2fr 1fr;
   text-transform: capitalize;
   border-top: 2px solid #222;
 }

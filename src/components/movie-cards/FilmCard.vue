@@ -1,6 +1,6 @@
 <template>
   <div class="film-card">
-    {{ movie.id }}
+    <!-- {{ movie.id }} -->
     <RouterLink :to="singleMovieURL">
       <ImagePlaceholder
         :src="poster"
@@ -13,7 +13,7 @@
         {{ isMenuOpen ? 'close' : 'menu' }}
       </button>
     </div>
-    <div class="card-footer">
+    <!-- <div class="card-footer">
       <div>
         <span class="tmdb-rating">
           TMDB rating:
@@ -22,8 +22,9 @@
           </span>
         </span>
       </div>
-    </div>
+    </div> -->
     <UserActionsMenu
+      :style="{ width: 100 + '%' }"
       :movie_id="movie.id"
       :release="movie.release_date"
       v-show="isMenuOpen"
@@ -67,7 +68,8 @@ const singleMovieURL = `/movies/movie_page/${movie.value.id}`
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  border: 2px solid black;
+  border: 2px dotted black;
+  width: 185px;
   position: relative;
   z-index: 0;
 }

@@ -98,7 +98,8 @@ onMounted(() => {
 
 <style scoped>
 .base-layout-container {
-  width: 950px;
+  min-width: 400px;
+  max-width: 950px;
   margin: 0 auto;
 }
 

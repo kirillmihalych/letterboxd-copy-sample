@@ -66,8 +66,8 @@ watchEffect(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 78px;
-  padding: 1rem;
+  /* width: 78px;
+  padding: 1rem; */
   border: none;
   background: darkgrey;
   text-transform: capitalize;
