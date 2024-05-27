@@ -5,11 +5,11 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
 
 <template>
   <div class="app-wrapper">
-    <header>
+    <header class="app-header">
       <NavbarComponent />
     </header>
-    <main class="main-view">
-      <div class="main-view-container">
+    <main class="app-main">
+      <div>
         <RouterView />
       </div>
     </main>
@@ -48,7 +48,20 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
   }
 
   html {
-    overflow-y: scroll;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    box-sizing: inherit;
+    list-style-type: none;
+    text-decoration: none;
   }
 
   body {
@@ -99,6 +112,17 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
 
   a:hover {
     color: var(--dark-grey);
+  }
+
+  .app-header {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    background-color: #222;
+  }
+
+  .app-main {
+    padding-top: 5rem;
   }
 }
 </style>

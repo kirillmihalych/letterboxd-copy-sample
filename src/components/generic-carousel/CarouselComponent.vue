@@ -17,13 +17,14 @@ const props = defineProps<ICarousel>()
 
 <style scoped>
 .carousel {
-  width: 100%;
-  height: 22.5rem;
+  height: 21.5rem;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
   gap: 0.25rem;
   transition: all 1s linear;
-  overflow: auto;
+  overflow-x: auto;
   overscroll-behavior-inline: contain;
   scroll-behavior: smooth;
 }
