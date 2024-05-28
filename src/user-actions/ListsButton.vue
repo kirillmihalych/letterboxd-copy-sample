@@ -1,5 +1,7 @@
 <template>
-  <button class="lists-btn" @click="openModalHandler">lists</button>
+  <button class="lists-btn" @click="openModalHandler">
+    <v-icon icon="mdi-dots-horizontal" />
+  </button>
   <ModalListHandler
     :isOpen="isModalOpen"
     :movie_id="props.movie_id"
@@ -39,15 +41,15 @@ const openModalHandler = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* width: 78px;
-  padding: 1rem; */
-  border: none;
-  background: darkgrey;
+  color: lightslategray;
+  background-color: rgba(0, 0, 0, 50%);
   text-transform: capitalize;
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
 }
 
 .lists-btn:hover {
   cursor: pointer;
-  background: lightgrey;
+  color: var(--snow-white);
 }
 </style>

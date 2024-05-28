@@ -4,7 +4,8 @@
     @click="toggleWatchlistHandler()"
     :class="{ watchlist: isWatchlist }"
   >
-    {{ isLoading ? '...' : 'Watchlist' }}
+    <v-icon v-if="isLoading" icon="mdi-loading" class="mdi-loading" />
+    <v-icon icon="mdi-eye" v-else="!isLoading" />
   </button>
 </template>
 
@@ -14,6 +15,12 @@ import toggleWatchlist from '@/api/account/toggleWatchlist'
 import type { IWatchListMovie } from '@/interfaces/movie-types'
 import { ref, watchEffect } from 'vue'
 import getAccountID from '@/local-storage/getAccountID'
+import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
+
+const css_params = {
+  width: 10 + 'px',
+  height: 10 + 'px',
+}
 
 const account_id = getAccountID()
 
@@ -66,23 +73,34 @@ watchEffect(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* width: 78px;
-  padding: 1rem; */
-  border: none;
-  background: darkgrey;
+  color: lightslategray;
+  background-color: rgba(0, 0, 0, 50%);
   text-transform: capitalize;
 }
 
 .watchlist-btn:hover {
   cursor: pointer;
-  background: lightgrey;
+  color: var(--snow-white);
 }
 
 .watchlist {
-  background: #ac94f4;
+  color: #fcae1e;
 }
 
-.watchlist:hover {
-  background: #651fff;
+.mdi-loading {
+  animation: spin 0.75s linear infinite;
+  color: lightslategray;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

@@ -1,6 +1,9 @@
 <template>
-  <div class="film-card">
-    <!-- {{ movie.id }} -->
+  <div
+    class="film-card"
+    @mouseleave="isMenuOpen = false"
+    @mouseenter="isMenuOpen = true"
+  >
     <RouterLink :to="singleMovieURL">
       <ImagePlaceholder
         :src="poster"
@@ -8,11 +11,6 @@
         :imgParams="cssParams"
       />
     </RouterLink>
-    <div class="btn-container">
-      <button class="btn-options" @click="toggleMenu">
-        {{ isMenuOpen ? 'close' : 'menu' }}
-      </button>
-    </div>
     <!-- <div class="card-footer">
       <div>
         <span class="tmdb-rating">
@@ -23,12 +21,13 @@
         </span>
       </div>
     </div> -->
-    <UserActionsMenu
-      :style="{ width: 100 + '%' }"
-      :movie_id="movie.id"
-      :release="movie.release_date"
-      v-show="isMenuOpen"
-    />
+    <div class="user-actions-wrapper" v-show="isMenuOpen">
+      <UserActionsMenu
+        :style="{ width: 100 + '%' }"
+        :movie_id="movie.id"
+        :release="movie.release_date"
+      />
+    </div>
   </div>
 </template>
 
@@ -53,23 +52,18 @@ const cssParams: CSSProperties = {
 }
 
 const isMenuOpen = ref(false)
-const toggleMenu = () => (isMenuOpen.value = !isMenuOpen.value)
 
 const poster = `https://image.tmdb.org/t/p/w185/${movie.value.poster_path}`
 const singleMovieURL = `/movies/movie_page/${movie.value.id}`
 </script>
 
 <style scoped>
-.img-card {
-  box-sizing: border-box;
-}
-
 .film-card {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  border: 2px dotted black;
   width: 185px;
+  height: 277.5px;
   position: relative;
   z-index: 0;
 }
@@ -77,6 +71,12 @@ const singleMovieURL = `/movies/movie_page/${movie.value.id}`
 .film-card:hover {
   cursor: pointer;
   opacity: 0.925;
+}
+
+.user-actions-wrapper {
+  width: 185px;
+  position: absolute;
+  bottom: 0;
 }
 
 .btn-container {
@@ -112,11 +112,13 @@ const singleMovieURL = `/movies/movie_page/${movie.value.id}`
 }
 
 .btn-options {
-  border: none;
-  background: snow;
-  border: 2px solid #222;
-  color: #222;
-  text-transform: capitalize;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 35%);
+  color: var(--light-grey);
   cursor: pointer;
+}
+
+.btn-options:hover {
+  color: var(--snow-white);
 }
 </style>

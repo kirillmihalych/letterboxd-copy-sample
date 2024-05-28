@@ -6,7 +6,8 @@
     <div v-if="errorRequestToken" class="error-request-token">
       {{ errorRequestToken }}
     </div>
-    <LogoutButton />
+    <NavbarWatchlistLink />
+    <!-- <LogoutButton /> -->
     <button
       class="login-link"
       @click="fetchRequestToken"
@@ -37,6 +38,7 @@ import LogoutButton from './LogoutButton.vue'
 import getRequestToken from '@/api/authentication/getRequestToken'
 import SpinnerComp from '../error-handling/SpinnerComp.vue'
 import { useUserStore } from '@/stores/user'
+import NavbarWatchlistLink from './NavbarWatchlistLink.vue'
 
 const user = useUserStore()
 const isAvatarReady = ref(false)

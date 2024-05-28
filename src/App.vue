@@ -29,6 +29,7 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
     --dark-grey: #6f7073;
     --light-grey: #a1a2a6;
     --snow-white: #f2f2f2;
+    --emerald: #058743;
     --test: #ff5733;
     /* radius */
     --radius: 0.25rem;
@@ -104,14 +105,6 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
   img {
     max-width: 100%;
     border-radius: var(--radius);
-  }
-
-  a {
-    color: var(--black);
-  }
-
-  a:hover {
-    color: var(--dark-grey);
   }
 
   .app-header {

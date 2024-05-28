@@ -4,9 +4,9 @@
       You are not an authorized.
     </div>
     <div v-if="isUserAuthorized" class="user-actions-container">
-      <div class="rating-container">
+      <!-- <div class="rating-container">
         <RatingHandler :movie_id="props.movie_id" :release="props.release" />
-      </div>
+      </div> -->
       <div class="list-actions">
         <FavoriteButton :movie_id="props.movie_id" />
         <WatchlistButton :movie_id="props.movie_id" />
@@ -34,10 +34,6 @@ const isUserAuthorized = getSessionFromLocalStorage() ? true : false
 </script>
 
 <style scoped>
-.user-actions-container {
-  background-color: var(--light-grey);
-}
-
 .rating-container {
   height: 75px;
   display: flex;
@@ -46,12 +42,13 @@ const isUserAuthorized = getSessionFromLocalStorage() ? true : false
 }
 
 .list-actions {
-  background: darkgrey;
-  color: #222;
+  background-color: rgba(0, 0, 0, 70%);
   height: 45px;
+  width: 75%;
+  margin: 0 auto;
+  margin-bottom: 1rem;
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
-  text-transform: capitalize;
-  border-top: 2px solid #222;
+  grid-template-columns: repeat(3, 1fr);
+  border-radius: 25px;
 }
 </style>
