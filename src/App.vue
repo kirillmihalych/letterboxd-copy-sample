@@ -104,7 +104,6 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
 
   img {
     max-width: 100%;
-    border-radius: var(--radius);
   }
 
   .app-header {

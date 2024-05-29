@@ -1,10 +1,11 @@
 <template>
   <button
+    title="Save to watchlist"
     class="watchlist-btn"
     @click="toggleWatchlistHandler()"
     :class="{ watchlist: isWatchlist }"
   >
-    <v-icon v-if="isLoading" icon="mdi-loading" class="mdi-loading" />
+    <v-icon v-if="isLoading" icon="mdi-loading" class="loading" />
     <v-icon icon="mdi-eye" v-else="!isLoading" />
   </button>
 </template>
@@ -69,25 +70,19 @@ watchEffect(() => {
 </script>
 
 <style scoped>
-.watchlist-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: lightslategray;
-  background-color: rgba(0, 0, 0, 50%);
-  text-transform: capitalize;
+.watchlist {
+  color: orange;
 }
 
 .watchlist-btn:hover {
   cursor: pointer;
   color: var(--snow-white);
 }
-
-.watchlist {
-  color: #fcae1e;
+.watchlist:hover {
+  color: pink;
 }
 
-.mdi-loading {
+.loading {
   animation: spin 0.75s linear infinite;
   color: lightslategray;
 }
@@ -95,9 +90,6 @@ watchEffect(() => {
 @keyframes spin {
   0% {
     transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(90deg);
   }
   100% {
     transform: rotate(360deg);

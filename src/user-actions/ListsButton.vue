@@ -1,22 +1,25 @@
 <template>
-  <button class="lists-btn" @click="openModalHandler">
-    <v-icon icon="mdi-dots-horizontal" />
+  <button @click="openModalHandler" class="lists-btn">
+    <v-icon icon="mdi-playlist-plus" />
+    <ModalListHandler
+      :isOpen="isModalOpen"
+      :movie_id="props.movie_id"
+      @close="isModalOpen = false"
+    >
+      <template #modal-header>
+        <h3>Select a list</h3>
+      </template>
+      <template #modal-content>
+        <ListsComponent
+          :isModalOpen="isModalOpen"
+          :movie_id="$props.movie_id"
+        />
+      </template>
+      <template #modal-actions>
+        <RouterLink to="/profile/lists/create"> create new list </RouterLink>
+      </template>
+    </ModalListHandler>
   </button>
-  <ModalListHandler
-    :isOpen="isModalOpen"
-    :movie_id="props.movie_id"
-    @close="isModalOpen = false"
-  >
-    <template #modal-header>
-      <h3>Select a list</h3>
-    </template>
-    <template #modal-content>
-      <ListsComponent :isModalOpen="isModalOpen" :movie_id="$props.movie_id" />
-    </template>
-    <template #modal-actions>
-      <RouterLink to="/profile/lists/create"> create new list </RouterLink>
-    </template>
-  </ModalListHandler>
 </template>
 
 <script setup lang="ts">
@@ -37,17 +40,6 @@ const openModalHandler = () => {
 </script>
 
 <style scoped>
-.lists-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: lightslategray;
-  background-color: rgba(0, 0, 0, 50%);
-  text-transform: capitalize;
-  border-top-right-radius: var(--radius);
-  border-bottom-right-radius: var(--radius);
-}
-
 .lists-btn:hover {
   cursor: pointer;
   color: var(--snow-white);

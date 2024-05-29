@@ -1,11 +1,12 @@
 <template>
   <button
+    title="Save to favotires"
     class="favorite-btn"
     @click="toggleFavoriteHandler()"
     :class="{ favorite: isFavorite }"
   >
-    <v-icon v-if="isLoading" icon="mdi-loading" class="mdi-loading" />
-    <v-icon icon="mdi-heart" v-else="!isLoading" />
+    <v-icon v-if="isLoading" icon="mdi-loading" class="loading" />
+    <v-icon icon="mdi-thumb-up" v-if="!isLoading" />
   </button>
 </template>
 
@@ -63,15 +64,8 @@ watchEffect(() => {
 </script>
 
 <style scoped>
-.favorite-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background-color: rgba(0, 0, 0, 70%);
-  color: slategrey;
-  border-bottom-left-radius: var(--radius);
-  border-top-left-radius: var(--radius);
+.favorite {
+  color: red;
 }
 
 .favorite-btn:hover {
@@ -79,21 +73,18 @@ watchEffect(() => {
   color: var(--snow-white);
 }
 
-.favorite {
-  color: #ed2939;
+.favorite:hover {
+  color: pink;
 }
 
-.mdi-loading {
+.loading {
   animation: spin 0.75s linear infinite;
-  color: lightslategray;
+  color: var(--snow-white);
 }
 
 @keyframes spin {
   0% {
     transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(90deg);
   }
   100% {
     transform: rotate(360deg);

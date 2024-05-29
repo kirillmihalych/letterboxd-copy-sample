@@ -11,23 +11,19 @@
         :imgParams="cssParams"
       />
     </RouterLink>
-    <!-- <div class="card-footer">
-      <div>
-        <span class="tmdb-rating">
-          TMDB rating:
-          <span class="rating-number">
-            {{ movie.vote_average.toFixed(2) }}
-          </span>
-        </span>
-      </div>
-    </div> -->
     <div class="user-actions-wrapper" v-show="isMenuOpen">
-      <UserActionsMenu
-        :style="{ width: 100 + '%' }"
-        :movie_id="movie.id"
-        :release="movie.release_date"
-      />
+      <UserActionsMenu :movie_id="movie.id" :release="movie.release_date" />
     </div>
+    <!-- <footer>
+      <div class="imdb-rating-wrapper">
+        <v-icon icon="mdi-star" style="color: orange" />
+        <p>{{ movie.vote_average.toFixed(1) }}</p>
+      </div>
+
+      <button class="rate-movie-btn">
+        <v-icon icon="mdi-star-outline" />
+      </button>
+    </footer> -->
   </div>
 </template>
 
@@ -59,13 +55,13 @@ const singleMovieURL = `/movies/movie_page/${movie.value.id}`
 
 <style scoped>
 .film-card {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   width: 185px;
-  height: 277.5px;
+  height: 100%;
   position: relative;
   z-index: 0;
+  background-color: var(--light-grey);
+  border-radius: var(--radius);
+  overflow: hidden;
 }
 
 .film-card:hover {
@@ -77,48 +73,5 @@ const singleMovieURL = `/movies/movie_page/${movie.value.id}`
   width: 185px;
   position: absolute;
   bottom: 0;
-}
-
-.btn-container {
-  position: absolute;
-  top: 0.25rem;
-  right: 0.25rem;
-  z-index: 10;
-}
-
-.tmdb-rating {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 1rem;
-  background: #222;
-  width: 235px;
-  padding: 0.2rem;
-  color: snow;
-}
-
-.rating-number {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  background: snow;
-  color: #222;
-  width: 40px;
-  height: 20px;
-  text-align: center;
-  border-radius: 0.1rem;
-}
-
-.btn-options {
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 35%);
-  color: var(--light-grey);
-  cursor: pointer;
-}
-
-.btn-options:hover {
-  color: var(--snow-white);
 }
 </style>

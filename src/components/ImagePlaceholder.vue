@@ -1,12 +1,11 @@
 <template>
-  <div class="img-wrapper">
+  <div class="img-wrapper" :style="imgParams">
     <img
       :src="src"
       :alt="title"
       @load="ready = true"
       v-show="ready"
       id="loaded-img"
-      :style="imgParams"
     />
     <SpinnerComp v-if="!ready" :cssParams="imgParams" />
   </div>
