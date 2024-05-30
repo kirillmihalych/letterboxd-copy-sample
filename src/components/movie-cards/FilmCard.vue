@@ -12,18 +12,13 @@
       />
     </RouterLink>
     <div class="user-actions-wrapper" v-show="isMenuOpen">
-      <UserActionsMenu :movie_id="movie.id" :release="movie.release_date" />
+      <UserActionsMenu
+        :movie_id="movie.id"
+        :release="movie.release_date"
+        :vote_average="movie.vote_average"
+        :vote_count="movie.vote_count"
+      />
     </div>
-    <!-- <footer>
-      <div class="imdb-rating-wrapper">
-        <v-icon icon="mdi-star" style="color: orange" />
-        <p>{{ movie.vote_average.toFixed(1) }}</p>
-      </div>
-
-      <button class="rate-movie-btn">
-        <v-icon icon="mdi-star-outline" />
-      </button>
-    </footer> -->
   </div>
 </template>
 

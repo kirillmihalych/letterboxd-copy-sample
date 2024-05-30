@@ -1,7 +1,7 @@
 <template>
   <div class="profile-navbar-container">
     <RouterLink
-      v-for="route in profileNavbarRoutes"
+      v-for="route in profileRoutes"
       :key="route.path"
       :to="route.path"
       class="profile-navbar-link"
@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { profileNavbarRoutes } from '@/router'
+import { profileRoutes } from '@/router'
 import { useRoute } from 'vue-router'
 
 const location = useRoute()

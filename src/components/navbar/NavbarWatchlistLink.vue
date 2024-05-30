@@ -11,13 +11,11 @@
 
 <script setup lang="ts">
 import { RouterLink, type RouteLocationRaw } from 'vue-router'
-import { profileNavbarRoutes } from '@/router'
+import { profileRoutes } from '@/router'
 import getWatchlistMovies from '@/api/account/getWatchlist'
 import { onMounted, ref } from 'vue'
 
-const watchlist = profileNavbarRoutes.find(
-  (route) => route.name === 'Watchlist'
-)
+const watchlist = profileRoutes.find((route) => route.name === 'Watchlist')
 
 const isLoading = ref(false)
 const titles = ref<number | null>(null)

@@ -7,7 +7,13 @@
       <div class="list-actions">
         <FancyButtonWrapper v-for="(comp, idx) in comps" :key="idx">
           <template #fancy-button-slot>
-            <component :is="comp" :movie_id="props.movie_id" />
+            <component
+              :is="comp"
+              :movie_id="props.movie_id"
+              :release="release"
+              :vote_average="props.vote_average"
+              :vote_count="props.vote_count"
+            />
           </template>
         </FancyButtonWrapper>
       </div>
@@ -28,6 +34,8 @@ const comps = [FavoriteButton, WatchlistButton, RateMovieButton, ListsButton]
 interface IUserActionsMenu {
   movie_id: number
   release: string
+  vote_average: number
+  vote_count: number
 }
 
 const props = defineProps<IUserActionsMenu>()
@@ -49,16 +57,4 @@ button {
   background: inherit;
   color: inherit;
 }
-
-/* .list-actions div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: slategray;
-}
-
-.list-actions button:hover {
-  color: var(--snow-white);
-} */
 </style>

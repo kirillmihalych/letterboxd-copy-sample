@@ -1,5 +1,5 @@
 <template>
-  <div class="list-container">
+  <li class="list-container">
     <div class="checkbox-container">
       <input
         type="checkbox"
@@ -11,7 +11,7 @@
     </div>
     <p class="list-info">
       {{
-        isDetailsLoading
+        isLoading
           ? '...'
           : list_details?.item_count
           ? list_details.item_count
@@ -19,7 +19,7 @@
       }}
       films
     </p>
-  </div>
+  </li>
 </template>
 
 <script setup lang="ts">
@@ -38,11 +38,12 @@ interface IListCard {
 const props = defineProps<IListCard>()
 const list_status = ref()
 const list_details = ref<IList | null>(null)
-const isDetailsLoading = ref(false)
+const isLoading = ref(false)
 
 const toggleStatusHandler = async (e: Event) => {
   const event = (e.target as HTMLInputElement).checked
   try {
+    isLoading.value = true
     if (event === false) {
       await removieMovie(props.movie_id as number, props.list.id)
     } else {
@@ -63,14 +64,14 @@ const isMoviePresent = async (list_id: number, movie_id: number) => {
 
 const getListDetailsHandler = async () => {
   try {
-    isDetailsLoading.value = true
+    isLoading.value = true
     list_details.value = await getListDetails(props.list.id)
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log(err.message.toString())
     }
   } finally {
-    isDetailsLoading.value = false
+    isLoading.value = false
   }
 }
 
@@ -88,7 +89,7 @@ watchEffect(() => {
   justify-content: space-between;
   width: 350px;
   background: lightgrey;
-  padding: 10px;
+  padding: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
@@ -96,13 +97,12 @@ watchEffect(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.25rem;
 }
 
 .checkbox-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.1rem;
+  gap: 0.25rem;
 }
 </style>

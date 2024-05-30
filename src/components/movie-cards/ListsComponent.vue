@@ -2,13 +2,24 @@
   <div class="lists-component-container">
     <div v-if="isLoading" class="spinner-container"></div>
     <div v-if="error" class="error-container">{{ error }}</div>
-    <div v-if="lists" class="lists-container">
-      <ListCard
-        v-for="list in lists"
-        :key="list.id"
-        :list="list"
-        :movie_id="props.movie_id"
-      />
+    <div v-if="lists" class="lists-wrapper">
+      <header>
+        <h4>Save movie to...</h4>
+      </header>
+      <ul class="lists-container">
+        <ListCard
+          v-for="list in lists"
+          :key="list.id"
+          :list="list"
+          :movie_id="props.movie_id"
+        />
+      </ul>
+      <footer>
+        <RouterLink :to="createList" class="create-list-link">
+          <v-icon icon="mdi-plus" />
+          <p>Create new list</p>
+        </RouterLink>
+      </footer>
     </div>
   </div>
 </template>
@@ -18,6 +29,13 @@ import getLists from '@/api/account/getLists'
 import type { IList } from '@/interfaces/lists-types'
 import { ref, watchEffect } from 'vue'
 import ListCard from './ListCard.vue'
+import { profileRoutes } from '@/router'
+import type { RouteLocationRaw } from 'vue-router'
+
+const createList = profileRoutes.find(
+  (route) => route.name === 'Create new list'
+) as RouteLocationRaw
+
 interface IListsComponent {
   isModalOpen: boolean
   movie_id: number
@@ -50,14 +68,31 @@ watchEffect(() => {
 </script>
 
 <style scoped>
-.lists-container {
-  height: 265px;
+.lists-wrapper {
   display: flex;
-  justify-content: start;
-  align-items: start;
   flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1rem;
+  height: 100%;
+}
+
+.lists-container {
+  height: 10rem;
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr;
   overflow-y: scroll;
+}
+
+.create-list-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.25rem 0.1rem;
+  color: #222;
+}
+
+.create-list-link:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 </style>

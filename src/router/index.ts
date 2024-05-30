@@ -111,7 +111,7 @@ const listRoutes: VueRouter.RouteRecordRaw[] = [
   },
 ]
 
-export const profileNavbarRoutes: VueRouter.RouteRecordRaw[] = [
+export const profileRoutes: VueRouter.RouteRecordRaw[] = [
   {
     name: 'Favorites',
     path: '/profile/favorites/movies',
@@ -170,7 +170,7 @@ const router = createRouter({
   routes: movieRoutes
     .concat(userRoutes)
     .concat(listRoutes)
-    .concat(profileNavbarRoutes)
+    .concat(profileRoutes)
     .concat(filterMoviesRoutes)
     .concat(personRoutes),
 })

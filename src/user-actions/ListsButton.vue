@@ -1,31 +1,18 @@
 <template>
-  <button @click="openModalHandler" class="lists-btn">
+  <button @click="openModal" class="lists-btn">
     <v-icon icon="mdi-playlist-plus" />
-    <ModalListHandler
-      :isOpen="isModalOpen"
-      :movie_id="props.movie_id"
-      @close="isModalOpen = false"
-    >
-      <template #modal-header>
-        <h3>Select a list</h3>
-      </template>
+    <ModalWindow :isOpen="isModalOpen" @close="closeModal">
       <template #modal-content>
-        <ListsComponent
-          :isModalOpen="isModalOpen"
-          :movie_id="$props.movie_id"
-        />
+        <ListsComponent :isModalOpen="isModalOpen" :movie_id="props.movie_id" />
       </template>
-      <template #modal-actions>
-        <RouterLink to="/profile/lists/create"> create new list </RouterLink>
-      </template>
-    </ModalListHandler>
+    </ModalWindow>
   </button>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import ListsComponent from '@/components/movie-cards/ListsComponent.vue'
-import ModalListHandler from '@/modals/ModalListHandler.vue'
+import ModalWindow from '@/modals/ModalWindow.vue'
 
 interface IListButton {
   movie_id: number
@@ -34,9 +21,8 @@ interface IListButton {
 const props = defineProps<IListButton>()
 
 const isModalOpen = ref(false)
-const openModalHandler = () => {
-  isModalOpen.value = true
-}
+const openModal = () => (isModalOpen.value = true)
+const closeModal = () => (isModalOpen.value = false)
 </script>
 
 <style scoped>

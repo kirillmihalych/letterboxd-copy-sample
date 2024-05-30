@@ -1,10 +1,10 @@
 <template>
   <slot name="header"></slot>
-  <ul class="carousel" id="slider">
-    <li v-for="item in props.items" :key="item.id">
+  <div class="carousel" id="slider">
+    <div v-for="item in props.items" :key="item.id">
       <slot name="item" :item="item"></slot>
-    </li>
-  </ul>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
