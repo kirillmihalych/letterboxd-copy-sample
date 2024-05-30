@@ -16,13 +16,9 @@ import toggleWatchlist from '@/api/account/toggleWatchlist'
 import type { IWatchListMovie } from '@/interfaces/movie-types'
 import { ref, watchEffect } from 'vue'
 import getAccountID from '@/local-storage/getAccountID'
-import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
+import { useUserStore } from '@/stores/user'
 
-const css_params = {
-  width: 10 + 'px',
-  height: 10 + 'px',
-}
-
+const user = useUserStore()
 const account_id = getAccountID()
 
 interface IWatchlistButton {
@@ -37,6 +33,7 @@ const getAccountStateHandler = async () => {
   try {
     isLoading.value = true
     isWatchlist.value = (await getAccountState(props.movie_id)).watchlist
+    user.fetchWatchlistTitles()
   } catch (err) {
     if (err instanceof Error) {
       console.log('Error in getting an account state' + err.message.toString())

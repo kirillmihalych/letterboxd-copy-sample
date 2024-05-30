@@ -44,7 +44,7 @@ const cssParams: CSSProperties = {
 
 const isMenuOpen = ref(false)
 
-const poster = `https://image.tmdb.org/t/p/w185/${movie.value.poster_path}`
+const poster = `https://image.tmdb.org/t/p/w342/${movie.value.poster_path}`
 const singleMovieURL = `/movies/movie_page/${movie.value.id}`
 </script>
 

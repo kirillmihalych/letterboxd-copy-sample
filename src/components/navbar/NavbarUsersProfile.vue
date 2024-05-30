@@ -20,7 +20,7 @@
       <RouterLink to="/profile" class="avatar-container">
         <SpinnerComp v-show="!isAvatarReady" />
         <img
-          :src="`https://image.tmdb.org/t/p/w200/${user.accountDetails.avatar.tmdb.avatar_path}`"
+          :src="`https://image.tmdb.org/t/p/w45/${user.accountDetails.avatar.tmdb.avatar_path}`"
           alt="avatar"
           class="avatar"
           @load="isAvatarReady = true"

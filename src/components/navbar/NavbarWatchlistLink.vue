@@ -5,34 +5,22 @@
   >
     <v-icon icon="mdi-bookmark-plus-outline" />
     <h4>Watchlist</h4>
-    <span>{{ isLoading ? '...' : titles }}</span>
+    <span>{{ user.isLoading ? '...' : user.titles }}</span>
   </RouterLink>
 </template>
 
 <script setup lang="ts">
 import { RouterLink, type RouteLocationRaw } from 'vue-router'
 import { profileRoutes } from '@/router'
-import getWatchlistMovies from '@/api/account/getWatchlist'
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
+import { useUserStore } from '@/stores/user'
+
+const user = useUserStore()
 
 const watchlist = profileRoutes.find((route) => route.name === 'Watchlist')
 
-const isLoading = ref(false)
-const titles = ref<number | null>(null)
-
-const fetchWatchlistTotal = async () => {
-  try {
-    isLoading.value = true
-    titles.value = (await getWatchlistMovies(1)).total_results
-  } catch (error) {
-    console.log(error)
-  } finally {
-    isLoading.value = false
-  }
-}
-
 onMounted(() => {
-  fetchWatchlistTotal()
+  user.fetchWatchlistTitles()
 })
 </script>
 
@@ -53,9 +41,14 @@ onMounted(() => {
 }
 
 .watchlist-btn-wrapper span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
   background-color: orange;
   padding: 0rem 0.5rem;
-  border-radius: var(--radius);
   font-size: 0.875rem;
 }
 </style>
