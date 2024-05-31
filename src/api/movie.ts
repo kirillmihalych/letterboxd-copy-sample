@@ -124,24 +124,6 @@ export const fetchMultiResultsByQuery = async (query: string) => {
 
 // ====================================
 
-const optionsTrending = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: ACCESS_TOKEN,
-  },
-}
-
-export const loadTrendingToday = async () => {
-  const response = await (
-    await fetch(
-      'https://api.themoviedb.org/3/trending/movie/day?language=ru-RU',
-      optionsTrending
-    )
-  ).json()
-  return response.results
-}
-
 // =================================
 const optionsGenreList = {
   method: 'GET',

@@ -1,5 +1,6 @@
 <template>
   <div class="base-layout-container">
+    <!-- movies start -->
     <div>
       <div class="fetch-handle-container" v-if="loadingMovie">
         <SpinnerComp />
@@ -8,6 +9,7 @@
       <div v-if="movieList">
         <CarouselComponent :items="movieList">
           <template #header>
+            <h2 class="movies-carousel-title h3">Movies trending today</h2>
             <header class="films-view-header">
               <MovieNavbar />
             </header>
@@ -18,7 +20,8 @@
         </CarouselComponent>
       </div>
     </div>
-    <hr />
+    <!-- movies end -->
+    <!-- people start -->
     <div>
       <div class="fetch-handle-container" v-if="loadingPeople">
         <SpinnerComp />
@@ -26,12 +29,16 @@
       <div v-if="errorPeople">{{ errorPeople }}</div>
       <div v-if="people">
         <CarouselComponent :items="people">
+          <template #header>
+            <h2 class="movies-carousel-title h3">Popular people</h2>
+          </template>
           <template #item="slotProps">
             <PersonCard :person="slotProps.item" />
           </template>
         </CarouselComponent>
       </div>
     </div>
+    <!-- people end -->
   </div>
 </template>
 
@@ -40,12 +47,12 @@ import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 import CarouselComponent from '@/components/generic-carousel/CarouselComponent.vue'
 import MovieNavbar from '@/components/filters/MovieNavbar.vue'
 import FilmCard from '@/components/movie-cards/FilmCard.vue'
-import PersonCard from '@/components/movie-cards/PersonCard.vue'
+import PersonCard from '@/components/person-card/PersonCard.vue'
 
 import type { IMovie, IPerson } from '@/interfaces/movie-types'
 import { onMounted, ref } from 'vue'
-import { loadTrendingToday } from '@/api/movie'
-import { loadPopularPeople } from '@/api/people'
+import getTrendingMovies from '@/api/movies/getTrendingMovies'
+import getPopularPeople from '@/api/persons/getPopularPeople'
 
 const movieList = ref<IMovie[] | null>(null)
 const errorMovie = ref<string | null>(null)
@@ -57,7 +64,7 @@ const fetchTrendMovies = async () => {
   loadingMovie.value = true
 
   try {
-    movieList.value = await loadTrendingToday()
+    movieList.value = await getTrendingMovies()
   } catch (err: unknown) {
     if (err instanceof Error) {
       errorMovie.value =
@@ -79,7 +86,7 @@ const fetchPopularPeople = async () => {
   loadingPeople.value = true
 
   try {
-    people.value = await loadPopularPeople()
+    people.value = await getPopularPeople()
   } catch (err: unknown) {
     if (err instanceof Error) {
       errorPeople.value =
@@ -101,16 +108,23 @@ onMounted(() => {
   min-width: 400px;
   max-width: 950px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
 .films-view-header {
   box-sizing: border-box;
   margin: 0 auto;
   width: 950px;
-  padding: 0.25rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.movies-carousel-title {
+  border-left: 0.25rem solid red;
+  padding-left: 0.5rem;
 }
 
 .spinner-container {

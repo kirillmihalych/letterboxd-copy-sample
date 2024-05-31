@@ -21,7 +21,6 @@ const props = defineProps<ICarousel>()
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 1rem;
   gap: 0.25rem;
   transition: all 1s linear;
   overflow-x: auto;
@@ -33,10 +32,13 @@ const props = defineProps<ICarousel>()
   width: 0.5rem;
 }
 .carousel::-webkit-scrollbar-track {
-  background-color: var(--light-grey);
+  background-color: slategray;
 }
 .carousel::-webkit-scrollbar-thumb {
-  width: 10px;
+  cursor: grab;
+  background-color: lightslategray;
+  border: 2px solid #222;
+  width: 8px;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 1);
 }
 

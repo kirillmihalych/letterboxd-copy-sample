@@ -144,7 +144,7 @@ export interface IPerson {
   adult: boolean
   gender: number
   id: number
-  know_for: IMovie[]
+  known_for: IMovie[]
   known_for_department: string
   media_type: string
   name: string

@@ -6,9 +6,17 @@ import { onMounted, ref, watchEffect } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
   const accountDetails = ref<IAccountDetails | null>(null)
+  const isLoadingAccount = ref(false)
 
   const fetchAccountDetails = async () => {
-    accountDetails.value = await getAccountDetails()
+    try {
+      isLoadingAccount.value = true
+      accountDetails.value = await getAccountDetails()
+    } catch (error) {
+      console.log(error)
+    } finally {
+      isLoadingAccount.value = false
+    }
   }
 
   onMounted(() => {
@@ -32,5 +40,11 @@ export const useUserStore = defineStore('user', () => {
     fetchWatchlistTitles()
   })
 
-  return { accountDetails, fetchWatchlistTitles, titles, isLoading }
+  return {
+    accountDetails,
+    fetchWatchlistTitles,
+    titles,
+    isLoading,
+    isLoadingAccount,
+  }
 })

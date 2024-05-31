@@ -1,22 +1,27 @@
 <template>
   <div class="media-card-container">
-    <div class="content-container">
-      <img
-        :src="moviePoster || tvShowPoster || personImage"
-        alt="poster"
-        class="poster"
-      />
-      <div class="media-info">
-        <h1>
-          {{ movieTitle || tvShowName || personName }}
-        </h1>
-        <div class="additional-info"></div>
+    <RouterLink :to="movieLink || personLink">
+      <div class="content-container">
+        <ImagePlaceholder
+          :src="moviePoster || personImage"
+          :img-params="{ width: 32 + 'px', height: 48 + 'px' }"
+          :title="movieTitle || personName"
+        />
+        <div class="media-info">
+          <h4>
+            {{ movieTitle || personName }}
+          </h4>
+          <div class="additional-info">
+            {{ movieRelease?.slice(0, 4) || null }}
+          </div>
+        </div>
       </div>
-    </div>
+    </RouterLink>
   </div>
 </template>
 
 <script setup lang="ts">
+import ImagePlaceholder from '@/components/ImagePlaceholder.vue'
 import addMovie from '@/api/lists/addMovie'
 import type { IMovie, IPerson, ITVShow } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
@@ -24,28 +29,36 @@ import { RouterLink } from 'vue-router'
 interface ILinkCard {
   item: IMovie | ITVShow | IPerson
 }
+// const tvShowName = (props.item as ITVShow).name
+// const tvShowPoster = `https://image.tmdb.org/t/p/w92/${
+//   (props.item as ITVShow).poster_path
+// }`
 
 const props = defineProps<ILinkCard>()
-const tvShowName = (props.item as ITVShow).name
 const movieTitle = (props.item as IMovie).title
-const personName = (props.item as IPerson).name
-const moviePoster = `https://image.tmdb.org/t/p/original/${
+const movieRelease = (props.item as IMovie).release_date?.slice(0, 4)
+const moviePoster = `https://image.tmdb.org/t/p/w92/${
   (props.item as IMovie).poster_path
 }`
-const tvShowPoster = `https://image.tmdb.org/t/p/original/${
-  (props.item as ITVShow).poster_path
-}`
-const personImage = `https://image.tmdb.org/t/p/original/${
+const movieLink = `/movies/movie_page/${props.item.id}`
+const personLink = `/persons/${props.item.id}`
+
+const personName = (props.item as IPerson).name
+const personImage = `https://image.tmdb.org/t/p/w92/${
   (props.item as IPerson).profile_path
 }`
 </script>
 
 <style scoped>
-.media-card-container {
+.content-container {
+  display: flex;
+}
+/* .media-card-container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 75px;
+  font-size: 0.1rem;
   margin: 1rem 0rem;
 }
 
@@ -75,5 +88,5 @@ const personImage = `https://image.tmdb.org/t/p/original/${
 .additional-info {
   display: flex;
   gap: 0.5rem;
-}
+} */
 </style>

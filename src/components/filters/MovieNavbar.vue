@@ -1,7 +1,6 @@
 <template>
-  <div class="films-navbar">
-    <h3>Browse by</h3>
-
+  <menu class="films-navbar">
+    <h4>Browse by</h4>
     <RouterLink
       v-for="route in filterMoviesRoutes"
       :key="route.path"
@@ -11,7 +10,7 @@
     >
       {{ route.name }}
     </RouterLink>
-  </div>
+  </menu>
 </template>
 
 <script setup lang="ts">
@@ -22,33 +21,47 @@ const location = useRoute()
 </script>
 
 <style scoped>
-/* .films-navbar {
-  box-sizing: border-box;
+.films-navbar {
+  width: 465px;
   display: flex;
   justify-content: start;
   align-items: center;
-  gap: 1rem;
+  padding: 0.5rem 0rem;
+}
+
+h4 {
+  margin-right: 0.5rem;
 }
 
 .movie-navbar-link {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 200px;
-  height: 50px;
-  font-weight: bold;
-  background: darkgray;
   color: #222;
-  box-sizing: border-box;
+  border: 2px solid black;
+  background-color: slategray;
+  color: var(--snow-white);
+  /* border-radius: var(--radius); */
+  padding: 0.25rem 0.5rem;
+}
+
+.movie-navbar-link:nth-child(2) {
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
+}
+
+.movie-navbar-link:nth-child(3) {
+  border-left: none;
+  border-right: none;
+}
+
+.movie-navbar-link:nth-child(4) {
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
 }
 
 .movie-navbar-link:hover {
-  background: lightgray;
+  background-color: lightslategray;
 }
 
 .active {
-  border: #651fff 2px solid;
-  background: lightgrey;
-} */
+  color: orange;
+}
 </style>

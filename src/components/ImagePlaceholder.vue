@@ -7,13 +7,17 @@
       v-show="ready"
       id="loaded-img"
     />
-    <SpinnerComp v-if="!ready" :cssParams="imgParams" />
+    <IconSpinner
+      v-if="!ready && !src.includes('null')"
+      :cssParams="imgParams"
+    />
+    <v-icon icon="mdi-image-outline" v-if="src.includes('null')" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, type CSSProperties } from 'vue'
-import SpinnerComp from './error-handling/SpinnerComp.vue'
+import IconSpinner from './error-handling/IconSpinner.vue'
 
 interface IImagePlaceholderProps {
   src: string
@@ -32,6 +36,17 @@ const src = ref(props.src)
 
 <style scoped>
 .img-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   grid-row: 1/3;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>

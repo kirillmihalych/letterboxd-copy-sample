@@ -13,7 +13,7 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
         <RouterView />
       </div>
     </main>
-    <footer>contacts</footer>
+    <!-- <footer>contacts</footer> -->
   </div>
 </template>
 
@@ -107,14 +107,27 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
   }
 
   .app-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 2px dotted green; */
     position: fixed;
     width: 100%;
+    height: 4rem;
     z-index: 1;
-    background-color: #222;
+    /* background-color: inherit; */
   }
 
   .app-main {
-    padding-top: 5rem;
+    max-width: 950px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 1rem;
+    padding-top: 6rem;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-left: 1px solid var(--light-grey);
+    border-right: 1px solid var(--light-grey);
+    /* border: 2px dotted green; */
   }
 }
 </style>

@@ -16,7 +16,7 @@ const mediaTypes = {
 }
 
 const getSearchResults = async (query: string, page: number) => {
-  const media: (IMovie | ITVShow)[] = []
+  const movies: IMovie[] = []
   const persons: IPerson[] = []
   const response = await (
     await fetch(
@@ -24,17 +24,14 @@ const getSearchResults = async (query: string, page: number) => {
       options
     )
   ).json()
-  // response.results.forEach((result: any) => {
-  //   if (
-  //     result.media_type === mediaTypes.movie ||
-  //     result.media_type === mediaTypes.tv
-  //   ) {
-  //     media.push(result)
-  //   } else if (result.media_type === mediaTypes.person) {
-  //     persons.push(result)
-  //   }
-  // })
-  return response.results
+  response.results.forEach((result: any) => {
+    if (result.media_type === mediaTypes.movie) {
+      movies.push(result)
+    } else if (result.media_type === mediaTypes.person) {
+      persons.push(result)
+    }
+  })
+  return { movies, persons }
 }
 
 export default getSearchResults

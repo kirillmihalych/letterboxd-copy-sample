@@ -49,7 +49,7 @@ const addMedia = async (movie_id: number, list_id: number) => {
 </script>
 
 <style scoped>
-.media-card-container {
+/* .media-card-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,5 +83,5 @@ const addMedia = async (movie_id: number, list_id: number) => {
 .additional-info {
   display: flex;
   gap: 0.5rem;
-}
+} */
 </style>

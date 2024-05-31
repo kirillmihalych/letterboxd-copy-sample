@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN } from './keys'
+import { ACCESS_TOKEN } from '../keys'
 
 const optionsGet = {
   method: 'GET',
@@ -8,13 +8,14 @@ const optionsGet = {
   },
 }
 
-export const loadPopularPeople = async () => {
+const getPopularPeople = async () => {
   const response = await (
     await fetch(
       'https://api.themoviedb.org/3/person/popular?language=en-US&page=1',
       optionsGet
     )
   ).json()
-  console.log(response)
   return response.results
 }
+
+export default getPopularPeople

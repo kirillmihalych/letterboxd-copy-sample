@@ -1,10 +1,7 @@
 <template>
-  <div class="navbar-menu-container" @mouseleave="isLinkListShowed = false">
-    <button
-      class="navbar-menu-toggle-btn"
-      @mouseenter="isLinkListShowed = true"
-    >
-      menu
+  <div class="menu-container" @mouseleave="isLinkListShowed = false">
+    <button class="toggle-btn" @mouseenter="isLinkListShowed = true">
+      <v-icon icon="mdi-menu" />
     </button>
     <NavbarLinkList
       v-show="isLinkListShowed"
@@ -23,10 +20,12 @@ const isLinkListShowed = ref(false)
 <style scoped>
 .navbar-menu-container {
   position: relative;
-  background: yellow;
 }
 
-.navbar-menu-toggle-btn {
-  height: 21px;
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.25rem;
 }
 </style>
