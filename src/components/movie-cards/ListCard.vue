@@ -28,6 +28,7 @@ import getListDetails from '@/api/lists/getListDetails'
 import getListStatus from '@/api/lists/getListStatus'
 import removieMovie from '@/api/lists/removeMovie'
 import type { IList } from '@/interfaces/lists-types'
+
 import { ref, watchEffect } from 'vue'
 
 interface IListCard {

@@ -1,7 +1,7 @@
 <template>
   <div class="navbar-container">
     <div class="navbar-left-part">
-      <RouterLink to="/base-layout" class="home-link">
+      <RouterLink to="/" class="home-link">
         <v-icon icon="mdi-fire" class="fire-icon" />
       </RouterLink>
       <NavbarMultiSearch />
@@ -33,7 +33,7 @@ import NavbarUsersProfile from './NavbarUsersProfile.vue'
   justify-content: space-between;
   padding: 0 1rem;
   transition: transform 1s ease-in-out;
-  z-index: 10;
+  z-index: 1;
 }
 
 .navbar {

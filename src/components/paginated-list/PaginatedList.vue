@@ -1,41 +1,5 @@
 <template>
   <article class="paginated-list">
-    <div class="active info-display">
-      <p v-if="isLoading">...</p>
-      <p v-if="!isLoading">
-        There are {{ total_pages }} pages and {{ props.total_results }} movies
-      </p>
-    </div>
-
-    <div class="btns-container">
-      <p class="active page-display">You are on a page {{ page }}</p>
-      <button
-        @click="setPrevPage"
-        :disabled="page === 1"
-        class="page-control-btn"
-      >
-        prev page
-      </button>
-
-      <button
-        v-for="n in range"
-        :key="n"
-        @click="setPage(n)"
-        class="page-control-btn"
-        :class="{ active: n === page }"
-        :disabled="n > total_pages"
-      >
-        {{ n }}
-      </button>
-      <button class="page-control-btn" @click="displayMorePages">more</button>
-      <button
-        @click="setNextPage"
-        :disabled="page === props.total_pages"
-        class="page-control-btn"
-      >
-        next page
-      </button>
-    </div>
     <div v-if="props.isLoading" class="loading">
       <SpinnerComp />
     </div>
@@ -43,13 +7,15 @@
       {{ props.error }}
     </div>
     <div v-if="!props.isLoading && !props.error" class="page-content">
-      <div class="movies-container" v-if="movies">
-        <FilmCard
-          v-for="movie in props.movies"
-          :key="movie.id"
-          :movie="movie"
-        />
-      </div>
+      <MovieListWrapper v-if="movies">
+        <template #movie-cards>
+          <FilmCard
+            v-for="movie in props.movies"
+            :key="movie.id"
+            :movie="movie"
+          />
+        </template>
+      </MovieListWrapper>
       <div v-if="lists" class="lists-container">
         <RouterLink
           v-for="list in props.lists"
@@ -63,6 +29,39 @@
         </RouterLink>
       </div>
     </div>
+    <div class="btns-container">
+      <button
+        @click="setPrevPage"
+        :disabled="page === 1"
+        class="page-control-btn"
+      >
+        <v-icon icon="mdi-arrow-left-bold-box-outline" />
+      </button>
+      <button
+        v-for="n in range"
+        :key="n"
+        @click="setPage(n)"
+        class="page-control-btn"
+        :class="{ active: n === page }"
+        :disabled="n > total_pages"
+      >
+        {{ n }}
+      </button>
+      <button
+        class="page-control-btn"
+        @click="displayMorePages"
+        v-if="total_pages > 5"
+      >
+        ...
+      </button>
+      <button
+        @click="setNextPage"
+        :disabled="page === props.total_pages"
+        class="page-control-btn"
+      >
+        <v-icon icon="mdi-arrow-right-bold-box-outline" />
+      </button>
+    </div>
   </article>
 </template>
 
@@ -70,9 +69,11 @@
 import type { IRatedMovie } from '@/interfaces/account-types'
 import type { IList } from '@/interfaces/lists-types'
 import type { IMovie } from '@/interfaces/movie-types'
-import { ref } from 'vue'
+import { ref, type CSSProperties } from 'vue'
 import FilmCard from '@/components/movie-cards/FilmCard.vue'
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
+import MovieListWrapper from './MovieListWrapper.vue'
+import IconSpinner from '../error-handling/IconSpinner.vue'
 
 interface IPaginatedList {
   lists?: IList[] | null
@@ -119,20 +120,60 @@ const displayMorePages = () => {
   for (let i = 0; i < 5; i++) {
     range.value[i] = range.value[i] + 5
   }
+  setPage(range.value[0])
 }
 </script>
 
 <style scoped>
-.paginated-list {
-  /* width: 950px; */
+/* .paginated-list {
+  border: 2px dotted green;
+} */
+
+.btns-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-top: 1rem;
+}
+
+.page-control-btn {
+  border-radius: var(--radius);
+  background-color: slategray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  font-weight: 800;
+}
+
+.page-control-btn:hover {
+  cursor: pointer;
+  background-color: orange;
+}
+
+.active {
+  border: 2px solid #222;
+}
+
+.header-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* .paginated-list {
+  width: 950px;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: start;
   margin-top: 2rem;
   flex-direction: column;
-}
-
+} */
+/* 
 .page-content {
   width: 950px;
   display: flex;
@@ -141,9 +182,9 @@ const displayMorePages = () => {
   margin-top: 1rem;
   align-items: start;
   flex-direction: column;
-}
+} */
 
-.movies-container {
+/* .movies-container {
   width: 950px;
   display: flex;
   justify-content: space-between;
@@ -151,9 +192,9 @@ const displayMorePages = () => {
   gap: 2.25rem;
   margin: 1rem 0;
   flex-wrap: wrap;
-}
+} */
 
-.loading {
+/* .loading {
   width: 100%;
   min-height: 350px;
   display: flex;
@@ -167,14 +208,15 @@ const displayMorePages = () => {
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
-}
+} */
 
-.btns-container {
+/* .btns-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 950px;
   gap: 0.5rem;
+  border: 2px dotted blue;
 }
 
 .page-control-btn {
@@ -186,9 +228,9 @@ const displayMorePages = () => {
   border: none;
   padding: 0.75rem;
   background: darkgray;
-}
+} */
 
-.page-display {
+/* .page-display {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -197,9 +239,9 @@ const displayMorePages = () => {
   font-weight: bold;
   color: #222;
   box-sizing: border-box;
-}
+} */
 
-.info-display {
+/* .info-display {
   width: 100%;
   height: 50px;
   display: flex;
@@ -207,16 +249,16 @@ const displayMorePages = () => {
   justify-content: start;
   padding: 1rem;
   box-sizing: border-box;
-}
+} */
 
-.page-control-btn:hover {
+/* .page-control-btn:hover {
   background: lightgray;
   cursor: pointer;
 }
 
 .active {
-  border: #651fff 2px solid;
-  background: lightgrey;
+  border: var(--dark-grey) 2px solid;
+  background: var(--snow-white);
 }
 
 .lists-container {
@@ -241,5 +283,5 @@ const displayMorePages = () => {
 
 .list-link:hover {
   background: lightslategray;
-}
+} */
 </style>

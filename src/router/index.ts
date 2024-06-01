@@ -114,7 +114,7 @@ const listRoutes: VueRouter.RouteRecordRaw[] = [
 export const profileRoutes: VueRouter.RouteRecordRaw[] = [
   {
     name: 'Favorites',
-    path: '/profile/favorites/movies',
+    path: '/profile/:id/favorites/movies',
     component: ProfilePage,
   },
   {

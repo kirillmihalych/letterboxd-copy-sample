@@ -63,6 +63,7 @@ import addRating from '@/api/movies/addRating'
 import deleteRating from '@/api/movies/deleteRating'
 import getAccountState from '@/api/account/getAccountState'
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
+import { useUserStore } from '@/stores/user'
 
 //
 
@@ -93,6 +94,7 @@ const isLoading = ref(false)
 const releaseDate = new Date(props.release)
 const currentDate = new Date()
 const isMovieReleased = releaseDate <= currentDate
+const user = useUserStore()
 
 const getAccountStateHandler = async () => {
   try {
@@ -119,6 +121,7 @@ const addRatingHandler = async (value: number) => {
       console.log(err)
     }
   } finally {
+    user.fetchTitles()
     emits('update-is-rated', true)
   }
 }
@@ -134,6 +137,7 @@ const deleteRatingHandler = async () => {
       console.log(err.message.toString())
     }
   } finally {
+    user.fetchTitles()
     emits('update-is-rated', false)
   }
 }

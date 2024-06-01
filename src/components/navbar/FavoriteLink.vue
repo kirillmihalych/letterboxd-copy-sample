@@ -15,6 +15,9 @@
 import { RouterLink, type RouteLocationRaw } from 'vue-router'
 import { profileRoutes } from '@/router'
 import IconSpinner from '../error-handling/IconSpinner.vue'
+import { watch } from 'fs'
+import { watchEffect } from 'vue'
+import { useRoute } from 'vue-router'
 
 interface IFavoriteLink {
   isLoading: boolean

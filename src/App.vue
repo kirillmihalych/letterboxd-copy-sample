@@ -108,7 +108,6 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
 }
 .app-header {
   background-color: var(--snow-white);
-
   height: 4rem;
   max-width: 950px;
   margin: 0 auto;

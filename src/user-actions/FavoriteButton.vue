@@ -16,7 +16,9 @@ import toggleFavorite from '@/api/account/toggleFavorite'
 import type { IFavoriteMovie } from '@/interfaces/movie-types'
 import { ref, watchEffect } from 'vue'
 import getAccountID from '@/local-storage/getAccountID'
+import { useUserStore } from '@/stores/user'
 
+const user = useUserStore()
 const account_id = getAccountID()
 
 interface IFavoriteButton {
@@ -51,6 +53,7 @@ const toggleFavoriteHandler = async () => {
     isLoading.value = true
     await toggleFavorite(account_id, favoriteMovie)
     getAccountStateHandler()
+    user.fetchTitles()
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log('Error in toggling favorite' + err.message.toString())

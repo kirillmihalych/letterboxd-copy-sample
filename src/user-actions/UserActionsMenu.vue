@@ -46,7 +46,7 @@ const isUserAuthorized = getSessionFromLocalStorage() ? true : false
 <style scoped>
 .list-actions {
   height: 2.25rem;
-  width: 100%;
+  /* width: 100%; */
   margin: 0 auto;
   display: grid;
   background: rgba(0, 0, 0, 65%);

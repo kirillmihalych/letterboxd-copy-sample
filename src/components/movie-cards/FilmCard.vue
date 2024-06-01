@@ -8,7 +8,7 @@
       <ImagePlaceholder
         :src="poster"
         :title="movie.title"
-        :imgParams="cssParams"
+        :imgParams="styles"
       />
     </RouterLink>
     <div class="user-actions-wrapper" v-show="isMenuOpen">
@@ -19,6 +19,9 @@
         :vote_count="movie.vote_count"
       />
     </div>
+    <button class="open-menu-btn" @click="toggleMenu">
+      <v-icon icon="mdi-dots-vertical" />
+    </button>
   </div>
 </template>
 
@@ -34,15 +37,16 @@ interface FilmCardProps {
   movie: IMovie | IRatedMovie
 }
 
-const props = defineProps<FilmCardProps>()
-const movie = ref<IMovie>(props.movie as IMovie)
-
-const cssParams: CSSProperties = {
+const styles: CSSProperties = {
   width: 185 + 'px',
   height: 277.5 + 'px',
 }
 
+const props = defineProps<FilmCardProps>()
+const movie = ref<IMovie>(props.movie as IMovie)
+
 const isMenuOpen = ref(false)
+const toggleMenu = () => (isMenuOpen.value = !isMenuOpen.value)
 
 const poster = `https://image.tmdb.org/t/p/w342/${movie.value.poster_path}`
 const singleMovieURL = `/movies/movie_page/${movie.value.id}`
@@ -66,7 +70,39 @@ const singleMovieURL = `/movies/movie_page/${movie.value.id}`
 
 .user-actions-wrapper {
   width: 185px;
+  width: 100%;
   position: absolute;
   bottom: 0;
 }
+
+.open-menu-btn {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  padding: 0.25rem;
+  background-color: rgba(0, 0, 0, 65%);
+  border-radius: 50%;
+}
+
+.open-menu-btn:hover {
+  cursor: pointer;
+}
+
+/* @media (min-width: 540px) {
+  .open-menu-btn {
+    
+  }
+}
+
+@media (min-width: 768px) {
+  .open-menu-btn {
+    
+  }
+}
+
+@media (min-width: 912px) {
+  .open-menu-btn {
+    
+  }
+} */
 </style>

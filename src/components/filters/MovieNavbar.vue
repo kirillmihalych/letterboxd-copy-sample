@@ -1,10 +1,11 @@
 <template>
   <menu class="films-navbar">
-    <div class="dropdown-menu-wrapper">
-      <span class="menu-opener" @click="toggleMenu"
-        >Browse by <v-icon icon="mdi-menu-down"
-      /></span>
-      <DropdownList :is-dropdown-shown="isMenuOpen">
+    <div class="dropdown-menu-wrapper" @mouseleave="isMenuOpen = false">
+      <span class="menu-opener" @click="toggleMenu">
+        Browse by
+        <v-icon icon="mdi-menu-down" />
+      </span>
+      <DropdownList :is-dropdown-shown="isMenuOpen" :styles="styles">
         <template #dropdown-list>
           <div class="menu-links-wrapper">
             <RouterLink
@@ -27,12 +28,16 @@
 import { RouterLink, useRoute } from 'vue-router'
 import { filterMoviesRoutes } from '@/router'
 import DropdownList from '../dropdown-list/DropdownList.vue'
-import { ref } from 'vue'
+import { ref, type CSSProperties } from 'vue'
 
 const location = useRoute()
 
 const isMenuOpen = ref(false)
 const toggleMenu = () => (isMenuOpen.value = !isMenuOpen.value)
+
+const styles: CSSProperties = {
+  overflow: 'hidden',
+}
 </script>
 
 <style scoped>

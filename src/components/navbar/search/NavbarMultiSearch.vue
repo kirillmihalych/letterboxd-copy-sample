@@ -1,5 +1,5 @@
 <template>
-  <div class="multi-search-wrapper">
+  <div class="multi-search-wrapper" >
     <div class="navbar-search-container">
       <input
         type="text"

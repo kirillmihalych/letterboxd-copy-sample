@@ -1,7 +1,13 @@
 <template>
   <div class="profile-page-container">
-    <UserInfo @load="(id) => setAccountId(id)" />
-    <ProfileNavbar />
+    <h4>
+      My
+      {{
+        (route.name as string).toLowerCase() === 'rated'
+          ? `rated list`
+          : (route.name as string).toLowerCase()
+      }}
+    </h4>
     <PaginatedList
       :isLoading="isLoading"
       :error="error"
@@ -26,14 +32,15 @@ import getWatchlistMovies from '@/api/account/getWatchlist'
 import type { IList } from '@/interfaces/lists-types'
 import getLists from '@/api/account/getLists'
 import getRatedMovies from '@/api/account/getRatedMovies'
-import UserInfo from './UserInfo.vue'
-import ProfileNavbar from './ProfileNavbar.vue'
 import PaginatedList from '@/components/paginated-list/PaginatedList.vue'
+import { useUserStore } from '@/stores/user'
 
 const account_id = ref<number | null>(null)
 const setAccountId = (id: number) => {
   account_id.value = id
 }
+
+const user = useUserStore()
 
 const route = useRoute()
 const movies = ref<IRatedMovie[] | IMovie[] | null>()
@@ -93,11 +100,21 @@ watchEffect(() => {
     fetchList(route.name as string, page.value)
   }
 })
+
+function copmputed(
+  arg0: () => import('vue-router').RouteLocationNormalizedLoaded
+) {
+  throw new Error('Function not implemented.')
+}
 </script>
 
 <style scoped>
 .profile-page-container {
   box-sizing: border-box;
-  width: 950px;
+}
+
+h4 {
+  text-align: center;
+  margin-bottom: 1rem;
 }
 </style>

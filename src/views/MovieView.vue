@@ -12,7 +12,12 @@
       :imgParams="imgParams"
     />
     <SingleMovie :movie="movie" />
-    <UserActionsMenu :movie_id="movie.id" :release="movie.release_date" />
+    <UserActionsMenu
+      :movie_id="movie.id"
+      :release="movie.release_date"
+      :vote_average="movie.vote_average"
+      :vote_count="movie.vote_count"
+    />
   </article>
 </template>
 

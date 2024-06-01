@@ -33,7 +33,7 @@ const getAccountStateHandler = async () => {
   try {
     isLoading.value = true
     isWatchlist.value = (await getAccountState(props.movie_id)).watchlist
-    user.fetchWatchlistTitles()
+    // user.fetchTitles()
   } catch (err) {
     if (err instanceof Error) {
       console.log('Error in getting an account state' + err.message.toString())
@@ -54,6 +54,7 @@ const toggleWatchlistHandler = async () => {
     isLoading.value = true
     await toggleWatchlist(account_id, WatchlistMovie)
     getAccountStateHandler()
+    user.fetchTitles()
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log('Error in toggling Watchlist' + err.message.toString())
