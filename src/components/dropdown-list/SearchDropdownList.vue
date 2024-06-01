@@ -21,9 +21,9 @@ const props = defineProps<IDropdown>()
   z-index: 1;
   background: slategrey;
   /* width: 400px; */
-  min-height: 200px;
+  /* min-height: 200px; */
   max-height: 500px;
-  min-width: 400px;
+  /* min-width: 400px; */
   overflow-y: scroll;
   padding: 1rem;
   border-radius: var(--radius);

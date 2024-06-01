@@ -96,7 +96,7 @@ const approveToken = (): void => {
 }
 
 .login-container {
-  width: 190px;
+  /* width: 190px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,5 +123,11 @@ const approveToken = (): void => {
 .login-link:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 10%);
+}
+
+@media (max-width: 767px) {
+  h4 {
+    display: none;
+  }
 }
 </style>

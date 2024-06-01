@@ -1,13 +1,12 @@
 <template>
   <div class="navbar-container">
-    <RouterLink to="/base-layout">
-      <v-icon icon="mdi-fire" class="fire-icon" />
-    </RouterLink>
-    <nav class="navbar">
-      <!-- <div class="left-part-navbar-container">
-        <NavbarMenu />
-      </div> -->
+    <div class="navbar-left-part">
+      <RouterLink to="/base-layout" class="home-link">
+        <v-icon icon="mdi-fire" class="fire-icon" />
+      </RouterLink>
       <NavbarMultiSearch />
+    </div>
+    <nav class="navbar">
       <NavbarUsersProfile />
     </nav>
   </div>
@@ -15,44 +14,31 @@
 
 <script setup lang="ts">
 import NavbarMultiSearch from './search/NavbarMultiSearch.vue'
-import NavbarMenu from './NavbarMenu.vue'
+
 import NavbarUsersProfile from './NavbarUsersProfile.vue'
 </script>
 
 <style scoped>
 .navbar-container {
-  border-bottom: 1px solid var(--light-grey);
-  background-color: var(--snow-white);
-  height: 4rem;
-  min-width: 400px;
-  max-width: 948px;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
   transition: transform 1s ease-in-out;
 }
 
 .navbar {
-  width: 950px;
-  height: 4rem;
+  max-width: 950px;
+  height: 100%;
   padding: 0.25rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.left-part-navbar-container {
-  width: 200px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 .fire-icon {
   color: var(--snow-white);
-  width: 45px;
   font-size: 2.25rem;
   margin-left: 0.5rem;
   color: red;
@@ -62,14 +48,16 @@ import NavbarUsersProfile from './NavbarUsersProfile.vue'
   color: orangered;
 }
 
-/* @media (max-width: 963px) {
-  .navbar-container {
-    border-left: 1px solid var(--light-grey);
-    border-right: 1px solid var(--light-grey);
-  }
+.navbar-left-part {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
 
-  .fire-icon {
+@media (max-width: 767px) {
+  .home-link {
     display: none;
   }
-} */
+}
 </style>

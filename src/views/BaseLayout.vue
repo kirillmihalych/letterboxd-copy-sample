@@ -105,7 +105,7 @@ onMounted(() => {
 
 <style scoped>
 .base-layout-container {
-  min-width: 400px;
+  /* min-width: 400px; */
   max-width: 950px;
   margin: 0 auto;
   display: flex;
@@ -115,8 +115,8 @@ onMounted(() => {
 
 .films-view-header {
   box-sizing: border-box;
-  margin: 0 auto;
-  width: 950px;
+  /* margin: 0 auto;
+  width: 950px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -132,6 +132,6 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   height: 350px;
-  width: 950px;
+  /* width: 950px; */
 }
 </style>

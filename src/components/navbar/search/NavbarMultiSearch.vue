@@ -157,7 +157,7 @@ onMounted(() => {
 }
 
 .navbar-search-input {
-  min-width: 400px;
+  /* min-width: 400px; */
   padding: 0.5rem 1rem;
   outline: none;
   border-radius: var(--radius);
