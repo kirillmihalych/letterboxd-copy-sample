@@ -20,6 +20,8 @@ const props = defineProps<IDropdown>()
   position: absolute;
   z-index: 1;
   background: slategrey;
+  min-width: 350px;
+  top: 35px;
   /* width: 400px; */
   /* min-height: 200px; */
   max-height: 500px;

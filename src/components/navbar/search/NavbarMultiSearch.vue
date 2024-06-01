@@ -8,10 +8,8 @@
         class="navbar-search-input"
         @focus="openDropdown"
         @focusout="delayedClose"
-      />
-      <v-icon icon="mdi-magnify" class="magnify-icon" />
-    </div>
-    <SearchDropdownList :isDropdownShown="isDropdownShown">
+      >
+      <SearchDropdownList :isDropdownShown="isDropdownShown">
       <template #loading v-if="isLoading">
         <div class="loading-error-wrapper">
           <IconSpinner />
@@ -58,7 +56,57 @@
           />
         </div>
       </template>
-    </SearchDropdownList>
+    </SearchDropdownList></input>
+      <v-icon icon="mdi-magnify" class="magnify-icon" />
+    </div>
+    <!-- <SearchDropdownList :isDropdownShown="isDropdownShown">
+      <template #loading v-if="isLoading">
+        <div class="loading-error-wrapper">
+          <IconSpinner />
+        </div>
+      </template>
+      <template #error v-if="error">
+        <div class="loading-error-wrapper">
+          <p>{{ error }}</p>
+        </div>
+      </template>
+      <template #dropdown-list>
+        <div v-if="isQueryEmpty">
+          <div class="list-wrapper">
+            <h4 class="title">Movies</h4>
+            <MovieSearchCard
+              v-for="movie in preloadedMovies"
+              :key="movie.id"
+              :movie="movie"
+            />
+          </div>
+          <div class="list-wrapper">
+            <h4 class="title">Persons</h4>
+            <PersonSearchCard
+              v-for="person in preloadedPeople"
+              :key="person.id"
+              :person="person"
+            />
+          </div>
+        </div>
+        <div v-if="isMoviesFound" class="list-wrapper">
+          <h4 class="title">Movies</h4>
+          <MovieSearchCard
+            v-for="movie in movies"
+            :key="movie.id"
+            :movie="movie"
+          />
+        </div>
+        <div v-if="isPersonsFound" class="list-wrapper">
+          <h4 class="title">Persons</h4>
+          <PersonSearchCard
+            v-for="person in persons"
+            :key="person.id"
+            :person="person"
+          />
+        </div>
+      </template>
+    </SearchDropdownList> -->
   </div>
 </template>
 
