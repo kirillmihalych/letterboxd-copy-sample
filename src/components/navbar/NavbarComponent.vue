@@ -20,12 +20,20 @@ import NavbarUsersProfile from './NavbarUsersProfile.vue'
 
 <style scoped>
 .navbar-container {
+  position: fixed;
+  background-color: var(--snow-white);
+  border: 1px solid var(--light-grey);
+  border-top: none;
+  border-bottom: 1px solid var(--light-grey);
   width: 100%;
+  height: 4rem;
+  max-width: 950px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 1rem;
   transition: transform 1s ease-in-out;
+  z-index: 10;
 }
 
 .navbar {

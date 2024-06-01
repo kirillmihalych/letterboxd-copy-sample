@@ -1,4 +1,7 @@
 import getAccountDetails from '@/api/account/getAccountDetails'
+import getFavoritesMovies from '@/api/account/getFavorites'
+import getLists from '@/api/account/getLists'
+import getRatedMovies from '@/api/account/getRatedMovies'
 import getWatchlistMovies from '@/api/account/getWatchlist'
 import type { IAccountDetails } from '@/interfaces/account-types'
 import { defineStore } from 'pinia'
@@ -23,12 +26,18 @@ export const useUserStore = defineStore('user', () => {
     fetchAccountDetails()
   })
 
-  const titles = ref<number | null>(null)
+  const watchlist = ref<number | null>(null)
+  const favorites = ref<number | null>(null)
+  const rated = ref<number | null>(null)
+  const lists = ref<number | null>(null)
   const isLoading = ref(false)
-  const fetchWatchlistTitles = async () => {
+  const fetchTitles = async () => {
     try {
       isLoading.value = true
-      titles.value = (await getWatchlistMovies(1)).total_results
+      watchlist.value = (await getWatchlistMovies(1)).total_results
+      favorites.value = (await getFavoritesMovies(1)).total_results
+      rated.value = (await getRatedMovies(1)).total_results
+      lists.value = (await getLists()).total_results
     } catch (error) {
       console.log(error)
     } finally {
@@ -37,13 +46,16 @@ export const useUserStore = defineStore('user', () => {
   }
 
   watchEffect(() => {
-    fetchWatchlistTitles()
+    fetchTitles()
   })
 
   return {
     accountDetails,
-    fetchWatchlistTitles,
-    titles,
+    fetchTitles,
+    watchlist,
+    favorites,
+    rated,
+    lists,
     isLoading,
     isLoadingAccount,
   }

@@ -9,57 +9,10 @@
         @focus="openDropdown"
         @focusout="delayedClose"
       >
-      <SearchDropdownList :isDropdownShown="isDropdownShown">
-      <template #loading v-if="isLoading">
-        <div class="loading-error-wrapper">
-          <IconSpinner />
-        </div>
-      </template>
-      <template #error v-if="error">
-        <div class="loading-error-wrapper">
-          <p>{{ error }}</p>
-        </div>
-      </template>
-      <template #dropdown-list>
-        <div v-if="isQueryEmpty">
-          <div class="list-wrapper">
-            <h4 class="title">Movies</h4>
-            <MovieSearchCard
-              v-for="movie in preloadedMovies"
-              :key="movie.id"
-              :movie="movie"
-            />
-          </div>
-          <div class="list-wrapper">
-            <h4 class="title">Persons</h4>
-            <PersonSearchCard
-              v-for="person in preloadedPeople"
-              :key="person.id"
-              :person="person"
-            />
-          </div>
-        </div>
-        <div v-if="isMoviesFound" class="list-wrapper">
-          <h4 class="title">Movies</h4>
-          <MovieSearchCard
-            v-for="movie in movies"
-            :key="movie.id"
-            :movie="movie"
-          />
-        </div>
-        <div v-if="isPersonsFound" class="list-wrapper">
-          <h4 class="title">Persons</h4>
-          <PersonSearchCard
-            v-for="person in persons"
-            :key="person.id"
-            :person="person"
-          />
-        </div>
-      </template>
-    </SearchDropdownList></input>
+     </input>
       <v-icon icon="mdi-magnify" class="magnify-icon" />
     </div>
-    <!-- <SearchDropdownList :isDropdownShown="isDropdownShown">
+     <DropdownList :isDropdownShown="isDropdownShown" :styles="stylesDropdownList">
       <template #loading v-if="isLoading">
         <div class="loading-error-wrapper">
           <IconSpinner />
@@ -106,16 +59,17 @@
           />
         </div>
       </template>
-    </SearchDropdownList> -->
+    </DropdownList>
+   
   </div>
 </template>
 
 <script setup lang="ts">
 import getSearchResults from '@/api/search/getSearchResults'
 import _ from 'lodash'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch, type CSSProperties } from 'vue'
 import type { IMovie, IPerson } from '@/interfaces/movie-types'
-import SearchDropdownList from '@/components/dropdown-list/SearchDropdownList.vue'
+import DropdownList from '@/components/dropdown-list/DropdownList.vue'
 import MovieSearchCard from '@/components/movie-cards/MovieSearchCard.vue'
 import PersonSearchCard from '@/components/person-card/PersonSearchCard.vue'
 import IconSpinner from '@/components/error-handling/IconSpinner.vue'
@@ -131,6 +85,10 @@ const delayedClose = () => {
     closeDropdown()
   }, 150)
 }
+const stylesDropdownList: CSSProperties = {
+  width: 350 + 'px'
+}
+
 const preloadedPeople = ref<IPerson[] | null>(null)
 const preloadedMovies = ref<IMovie[] | null>(null)
 const movies = ref<IMovie[] | null>(null)
@@ -209,6 +167,7 @@ onMounted(() => {
   padding: 0.5rem 1rem;
   outline: none;
   border-radius: var(--radius);
+  
 }
 
 .magnify-icon {

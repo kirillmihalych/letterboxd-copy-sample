@@ -105,31 +105,25 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
   img {
     max-width: 100%;
   }
+}
+.app-header {
+  background-color: var(--snow-white);
 
-  .app-header {
-    background-color: var(--snow-white);
-    /* border-left: 1px solid var(--light-grey);
-    border-right: 1px solid var(--light-grey);*/
-    border: 1px solid var(--light-grey);
-    border-top: none;
-    height: 4rem;
-    max-width: 950px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 1s ease-in-out;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 8px 0px;
-  }
+  height: 4rem;
+  max-width: 950px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 1s ease-in-out;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 8px 0px;
 }
 .app-main {
   max-width: 950px;
   margin: 0 auto;
   min-height: 100vh;
-  padding: 1rem;
-  padding-top: 6rem;
+  padding: 2rem 1rem;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  /* border-left: 1px solid var(--light-grey); */
   border: 1px solid var(--light-grey);
   border-top: none;
 }

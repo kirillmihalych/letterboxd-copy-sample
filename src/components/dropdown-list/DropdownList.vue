@@ -1,5 +1,9 @@
 <template>
-  <div class="dropdown-list" v-show="props.isDropdownShown">
+  <div
+    class="dropdown-list"
+    v-show="props.isDropdownShown"
+    :style="props.styles"
+  >
     <slot name="loading"></slot>
     <slot name="error"></slot>
 
@@ -8,8 +12,13 @@
 </template>
 
 <script setup lang="ts">
+import type { CSSProperties } from 'vue'
+
 interface IDropdown {
   isDropdownShown: boolean
+  width?: string
+  overflow?: string
+  styles?: CSSProperties
 }
 
 const props = defineProps<IDropdown>()
@@ -20,8 +29,9 @@ const props = defineProps<IDropdown>()
   position: absolute;
   z-index: 1;
   background: slategrey;
-  min-width: 350px;
-  top: 35px;
+  width: 95%;
+  /* min-width: 350px; */
+  /* top: 35px; */
   /* width: 400px; */
   /* min-height: 200px; */
   max-height: 500px;

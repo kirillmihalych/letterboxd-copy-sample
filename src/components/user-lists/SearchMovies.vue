@@ -10,7 +10,7 @@
         @focus="openDropdown"
       />
     </div>
-    <SearchDropdownList :is-dropdown-shown="isDropdownShown">
+    <DropdownList :is-dropdown-shown="isDropdownShown">
       <template #dropdown-list>
         <SearchResults :movies="movies" :is-loading="isLoading" :error="error">
           <template #item="{ item: movie }">
@@ -21,7 +21,7 @@
           </template>
         </SearchResults>
       </template>
-    </SearchDropdownList>
+    </DropdownList>
   </div>
 </template>
 
@@ -32,7 +32,7 @@ import { ref, watch } from 'vue'
 import _ from 'lodash'
 import SearchResults from './SearchResults.vue'
 import SearchMovieCard from './SearchMovieCard.vue'
-import SearchDropdownList from '../dropdown-list/SearchDropdownList.vue'
+import DropdownList from '../dropdown-list/DropdownList.vue'
 
 const emits = defineEmits<{
   (e: 'update-list-items'): void

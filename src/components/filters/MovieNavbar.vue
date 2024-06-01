@@ -4,7 +4,7 @@
       <span class="menu-opener" @click="toggleMenu"
         >Browse by <v-icon icon="mdi-menu-down"
       /></span>
-      <SearchDropdownList :is-dropdown-shown="isMenuOpen">
+      <DropdownList :is-dropdown-shown="isMenuOpen">
         <template #dropdown-list>
           <div class="menu-links-wrapper">
             <RouterLink
@@ -18,7 +18,7 @@
             </RouterLink>
           </div>
         </template>
-      </SearchDropdownList>
+      </DropdownList>
     </div>
   </menu>
 </template>
@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import { RouterLink, useRoute } from 'vue-router'
 import { filterMoviesRoutes } from '@/router'
-import SearchDropdownList from '../dropdown-list/SearchDropdownList.vue'
+import DropdownList from '../dropdown-list/DropdownList.vue'
 import { ref } from 'vue'
 
 const location = useRoute()

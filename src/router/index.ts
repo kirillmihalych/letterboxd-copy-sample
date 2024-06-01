@@ -47,7 +47,7 @@ interface IRoute {
 export const movieRoutes: VueRouter.RouteRecordRaw[] = [
   {
     path: '/',
-    component: HomeView,
+    component: BaseLayout,
   },
   {
     name: 'films',
@@ -75,14 +75,14 @@ interface INavbarRoute {
 
 export const navbarRoutes: INavbarRoute[] = [
   {
+    name: 'Home',
+    component: BaseLayout,
+    path: '/',
+  },
+  {
     name: 'Main',
     component: BaseLayout,
     path: '/base-layout',
-  },
-  {
-    name: 'Home',
-    component: HomeView,
-    path: '/',
   },
 ]
 
