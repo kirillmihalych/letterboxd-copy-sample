@@ -18,7 +18,6 @@
       @set-next-page="(new_page) => setPage(new_page)"
       @set-prev-page="(new_page) => setPage(new_page)"
       @set-this-page="(new_page) => setPage(new_page)"
-      @update-watchlist="() => fetchList(route.name as string, page)"
     />
   </div>
 </template>

@@ -13,7 +13,6 @@
             v-for="movie in props.movies"
             :key="movie.id"
             :movie="movie"
-            @update-watchlist="updateWatchlist()"
           />
         </template>
       </MovieListWrapper>
@@ -25,8 +24,7 @@
           :to="`/profile/lists/${list.id}`"
           class="list-link"
         >
-          <p>{{ list.name }}</p>
-          <p>{{ list.item_count }} films</p>
+          <ProfileListCard :list_id="list.id" />
         </RouterLink>
       </div>
     </div>
@@ -77,6 +75,7 @@ import FilmCard from '@/components/movie-cards/FilmCard.vue'
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 import MovieListWrapper from './MovieListWrapper.vue'
 import IconSpinner from '../error-handling/IconSpinner.vue'
+import ProfileListCard from '@/views/UserViews/ProfileListCard.vue'
 
 interface IPaginatedList {
   lists?: IList[] | null
@@ -97,7 +96,7 @@ const emits = defineEmits<{
   (e: 'update-rated'): void
 }>()
 
-const updateWatchlist = () => emits('update-watchlist')
+const posterBaseURL = 'https://image.tmdb.org/t/p/w154'
 
 const page = ref(1)
 const setNextPage = () => {
@@ -183,6 +182,39 @@ const displayMorePages = () => {
   justify-content: center;
 }
 
+.lists-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  justify-content: center;
+  align-items: start;
+}
+
+.list-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 950px;
+  background: var(--light-grey);
+  color: var(--snow-white);
+  border-radius: var(--radius);
+  height: 170px;
+}
+
+.list-link:hover {
+  background: lightslategray;
+}
+
+/* .titles-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dotted blue;
+  width: 2rem;
+  height: 2rem;
+} */
+
 /* .paginated-list {
   width: 950px;
   box-sizing: border-box;
@@ -192,7 +224,7 @@ const displayMorePages = () => {
   margin-top: 2rem;
   flex-direction: column;
 } */
-/* 
+/*
 .page-content {
   width: 950px;
   display: flex;
@@ -213,7 +245,7 @@ const displayMorePages = () => {
   flex-wrap: wrap;
 } */
 
-/* 
+/*
 .error-message {
   min-height: 300px;
   display: flex;

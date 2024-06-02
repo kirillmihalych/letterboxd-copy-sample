@@ -5,7 +5,10 @@
     </div>
     <div class="loaded-content-wrapper" v-if="!isLoading">
       <!-- list is not created yet -->
-      <div v-if="!isListCreated" class="create-list-container">
+      <div
+        v-if="!isListCreated && !isListUpdating"
+        class="create-list-container"
+      >
         <h2 class="h3 title">Create list</h2>
         <span class="title-input-wrapper">
           <label for="name">List's title</label>
