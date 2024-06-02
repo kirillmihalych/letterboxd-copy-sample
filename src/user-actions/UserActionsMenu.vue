@@ -13,6 +13,7 @@
               :release="release"
               :vote_average="props.vote_average"
               :vote_count="props.vote_count"
+              @update-watchlist-status="(e) => console.log(e)"
             />
           </template>
         </FancyButtonWrapper>
@@ -39,6 +40,14 @@ interface IUserActionsMenu {
 }
 
 const props = defineProps<IUserActionsMenu>()
+const emits = defineEmits<{
+  (e: 'update-watchlist-status', status: boolean): void
+  (e: 'update-favorites'): void
+  (e: 'update-rated'): void
+}>()
+
+const updateWatchlist = (status: boolean) =>
+  emits('update-watchlist-status', status)
 
 const isUserAuthorized = getSessionFromLocalStorage() ? true : false
 </script>

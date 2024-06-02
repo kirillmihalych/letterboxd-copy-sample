@@ -13,6 +13,7 @@
             v-for="movie in props.movies"
             :key="movie.id"
             :movie="movie"
+            @update-watchlist="updateWatchlist()"
           />
         </template>
       </MovieListWrapper>
@@ -29,39 +30,41 @@
         </RouterLink>
       </div>
     </div>
-    <div class="btns-container">
-      <button
-        @click="setPrevPage"
-        :disabled="page === 1"
-        class="page-control-btn"
-      >
-        <v-icon icon="mdi-arrow-left-bold-box-outline" />
-      </button>
-      <button
-        v-for="n in range"
-        :key="n"
-        @click="setPage(n)"
-        class="page-control-btn"
-        :class="{ active: n === page }"
-        :disabled="n > total_pages"
-      >
-        {{ n }}
-      </button>
-      <button
-        class="page-control-btn"
-        @click="displayMorePages"
-        v-if="total_pages > 5"
-      >
-        ...
-      </button>
-      <button
-        @click="setNextPage"
-        :disabled="page === props.total_pages"
-        class="page-control-btn"
-      >
-        <v-icon icon="mdi-arrow-right-bold-box-outline" />
-      </button>
-    </div>
+    <footer>
+      <div class="btns-container">
+        <button
+          @click="setPrevPage"
+          :disabled="page === 1"
+          class="page-control-btn"
+        >
+          <v-icon icon="mdi-arrow-left-bold-box-outline" />
+        </button>
+        <button
+          v-for="n in range"
+          :key="n"
+          @click="setPage(n)"
+          class="page-control-btn"
+          :class="{ active: n === page }"
+          :disabled="n > total_pages"
+        >
+          {{ n }}
+        </button>
+        <button
+          class="page-control-btn"
+          @click="displayMorePages"
+          v-if="total_pages > 5"
+        >
+          ...
+        </button>
+        <button
+          @click="setNextPage"
+          :disabled="page === props.total_pages"
+          class="page-control-btn"
+        >
+          <v-icon icon="mdi-arrow-right-bold-box-outline" />
+        </button>
+      </div>
+    </footer>
   </article>
 </template>
 
@@ -89,7 +92,12 @@ const emits = defineEmits<{
   (e: 'set-next-page', payload: number): void
   (e: 'set-prev-page', payload: number): void
   (e: 'set-this-page', payload: number): void
+  (e: 'update-watchlist'): void
+  (e: 'update-favorites'): void
+  (e: 'update-rated'): void
 }>()
+
+const updateWatchlist = () => emits('update-watchlist')
 
 const page = ref(1)
 const setNextPage = () => {
@@ -125,9 +133,12 @@ const displayMorePages = () => {
 </script>
 
 <style scoped>
-/* .paginated-list {
-  border: 2px dotted green;
-} */
+.paginated-list {
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 .btns-container {
   display: flex;
@@ -164,6 +175,14 @@ const displayMorePages = () => {
   justify-content: space-between;
 }
 
+.loading {
+  width: 100%;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* .paginated-list {
   width: 950px;
   box-sizing: border-box;
@@ -194,14 +213,7 @@ const displayMorePages = () => {
   flex-wrap: wrap;
 } */
 
-/* .loading {
-  width: 100%;
-  min-height: 350px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+/* 
 .error-message {
   min-height: 300px;
   display: flex;

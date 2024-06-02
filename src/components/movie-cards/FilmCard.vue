@@ -11,7 +11,8 @@
         :imgParams="styles"
       />
     </RouterLink>
-    <div class="user-actions-wrapper" v-show="isMenuOpen">
+    <h4>Movie name</h4>
+    <div class="user-actions-wrapper" v-show="true">
       <UserActionsMenu
         :movie_id="movie.id"
         :release="movie.release_date"
@@ -27,22 +28,25 @@
 
 <script setup lang="ts">
 import UserActionsMenu from '@/user-actions/UserActionsMenu.vue'
-import { ref, type CSSProperties } from 'vue'
+import { computed, ref, watchEffect, type CSSProperties } from 'vue'
 import type { IMovie } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
 import type { IRatedMovie } from '@/interfaces/account-types'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
+import { useRoute } from 'vue-router'
 
 interface FilmCardProps {
   movie: IMovie | IRatedMovie
 }
 
-const styles: CSSProperties = {
-  width: 185 + 'px',
-  height: 277.5 + 'px',
-}
-
 const props = defineProps<FilmCardProps>()
+const emits = defineEmits<{
+  (e: 'update-watchlist'): void
+  (e: 'update-favorites'): void
+  (e: 'update-rated'): void
+}>()
+
+const updateWatchlist = () => emits('update-watchlist')
 const movie = ref<IMovie>(props.movie as IMovie)
 
 const isMenuOpen = ref(false)
@@ -50,6 +54,10 @@ const toggleMenu = () => (isMenuOpen.value = !isMenuOpen.value)
 
 const poster = `https://image.tmdb.org/t/p/w342/${movie.value.poster_path}`
 const singleMovieURL = `/movies/movie_page/${movie.value.id}`
+const styles: CSSProperties = {
+  width: 185 + 'px',
+  height: 277.5 + 'px',
+}
 </script>
 
 <style scoped>
@@ -68,12 +76,12 @@ const singleMovieURL = `/movies/movie_page/${movie.value.id}`
   opacity: 0.925;
 }
 
-.user-actions-wrapper {
+/* .user-actions-wrapper {
   width: 185px;
   width: 100%;
   position: absolute;
   bottom: 0;
-}
+} */
 
 .open-menu-btn {
   position: absolute;
@@ -87,22 +95,4 @@ const singleMovieURL = `/movies/movie_page/${movie.value.id}`
 .open-menu-btn:hover {
   cursor: pointer;
 }
-
-/* @media (min-width: 540px) {
-  .open-menu-btn {
-    
-  }
-}
-
-@media (min-width: 768px) {
-  .open-menu-btn {
-    
-  }
-}
-
-@media (min-width: 912px) {
-  .open-menu-btn {
-    
-  }
-} */
 </style>

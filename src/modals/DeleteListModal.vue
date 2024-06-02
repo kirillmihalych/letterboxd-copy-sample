@@ -1,16 +1,20 @@
 <template>
-  <button @click="openTheModal" class="clear-modal-btn">delete list</button>
+  <button @click="openTheModal" class="clear-modal-btn">
+    <v-icon icon="mdi-trash-can" class="delete-icon" title="delete list" />
+  </button>
   <Teleport to="#modal">
     <Transition name="modal">
       <div class="modal-bg" v-if="isModalOpen">
         <div class="modal">
           <div class="modal-title-container">
-            <h2>Confrim a delete</h2>
-            <p class="warning">This list will be deleted completly</p>
+            <h3 class="modal-title">Confrim deletion</h3>
           </div>
+          <p class="warning">This list will be deleted completly</p>
           <div class="btns-container">
-            <button @click="closeTheModal">cancel</button>
-            <button @click="fetchDeleteList">confirm</button>
+            <button @click="closeTheModal" class="cancel-btn">cancel</button>
+            <button @click="fetchDeleteList" class="confirm-btn">
+              confirm
+            </button>
           </div>
         </div>
       </div>
@@ -63,14 +67,15 @@ const fetchDeleteList = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 
 .modal {
-  width: 200px;
-  height: 200px;
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr;
   position: relative;
   background: white;
-  padding: 50px 100px;
+  padding: 1rem;
   border-radius: 5px;
   box-shadow: 0px 10px 5px 2px rgba(0, 0, 0, 0.1);
 }
@@ -98,18 +103,50 @@ const fetchDeleteList = async () => {
   align-items: center;
 }
 
-.btns-container button {
+.modal-title {
+  text-align: start;
+  margin-bottom: 0;
+}
+
+.warning {
+  /* border: 2px dotted blue; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-modal-btn {
   border: none;
   box-sizing: border-box;
-  background: lightslategray;
+  background-color: lightslategray;
   padding: 0.5rem 1rem;
   font-weight: 800;
   border-radius: 0.25rem;
   color: #222;
 }
 
-.btns-container button:hover {
+.delete-icon {
+  color: var(--snow-white);
+}
+
+.clear-modal-btn:hover {
   cursor: pointer;
-  background: lightgrey;
+  background-color: red;
+}
+
+.cancel-btn,
+.confirm-btn {
+  border-radius: var(--radius);
+  color: var(--snow-white);
+  background-color: slategray;
+  padding: 0.5rem;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.cancel-btn:hover,
+.confirm-btn:hover {
+  background-color: red;
+  cursor: pointer;
 }
 </style>

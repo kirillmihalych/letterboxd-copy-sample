@@ -50,4 +50,8 @@ const displayed = computed(() => {
   justify-content: center;
   height: 180px;
 }
+
+.search-results-container {
+  margin-bottom: 0.25rem;
+}
 </style>

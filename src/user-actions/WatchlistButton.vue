@@ -6,7 +6,7 @@
     :class="{ watchlist: isWatchlist }"
   >
     <v-icon v-if="isLoading" icon="mdi-loading" class="loading" />
-    <v-icon icon="mdi-eye" v-else="!isLoading" />
+    <v-icon icon="mdi-bookmark-plus" v-else="!isLoading" />
   </button>
 </template>
 
@@ -26,6 +26,10 @@ interface IWatchlistButton {
 }
 
 const props = defineProps<IWatchlistButton>()
+const emits = defineEmits<{
+  (e: 'update-watchlist-status', status: boolean): void
+}>()
+
 const isLoading = ref(false)
 const isWatchlist = ref(false)
 
@@ -55,6 +59,7 @@ const toggleWatchlistHandler = async () => {
     await toggleWatchlist(account_id, WatchlistMovie)
     getAccountStateHandler()
     user.fetchTitles()
+    emits('update-watchlist-status', isWatchlist.value)
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log('Error in toggling Watchlist' + err.message.toString())

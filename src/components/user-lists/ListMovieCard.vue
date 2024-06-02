@@ -1,15 +1,19 @@
 <template>
-  <div>
-    {{ props.movie.title }}
-    <button @click="removeMovieHandler">remove</button>
+  <div class="card-wrapper">
+    <FilmCard :movie="props.movie" />
+    <button @click="removeMovieHandler" class="remove-from-list-btn">
+      remove
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import removieMovie from '@/api/lists/removeMovie'
 import type { IMovie } from '@/interfaces/movie-types'
-import { ref } from 'vue'
+import { ref, type CSSProperties } from 'vue'
 import { useRoute } from 'vue-router'
+import ImagePlaceholder from '../ImagePlaceholder.vue'
+import FilmCard from '../movie-cards/FilmCard.vue'
 
 interface IListMovieCard {
   movie: IMovie
@@ -37,4 +41,18 @@ const removeMovieHandler = async () => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.remove-from-list-btn {
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 15%);
+  width: 185px;
+  font-weight: 800;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.remove-from-list-btn:hover {
+  cursor: pointer;
+  background-color: red;
+}
+</style>

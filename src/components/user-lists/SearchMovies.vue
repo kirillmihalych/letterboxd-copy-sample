@@ -1,14 +1,20 @@
 <template>
   <div>
     <div>
-      <button @click="closeDropdown">close</button>
       <input
         type="text"
         v-model="query"
-        placeholder="Movies, TV series, persons"
+        placeholder="Find a movie for this list"
         class="search-movie-input"
         @focus="openDropdown"
       />
+      <button
+        v-show="isDropdownShown"
+        @click="closeDropdown"
+        class="close-dropdown-btn"
+      >
+        <v-icon icon="mdi-close-box-outline" />
+      </button>
     </div>
     <DropdownList :is-dropdown-shown="isDropdownShown">
       <template #dropdown-list>
@@ -33,6 +39,7 @@ import _ from 'lodash'
 import SearchResults from './SearchResults.vue'
 import SearchMovieCard from './SearchMovieCard.vue'
 import DropdownList from '../dropdown-list/DropdownList.vue'
+import MovieSearchCard from '../movie-cards/MovieSearchCard.vue'
 
 const emits = defineEmits<{
   (e: 'update-list-items'): void
@@ -76,5 +83,20 @@ watch(
 .search-movie-input {
   position: relative;
   display: inline-block;
+  outline: none;
+  border: 2px solid var(--light-grey);
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  width: 100%;
+}
+
+.close-dropdown-btn {
+  color: var(--light-grey);
+  font-size: 1.5rem;
+}
+
+.close-dropdown-btn:hover {
+  cursor: pointer;
+  color: slategray;
 }
 </style>

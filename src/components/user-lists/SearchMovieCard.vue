@@ -1,14 +1,19 @@
 <template>
-  <div class="media-card-container" @click="addMedia(props.movie.id, id)">
-    <div class="content-container">
-      <img :src="poster" alt="poster" class="poster" />
-      <div class="media-info">
-        <h2>
-          {{ props.movie.title }}
-        </h2>
-        <div class="additional-info">
-          <p>{{ props.movie.vote_average.toFixed(2) }}</p>
-        </div>
+  <div
+    @click="addMedia(props.movie.id, id)"
+    class="movie-search-card-container"
+  >
+    <ImagePlaceholder
+      :src="poster"
+      :img-params="{ width: 32 + 'px', height: 48 + 'px' }"
+      :title="props.movie.title"
+    />
+    <div class="movie-title-container">
+      <h4>
+        {{ props.movie.title }}({{ props.movie.release_date.slice(0, 4) }})
+      </h4>
+      <div>
+        <v-icon icon="mdi-plus-box-outline" />
       </div>
     </div>
   </div>
@@ -16,6 +21,7 @@
 
 <script setup lang="ts">
 import addMovie from '@/api/lists/addMovie'
+import ImagePlaceholder from '../ImagePlaceholder.vue'
 import type { IMovie } from '@/interfaces/movie-types'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -49,39 +55,30 @@ const addMedia = async (movie_id: number, list_id: number) => {
 </script>
 
 <style scoped>
-/* .media-card-container {
+h4 {
+  font-size: 0.75rem;
+}
+
+.movie-search-card-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 75px;
-  margin: 1rem 0rem;
-}
-
-.poster {
-  object-fit: contain;
-  width: 50px;
-  height: 75px;
-}
-
-.content-container {
-  width: 400px;
-  text-decoration: none;
+  justify-content: flex-start;
+  gap: 0.25rem;
   color: #222;
-  background: lightgray;
+  overflow: hidden;
+  background-color: var(--snow-white);
+  border-radius: var(--radius);
+}
+
+.movie-search-card-container:hover {
+  cursor: pointer;
+  background-color: snow;
+}
+
+.movie-title-container {
+  width: 85%;
   display: flex;
   align-items: center;
-  justify-content: start;
-  gap: 1rem;
-  padding: 5px;
+  justify-content: space-between;
 }
-
-.content-container:hover {
-  background: #ac94f4;
-  cursor: pointer;
-}
-
-.additional-info {
-  display: flex;
-  gap: 0.5rem;
-} */
 </style>
