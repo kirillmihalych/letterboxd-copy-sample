@@ -9,40 +9,41 @@ import ProfilePage from '@/views/UserViews/ProfilePage.vue'
 import ManageListView from '@/components/user-lists/ManageListView.vue'
 import * as VueRouter from 'vue-router'
 import PersonView from '@/views/Persons/PersonView.vue'
+import MoviesView from '@/views/MoviesView.vue'
 
-export type Path =
-  | '/:catchAll(.*)'
-  | '/films'
-  | '/lists'
-  | '/:pathMatch(.*)*'
-  | '/'
-  | '/films/movie_page/:id'
-  | '/films/search_results'
-  | '/films/search_results/movie'
-  | '/films/search_results/tv'
-  | '/films/search_results/person'
-  | '/films/popular'
-  | '/films/upcoming'
-  | '/films/top_rated'
-  | '/films/discovered_list'
-  | '/login'
-  | '/auth'
-  | '/auth/approved'
-  | '/profile'
-  | '/profile/favoritelist'
-  | '/profile/watchlist'
-  | '/profile/ratedlist'
-  | '/profile/customlists'
-  | '/lists/new'
-  | '/lists/:id'
-  | '/:pathMatch(.*)*'
+// export type Path =
+//   | '/:catchAll(.*)'
+//   | '/films'
+//   | '/lists'
+//   | '/:pathMatch(.*)*'
+//   | '/'
+//   | '/films/movie_page/:id'
+//   | '/films/search_results'
+//   | '/films/search_results/movie'
+//   | '/films/search_results/tv'
+//   | '/films/search_results/person'
+//   | '/films/popular'
+//   | '/films/upcoming'
+//   | '/films/top_rated'
+//   | '/films/discovered_list'
+//   | '/login'
+//   | '/auth'
+//   | '/auth/approved'
+//   | '/profile'
+//   | '/profile/favoritelist'
+//   | '/profile/watchlist'
+//   | '/profile/ratedlist'
+//   | '/profile/customlists'
+//   | '/lists/new'
+//   | '/lists/:id'
+//   | '/:pathMatch(.*)*'
 
-interface IRoute {
-  name?: string
-  path: Path
-  component?: Component
-  redirect?: string
-}
+// interface IRoute {
+//   name?: string
+//   path: Path
+//   component?: Component
+//   redirect?: string
+// }
 
 export const movieRoutes: VueRouter.RouteRecordRaw[] = [
   {
@@ -50,12 +51,13 @@ export const movieRoutes: VueRouter.RouteRecordRaw[] = [
     component: BaseLayout,
   },
   {
-    name: 'films',
-    path: '/base-layout',
-    component: BaseLayout,
+    name: 'Movie list',
+    path: '/movies',
+    component: MoviesView,
   },
   {
-    path: '/movies/movie_page/:id',
+    name: 'Movie page',
+    path: '/movies/:id',
     component: MovieView,
   },
   {

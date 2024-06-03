@@ -23,7 +23,6 @@ const getLists = async () => {
       )
     ).json()
   }
-  console.log(response)
   return response
 }
 

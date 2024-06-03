@@ -9,7 +9,7 @@ const fetch_options = {
   },
 }
 
-const getFilteredMovies = async (options: IFilterOptions) => {
+const getPopularMovies = async (options: IFilterOptions) => {
   const genre_option = options.genres.reduce(
     (accStr, currStr) => (accStr += `${currStr}%2C`),
     ''
@@ -24,4 +24,4 @@ const getFilteredMovies = async (options: IFilterOptions) => {
   return response
 }
 
-export default getFilteredMovies
+export default getPopularMovies

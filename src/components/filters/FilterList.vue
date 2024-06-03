@@ -1,26 +1,15 @@
 <template>
   <section class="filter-options">
-    <GenreList @update-genres="(genres) => setGenres(genres)" />
-    <VotesAmountInput @set-votes-amount="(votes) => setVotesAmount(votes)" />
+    <SortFilter />
   </section>
 </template>
 
 <script setup lang="ts">
-import GenreList from './genres/GenreList.vue'
-import VotesAmountInput from './rating/VotesAmountInput.vue'
-
-const emits = defineEmits<{
-  (e: 'set-genres', genres: number[]): void
-  (e: 'set-votes-amount', votes_amount: string): void
-}>()
-
-const setGenres = (genres: number[]) => {
-  emits('set-genres', genres)
-}
-
-const setVotesAmount = (votes: string) => {
-  emits('set-votes-amount', votes)
-}
+import SortFilter from './SortFilter.vue'
+// Что я хочу?
+// [__] У меня будет стора, делающая запрос discover к api
+// объект со всеми фильтрами, или не объект даже, а отдельные переменные
+// и он будет связан с фильтрами, через v-model
 </script>
 
 <style scoped>

@@ -76,6 +76,7 @@ const showGenres = (): void => {
 <style scoped>
 .multiselect {
   width: 75px;
+  z-index: 100;
 }
 
 .selectBox {

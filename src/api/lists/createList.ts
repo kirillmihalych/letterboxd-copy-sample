@@ -28,7 +28,6 @@ const createList = async (title: string, description: string) => {
     ).json()
   }
 
-  console.log(response)
   return response
 }
 

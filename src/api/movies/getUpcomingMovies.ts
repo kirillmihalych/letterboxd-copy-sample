@@ -21,15 +21,12 @@ const getUpcomingMovies = async (options: IFilterOptions) => {
     (accStr, currStr) => (accStr += `${currStr}%2C`),
     ''
   )
-  // const sort_option =
-  //   options.sort_by.length > 0 ? options.sort_by : 'popularity.desc'
   const response = await (
     await fetch(
       `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${options.page}&sort_by=${options.sort_by}&with_genres=${genre_option}&with_release_type=2|3&primary_release_date.gte=${from_date}&primary_release_date.lte=${to_date}`,
       optionsUpcoming
     )
   ).json()
-  console.log(response)
   return response
 }
 

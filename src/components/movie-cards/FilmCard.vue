@@ -28,25 +28,17 @@
 
 <script setup lang="ts">
 import UserActionsMenu from '@/user-actions/UserActionsMenu.vue'
-import { computed, ref, watchEffect, type CSSProperties } from 'vue'
+import { ref, type CSSProperties } from 'vue'
 import type { IMovie } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
 import type { IRatedMovie } from '@/interfaces/account-types'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
-import { useRoute } from 'vue-router'
 
 interface FilmCardProps {
   movie: IMovie | IRatedMovie
 }
 
 const props = defineProps<FilmCardProps>()
-const emits = defineEmits<{
-  (e: 'update-watchlist'): void
-  (e: 'update-favorites'): void
-  (e: 'update-rated'): void
-}>()
-
-const updateWatchlist = () => emits('update-watchlist')
 const movie = ref<IMovie>(props.movie as IMovie)
 
 const isMenuOpen = ref(false)

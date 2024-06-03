@@ -23,7 +23,6 @@ const removieMovie = async (movie_id: number, list_id: number) => {
       )
     ).json()
   }
-  console.log(response)
   return response
 }
 

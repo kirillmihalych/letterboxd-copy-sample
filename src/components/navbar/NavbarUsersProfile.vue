@@ -50,8 +50,6 @@
           </template>
         </DropdownList>
       </div>
-
-      <!-- dropdown menu -->
     </div>
   </div>
 </template>
@@ -113,11 +111,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* .account-menu-wrapper {
-  
- 
-} */
-
 .avatar-container {
   position: relative;
   display: flex;
@@ -142,7 +135,6 @@ onMounted(() => {
 }
 
 .login-container {
-  /* width: 190px; */
   display: flex;
   justify-content: center;
   align-items: center;

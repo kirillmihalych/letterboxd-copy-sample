@@ -29,14 +29,7 @@ const props = defineProps<IDropdown>()
   position: absolute;
   z-index: 1;
   background: slategrey;
-  /* width: 95%; */
-
-  /* min-width: 350px; */
-  /* top: 35px; */
-  /* width: 400px; */
-  /* min-height: 200px; */
   max-height: 500px;
-  /* min-width: 400px; */
   overflow-y: scroll;
   padding: 1rem;
   border-radius: var(--radius);
@@ -46,7 +39,6 @@ const props = defineProps<IDropdown>()
   display: flex;
   align-items: center;
   justify-content: center;
-  /* min-height: 200px; */
 }
 
 .error-container {

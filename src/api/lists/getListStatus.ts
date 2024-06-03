@@ -15,7 +15,6 @@ const getListStatus = async (list_id: number, movie_id: number) => {
       options
     )
   ).json()
-  console.log(response)
   return response.item_present
 }
 
