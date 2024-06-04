@@ -14,7 +14,7 @@ export const useFilterStore = defineStore('filters', () => {
   const fetchFilteredMovies = async () => {
     try {
       isLoading.value = true
-      const response = await getFilteredMovies()
+      const response = await getFilteredMovies(sort.value)
       movies.value = response.results
       pages.value = response.total_pages
     } catch (err: unknown) {
@@ -24,7 +24,6 @@ export const useFilterStore = defineStore('filters', () => {
     } finally {
       isLoading.value = false
     }
-    await getFilteredMovies()
   }
 
   watchEffect(() => {

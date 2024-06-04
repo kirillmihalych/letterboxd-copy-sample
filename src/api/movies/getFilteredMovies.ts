@@ -8,13 +8,18 @@ const options = {
   },
 }
 
-const getFilteredMovies = async () => {
-  const response = await (
-    await fetch(
-      'https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc',
-      options
-    )
-  ).json()
+const getFilteredMovies = async (sort: string) => {
+  const baseURL = 'https://api.themoviedb.org/3/discover/movie?'
+  const params = new URLSearchParams({
+    sort_by: sort,
+    include_adult: 'false',
+    include_video: 'false',
+    language: 'en-US',
+    page: '1',
+    'vote_count.gte': '250',
+  })
+  const URL = baseURL + params
+  const response = await (await fetch(URL, options)).json()
   return response
 }
 

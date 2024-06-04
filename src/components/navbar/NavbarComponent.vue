@@ -33,7 +33,7 @@ import NavbarUsersProfile from './NavbarUsersProfile.vue'
   justify-content: space-between;
   padding: 0 1rem;
   transition: transform 1s ease-in-out;
-  z-index: 1;
+  z-index: 2;
 }
 
 .navbar {
