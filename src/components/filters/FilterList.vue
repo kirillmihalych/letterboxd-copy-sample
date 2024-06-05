@@ -1,20 +1,45 @@
 <template>
   <section class="filter-options">
     <SortFilter />
+    <GenreFilter />
+    <YearFilter />
+    <RatingFilter />
+    <VotesFilter />
   </section>
 </template>
 
 <script setup lang="ts">
 import SortFilter from './SortFilter.vue'
-// Что я хочу?
-// [__] У меня будет стора, делающая запрос discover к api
-// объект со всеми фильтрами, или не объект даже, а отдельные переменные
-// и он будет связан с фильтрами, через v-model
+import GenreFilter from './GenreFilter.vue'
+import YearFilter from './YearFilter.vue'
+import RatingFilter from './RatingFilter.vue'
+import VotesFilter from './VotesFilter.vue'
 </script>
 
 <style scoped>
 .filter-options {
-  display: flex;
-  align-items: center;
+  display: grid;
+  place-items: center;
+  gap: 0.25rem;
+  grid-template-columns: 1fr;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 540px) {
+  .filter-options {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .filter-options {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 912px) {
+  .filter-options {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 </style>
