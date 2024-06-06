@@ -6,7 +6,7 @@
     :class="{ rated: isRated }"
   >
     <v-icon v-if="isLoading" icon="mdi-loading" class="loading" />
-    <v-icon v-else="!isLoading" icon="mdi-star-outline" />
+    <v-icon v-else="!isLoading" icon="mdi-star" />
     <ModalWindow :isOpen="isModalOpen" @close="closeModal">
       <template #modal-content>
         <RatingHandler

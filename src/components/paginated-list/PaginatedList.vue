@@ -70,12 +70,14 @@
 import type { IRatedMovie } from '@/interfaces/account-types'
 import type { IList } from '@/interfaces/lists-types'
 import type { IMovie } from '@/interfaces/movie-types'
-import { ref, type CSSProperties } from 'vue'
+import { ref } from 'vue'
 import FilmCard from '@/components/movie-cards/FilmCard.vue'
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 import MovieListWrapper from './MovieListWrapper.vue'
-import IconSpinner from '../error-handling/IconSpinner.vue'
 import ProfileListCard from '@/views/UserViews/ProfileListCard.vue'
+import { useFilterStore } from '@/stores/filters'
+
+const store = useFilterStore()
 
 interface IPaginatedList {
   lists?: IList[] | null
@@ -91,9 +93,6 @@ const emits = defineEmits<{
   (e: 'set-next-page', payload: number): void
   (e: 'set-prev-page', payload: number): void
   (e: 'set-this-page', payload: number): void
-  (e: 'update-watchlist'): void
-  (e: 'update-favorites'): void
-  (e: 'update-rated'): void
 }>()
 
 const posterBaseURL = 'https://image.tmdb.org/t/p/w154'
@@ -102,22 +101,23 @@ const page = ref(1)
 const setNextPage = () => {
   if (range.value.includes(page.value)) {
     page.value += 1
+    store.page = page.value.toString()
   } else {
     console.log(range.value)
     page.value = range.value[0]
   }
-  console.log()
-
   emits('set-next-page', page.value)
 }
 
 const setPrevPage = () => {
   page.value -= 1
+  store.page = page.value.toString()
   emits('set-prev-page', page.value)
 }
 
 const setPage = (selected_page: number) => {
   page.value = selected_page
+  store.page = selected_page.toString()
   emits('set-this-page', page.value)
 }
 
@@ -128,6 +128,7 @@ const displayMorePages = () => {
     range.value[i] = range.value[i] + 5
   }
   setPage(range.value[0])
+  store.page = range.value[0].toString()
 }
 </script>
 

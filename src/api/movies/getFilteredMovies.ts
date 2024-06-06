@@ -14,7 +14,8 @@ const getFilteredMovies = async (
   releaseDateFrom: string,
   releaseDateTo: string,
   rating: string,
-  votes: string
+  votes: string,
+  page: string
 ) => {
   const baseURL = 'https://api.themoviedb.org/3/discover/movie?'
   const params = new URLSearchParams({
@@ -22,7 +23,7 @@ const getFilteredMovies = async (
     include_adult: 'false',
     include_video: 'false',
     language: 'en-US',
-    page: '1',
+    page: page,
     'vote_count.gte': votes,
     with_genres: genres,
     'primary_release_date.gte': releaseDateFrom,
@@ -31,7 +32,6 @@ const getFilteredMovies = async (
     'vote_average.lte': rating,
   })
   const URL = baseURL + params
-  console.log(URL)
   const response = await (await fetch(URL, options)).json()
 
   return response

@@ -10,9 +10,6 @@
         <CarouselComponent :items="movieList">
           <template #header>
             <h2 class="movies-carousel-title h3">Movies trending today</h2>
-            <header class="films-view-header">
-              <MovieNavbar />
-            </header>
           </template>
           <template #item="slotProps">
             <FilmCard :movie="slotProps.item" />
@@ -45,7 +42,6 @@
 <script setup lang="ts">
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 import CarouselComponent from '@/components/generic-carousel/CarouselComponent.vue'
-import MovieNavbar from '@/components/filters/MovieNavbar.vue'
 import FilmCard from '@/components/movie-cards/FilmCard.vue'
 import PersonCard from '@/components/person-card/PersonCard.vue'
 

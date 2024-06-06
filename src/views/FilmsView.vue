@@ -1,7 +1,6 @@
 <template>
   <div class="films-page-container">
     <nav class="filters-container">
-      <MovieNavbar />
       <FilterList
         @set-genres="(genres) => setGenres(genres)"
         @set-votes-amount="(votes) => setVotesAmount(votes)"

@@ -60,6 +60,7 @@ const isUserAuthorized = getSessionFromLocalStorage() ? true : false
   display: grid;
   background: rgba(0, 0, 0, 65%);
   grid-template-columns: repeat(4, 1fr);
+  border-radius: var(--radius);
 }
 
 button {

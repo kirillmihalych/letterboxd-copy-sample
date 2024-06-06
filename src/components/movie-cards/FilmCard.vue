@@ -11,8 +11,7 @@
         :imgParams="styles"
       />
     </RouterLink>
-    <h4>Movie name</h4>
-    <div class="user-actions-wrapper" v-show="true">
+    <div class="user-actions-wrapper" v-show="isMenuOpen">
       <UserActionsMenu
         :movie_id="movie.id"
         :release="movie.release_date"
@@ -58,9 +57,8 @@ const styles: CSSProperties = {
   height: 100%;
   position: relative;
   z-index: 0;
-  background-color: var(--light-grey);
+  /* background-color: var(--light-grey); */
   border-radius: var(--radius);
-  overflow: hidden;
 }
 
 .film-card:hover {
@@ -68,23 +66,37 @@ const styles: CSSProperties = {
   opacity: 0.925;
 }
 
-/* .user-actions-wrapper {
+a {
+  display: block;
+  border-radius: var(--radius);
+  overflow: hidden;
+  /* border: 2px dotted blue; */
+}
+
+.user-actions-wrapper {
   width: 185px;
   width: 100%;
   position: absolute;
   bottom: 0;
-} */
+}
+
+.movie-title {
+  height: 65px;
+}
 
 .open-menu-btn {
+  font-size: 0.75rem;
   position: absolute;
   top: 0.25rem;
   right: 0.25rem;
   padding: 0.25rem;
-  background-color: rgba(0, 0, 0, 65%);
+  background-color: rgba(260, 260, 260, 55%);
+  color: #222;
   border-radius: 50%;
 }
 
 .open-menu-btn:hover {
   cursor: pointer;
+  background-color: rgba(200, 200, 200, 55%);
 }
 </style>
