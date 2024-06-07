@@ -13,7 +13,6 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
         <RouterView />
       </div>
     </main>
-    <!-- <footer>contacts</footer> -->
   </div>
 </template>
 

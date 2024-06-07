@@ -23,7 +23,6 @@
 
 <script setup lang="ts">
 import FilterList from '@/components/filters/FilterList.vue'
-import MovieNavbar from '@/components/filters/MovieNavbar.vue'
 import PaginatedList from '@/components/paginated-list/PaginatedList.vue'
 import { ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'

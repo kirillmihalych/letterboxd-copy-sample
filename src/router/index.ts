@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import BaseLayout from '@/views/BaseLayout.vue'
-import HomeView from '@/views/HomeView.vue'
 import type { Component } from 'vue'
 import MovieView from '@/views/MovieView.vue'
 import FilmsView from '@/views/FilmsView.vue'
@@ -10,40 +9,6 @@ import ManageListView from '@/components/user-lists/ManageListView.vue'
 import * as VueRouter from 'vue-router'
 import PersonView from '@/views/Persons/PersonView.vue'
 import MoviesView from '@/views/MoviesView.vue'
-
-// export type Path =
-//   | '/:catchAll(.*)'
-//   | '/films'
-//   | '/lists'
-//   | '/:pathMatch(.*)*'
-//   | '/'
-//   | '/films/movie_page/:id'
-//   | '/films/search_results'
-//   | '/films/search_results/movie'
-//   | '/films/search_results/tv'
-//   | '/films/search_results/person'
-//   | '/films/popular'
-//   | '/films/upcoming'
-//   | '/films/top_rated'
-//   | '/films/discovered_list'
-//   | '/login'
-//   | '/auth'
-//   | '/auth/approved'
-//   | '/profile'
-//   | '/profile/favoritelist'
-//   | '/profile/watchlist'
-//   | '/profile/ratedlist'
-//   | '/profile/customlists'
-//   | '/lists/new'
-//   | '/lists/:id'
-//   | '/:pathMatch(.*)*'
-
-// interface IRoute {
-//   name?: string
-//   path: Path
-//   component?: Component
-//   redirect?: string
-// }
 
 export const movieRoutes: VueRouter.RouteRecordRaw[] = [
   {
