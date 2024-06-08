@@ -28,11 +28,11 @@
         </RouterLink>
       </div>
     </div>
-    <footer>
+    <footer v-if="!props.isLoading">
       <div class="btns-container">
         <button
           @click="setPrevPage"
-          :disabled="page === 1"
+          :disabled="page === 1 || props.isLoading"
           class="page-control-btn"
         >
           <v-icon icon="mdi-arrow-left-bold-box-outline" />
@@ -43,20 +43,21 @@
           @click="setPage(n)"
           class="page-control-btn"
           :class="{ active: n === page }"
-          :disabled="n > total_pages"
+          :disabled="n > total_pages || props.isLoading"
         >
           {{ n }}
         </button>
         <button
           class="page-control-btn"
           @click="displayMorePages"
+          :disabled="props.isLoading"
           v-if="total_pages > 5"
         >
           ...
         </button>
         <button
           @click="setNextPage"
-          :disabled="page === props.total_pages"
+          :disabled="page === props.total_pages || props.isLoading"
           class="page-control-btn"
         >
           <v-icon icon="mdi-arrow-right-bold-box-outline" />
@@ -99,19 +100,31 @@ const posterBaseURL = 'https://image.tmdb.org/t/p/w154'
 
 const page = ref(1)
 const setNextPage = () => {
-  if (range.value.includes(page.value)) {
-    page.value += 1
-    store.page = page.value.toString()
-  } else {
-    console.log(range.value)
-    page.value = range.value[0]
+  const nextPage = page.value + 1
+  const isNextPageInRange = range.value.includes(nextPage)
+  const setNext = () => (page.value += 1)
+  const setNextInStore = () => (store.page = page.value.toString())
+  if (!isNextPageInRange) {
+    displayMorePages()
+  } else if (isNextPageInRange) {
+    setNext()
+    setNextInStore()
   }
   emits('set-next-page', page.value)
 }
 
 const setPrevPage = () => {
-  page.value -= 1
-  store.page = page.value.toString()
+  const prevPage = page.value - 1
+  const setPrev = () => (page.value -= 1)
+  const isPrevPageInRange = range.value.includes(prevPage)
+  const setPrevInStore = () => (store.page = page.value.toString())
+  if (!isPrevPageInRange) {
+    displayLessPages()
+  } else if (isPrevPageInRange) {
+    setPrev()
+    setPrevInStore()
+  }
+
   emits('set-prev-page', page.value)
 }
 
@@ -127,14 +140,26 @@ const displayMorePages = () => {
   for (let i = 0; i < 5; i++) {
     range.value[i] = range.value[i] + 5
   }
-  setPage(range.value[0])
+  const firstPageInRange = range.value[0]
+  setPage(firstPageInRange)
   store.page = range.value[0].toString()
+}
+
+const displayLessPages = () => {
+  for (let i = 4; i >= 0; i--) {
+    range.value[i] = range.value[i] - 5
+  }
+  const lastPageInRange = range.value[range.value.length - 1]
+  const setPageInStore = () => (store.page = lastPageInRange.toString())
+  setPage(lastPageInRange)
+  setPageInStore()
 }
 </script>
 
 <style scoped>
 .paginated-list {
-  min-height: 75vh;
+  min-height: 900px;
+  /* min-height: 75vh; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;

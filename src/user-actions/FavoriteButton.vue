@@ -23,11 +23,12 @@ const account_id = getAccountID()
 
 interface IFavoriteButton {
   movie_id: number
+  isFavorite: boolean
 }
 
 const props = defineProps<IFavoriteButton>()
 const isLoading = ref(false)
-const isFavorite = ref(false)
+const isFavorite = ref(props.isFavorite)
 
 const getAccountStateHandler = async () => {
   try {
@@ -61,9 +62,9 @@ const toggleFavoriteHandler = async () => {
   }
 }
 
-watchEffect(() => {
-  getAccountStateHandler()
-})
+// watchEffect(() => {
+//   getAccountStateHandler()
+// })
 </script>
 
 <style scoped>

@@ -32,11 +32,12 @@ interface IRateMovieBtn {
   release: string
   vote_average: number
   vote_count: number
+  isRated: boolean
 }
 
 const props = defineProps<IRateMovieBtn>()
 
-const isRated = ref(false)
+const isRated = ref(props.isRated)
 const setIsRated = (is_rated: boolean) => (isRated.value = is_rated)
 const isLoading = ref(false)
 const fetchIsRated = async () => {
@@ -56,9 +57,9 @@ const isModalOpen = ref(false)
 const openModal = () => (isModalOpen.value = true)
 const closeModal = () => (isModalOpen.value = false)
 
-onMounted(() => {
-  fetchIsRated()
-})
+// onMounted(() => {
+//   fetchIsRated()
+// })
 </script>
 
 <style scoped>

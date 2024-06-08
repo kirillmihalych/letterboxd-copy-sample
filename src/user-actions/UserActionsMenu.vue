@@ -13,7 +13,9 @@
               :release="release"
               :vote_average="props.vote_average"
               :vote_count="props.vote_count"
-              @update-watchlist-status="(e) => console.log(e)"
+              :is-favorite="isFavorite"
+              :is-watchlist="isWatchlist"
+              :is-rated="isRated"
             />
           </template>
         </FancyButtonWrapper>
@@ -29,6 +31,8 @@ import ListsButton from './ListsButton.vue'
 import RateMovieButton from './RateMovieButton.vue'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 import FancyButtonWrapper from './FancyButtonWrapper.vue'
+import getAccountState from '@/api/account/getAccountState'
+import { onMounted, ref } from 'vue'
 
 const comps = [FavoriteButton, WatchlistButton, RateMovieButton, ListsButton]
 
@@ -46,10 +50,33 @@ const emits = defineEmits<{
   (e: 'update-rated'): void
 }>()
 
-const updateWatchlist = (status: boolean) =>
-  emits('update-watchlist-status', status)
-
 const isUserAuthorized = getSessionFromLocalStorage() ? true : false
+
+const isLoading = ref(false)
+const isFavorite = ref(false)
+const isWatchlist = ref(false)
+const isRated = ref(false)
+
+const getAccountStateHandler = async () => {
+  try {
+    isLoading.value = true
+    const response = await getAccountState(props.movie_id)
+    isFavorite.value = response.favorite
+    isWatchlist.value = response.watchlist
+    isRated.value = response.rated ? true : false
+  } catch (err) {
+    if (err instanceof Error) {
+      console.log('Error in getting an account state' + err.message.toString())
+    }
+  } finally {
+    isLoading.value = false
+    console.log(isFavorite.value, isWatchlist.value, isRated.value)
+  }
+}
+
+onMounted(() => {
+  getAccountStateHandler()
+})
 </script>
 
 <style scoped>

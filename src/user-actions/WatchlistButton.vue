@@ -23,6 +23,7 @@ const account_id = getAccountID()
 
 interface IWatchlistButton {
   movie_id: number
+  isWatchlist: boolean
 }
 
 const props = defineProps<IWatchlistButton>()
@@ -31,7 +32,7 @@ const emits = defineEmits<{
 }>()
 
 const isLoading = ref(false)
-const isWatchlist = ref(false)
+const isWatchlist = ref(props.isWatchlist)
 
 const getAccountStateHandler = async () => {
   try {
@@ -67,9 +68,9 @@ const toggleWatchlistHandler = async () => {
   }
 }
 
-watchEffect(() => {
-  getAccountStateHandler()
-})
+// watchEffect(() => {
+//   getAccountStateHandler()
+// })
 </script>
 
 <style scoped>
