@@ -90,6 +90,12 @@ onMounted(() => {
   border-radius: var(--radius);
 }
 
+.user-not-authorized {
+  background: var(--snow-white);
+  padding: 0.25rem 0.5rem;
+  border: 2px solid black;
+}
+
 button {
   background: inherit;
   color: inherit;

@@ -7,9 +7,9 @@
     <dl>
       <dt>Directed by</dt>
       <dd v-for="director in mainDirectors" :key="director.id">
-        <a href="/">
+        <RouterLink :to="`/persons/${director.id}`">
           {{ director.name }}
-        </a>
+        </RouterLink>
       </dd>
       <dt>Runtime:</dt>
       <dd>{{ runtime }}</dd>

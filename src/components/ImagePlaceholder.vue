@@ -36,8 +36,9 @@ const src = ref(props.src)
 
 <style scoped>
 .img-wrapper {
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
+  /* border: 2px dotted red; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,6 +48,6 @@ const src = ref(props.src)
 img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>Person page will be created soon</div>
+  <div>Page with people will be created soon.</div>
 </template>
 
 <script setup lang="ts"></script>

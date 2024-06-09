@@ -85,6 +85,7 @@ const fetchPopularPeople = async () => {
     people.value = await getPopularPeople()
   } catch (err: unknown) {
     if (err instanceof Error) {
+      console.log()
       errorPeople.value =
         err.message.toString() + ' Возможно, у Вас выключен VPN.'
     }

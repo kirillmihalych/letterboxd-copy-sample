@@ -1,9 +1,7 @@
 <template>
   <div class="navbar-container">
+    <NavbarMenu />
     <div class="navbar-left-part">
-      <RouterLink to="/" class="home-link">
-        <v-icon icon="mdi-fire" class="fire-icon" />
-      </RouterLink>
       <NavbarMultiSearch />
     </div>
     <nav class="navbar">
@@ -14,7 +12,7 @@
 
 <script setup lang="ts">
 import NavbarMultiSearch from './search/NavbarMultiSearch.vue'
-
+import NavbarMenu from './NavbarMenu.vue'
 import NavbarUsersProfile from './NavbarUsersProfile.vue'
 </script>
 

@@ -114,7 +114,6 @@ import NavbarComponent from './components/navbar/NavbarComponent.vue'
   justify-content: center;
   align-items: center;
   transition: transform 1s ease-in-out;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 8px 0px;
 }
 .app-main {
   max-width: 950px;

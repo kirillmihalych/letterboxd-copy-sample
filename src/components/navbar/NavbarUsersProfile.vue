@@ -13,7 +13,7 @@
       :disabled="isLoadingRequest"
     >
       <v-icon icon="mdi-login" />
-      <p>Sign In</p>
+      <p class="sign-in-text">Sign In</p>
     </button>
     <div
       v-if="user.accountDetails"
@@ -165,6 +165,9 @@ onMounted(() => {
 
 @media (max-width: 767px) {
   h4 {
+    display: none;
+  }
+  .sign-in-text {
     display: none;
   }
 }

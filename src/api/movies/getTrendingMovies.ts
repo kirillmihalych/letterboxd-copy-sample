@@ -11,7 +11,7 @@ const optionsTrending = {
 const getTrendingMovies = async () => {
   const response = await (
     await fetch(
-      'https://api.themoviedb.org/3/trending/movie/day?language=ru-RU',
+      'https://api.themoviedb.org/3/trending/movie/day?language=en',
       optionsTrending
     )
   ).json()

@@ -32,6 +32,7 @@ import type { IMovie } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
 import type { IRatedMovie } from '@/interfaces/account-types'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
+import { ROUTE_NAMES } from '@/router'
 
 interface FilmCardProps {
   movie: IMovie | IRatedMovie
@@ -44,7 +45,11 @@ const isMenuOpen = ref(false)
 const toggleMenu = () => (isMenuOpen.value = !isMenuOpen.value)
 
 const poster = `https://image.tmdb.org/t/p/w342/${movie.value.poster_path}`
-const singleMovieURL = `/movies/movie_page/${movie.value.id}`
+const singleMovieURL = {
+  name: ROUTE_NAMES.MOVIE,
+  params: { id: props.movie.id },
+}
+
 const styles: CSSProperties = {
   width: 185 + 'px',
   height: 277.5 + 'px',
@@ -57,7 +62,6 @@ const styles: CSSProperties = {
   height: 100%;
   position: relative;
   z-index: 0;
-  /* background-color: var(--light-grey); */
   border-radius: var(--radius);
 }
 
@@ -70,7 +74,6 @@ a {
   display: block;
   border-radius: var(--radius);
   overflow: hidden;
-  /* border: 2px dotted blue; */
 }
 
 .user-actions-wrapper {

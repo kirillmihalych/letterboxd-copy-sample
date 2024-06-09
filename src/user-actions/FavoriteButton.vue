@@ -14,7 +14,7 @@
 import getAccountState from '@/api/account/getAccountState'
 import toggleFavorite from '@/api/account/toggleFavorite'
 import type { IFavoriteMovie } from '@/interfaces/movie-types'
-import { ref, watchEffect } from 'vue'
+import { ref } from 'vue'
 import getAccountID from '@/local-storage/getAccountID'
 import { useUserStore } from '@/stores/user'
 
@@ -61,10 +61,6 @@ const toggleFavoriteHandler = async () => {
     }
   }
 }
-
-// watchEffect(() => {
-//   getAccountStateHandler()
-// })
 </script>
 
 <style scoped>

@@ -9,20 +9,36 @@ import ManageListView from '@/components/user-lists/ManageListView.vue'
 import * as VueRouter from 'vue-router'
 import PersonView from '@/views/Persons/PersonView.vue'
 import MoviesView from '@/views/MoviesView.vue'
+import PeopleView from '@/views/Persons/PeopleView.vue'
+
+export const ROUTE_NAMES = {
+  HOME: 'HOME',
+  MOVIE_LIST: 'MOVIE_LIST',
+  MOVIE: 'MOVIE',
+  PEOPLE: 'PEOPLE',
+} as const
+
+export const ROUTE_PATHS = {
+  HOME: '/',
+  MOVIE_LIST: '/movies',
+  MOVIE: '/movies/:id',
+  PEOPLE: '/people',
+} as const
 
 export const movieRoutes: VueRouter.RouteRecordRaw[] = [
   {
-    path: '/',
+    name: ROUTE_NAMES.HOME,
+    path: ROUTE_PATHS.HOME,
     component: BaseLayout,
   },
   {
-    name: 'Movie list',
-    path: '/movies',
+    name: ROUTE_NAMES.MOVIE_LIST,
+    path: ROUTE_PATHS.MOVIE_LIST,
     component: MoviesView,
   },
   {
-    name: 'Movie page',
-    path: '/movies/:id',
+    name: ROUTE_NAMES.MOVIE,
+    path: ROUTE_PATHS.MOVIE,
     component: MovieView,
   },
   {
@@ -124,7 +140,12 @@ export const filterMoviesRoutes: VueRouter.RouteRecordRaw[] = [
   },
 ]
 
-export const personRoutes = [
+export const peopleRoutes = [
+  {
+    name: ROUTE_NAMES.PEOPLE,
+    path: ROUTE_PATHS.PEOPLE,
+    component: PeopleView,
+  },
   {
     name: 'Person',
     path: '/persons/:id',
@@ -139,7 +160,10 @@ const router = createRouter({
     .concat(listRoutes)
     .concat(profileRoutes)
     .concat(filterMoviesRoutes)
-    .concat(personRoutes),
+    .concat(peopleRoutes),
+  scrollBehavior() {
+    document.getElementById('app')?.scrollIntoView({ behavior: 'smooth' })
+  },
 })
 
 export default router

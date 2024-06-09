@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import type { CSSProperties } from 'vue'
+import { type CSSProperties } from 'vue'
 
 interface IDropdown {
   isDropdownShown: boolean
@@ -27,7 +27,7 @@ const props = defineProps<IDropdown>()
 <style scoped>
 .dropdown-list {
   position: absolute;
-  z-index: 1;
+  z-index: 1000;
   background: slategrey;
   max-height: 500px;
   overflow-y: scroll;
