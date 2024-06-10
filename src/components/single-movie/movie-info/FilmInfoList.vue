@@ -1,15 +1,18 @@
 <template>
+  <h4>Full cast and crew</h4>
   <nav class="movie-info-navbar">
-    <a href="#cast" :class="{ active: isCastShowed }"> cast </a>
-    <a href="#crew" :class="{ active: isCrewShowed }"> crew </a>
-    <a href="#details" :class="{ active: isDetailsShowed }"> details </a>
+    <button @click="openCast" :class="{ active: isCastShowed }">cast</button>
+    <button @click="openCrew" :class="{ active: isCrewShowed }">crew</button>
+    <button @click="openDetails" :class="{ active: isDetailsShowed }">
+      details
+    </button>
   </nav>
   <main>
     <section v-show="isCastShowed">
       <CastList :castInfo="movieInfo.credits.cast" />
     </section>
     <section v-show="isCrewShowed">
-      <CrewList :crewInfo="movieInfo.credits.crew" />
+      <CrewList :crewMemberList="movieInfo.credits.crew" />
     </section>
     <section v-show="isDetailsShowed">
       <DetailsList
@@ -39,34 +42,25 @@ interface IFilmInfoListProps {
 const { movieInfo } = defineProps<IFilmInfoListProps>()
 
 const isCastShowed = ref(true)
-const isCrewShowed = ref(false)
-const isDetailsShowed = ref(false)
-
-window.addEventListener('hashchange', onHashChange)
-onHashChange()
-
-function onHashChange() {
-  const location = window.location.hash.replace(/#(?=\S)/g, '')
-  if (location === 'cast') {
-    isCastShowed.value = true
-    isCrewShowed.value = false
-    isDetailsShowed.value = false
-  }
-  if (location === 'crew') {
-    isCastShowed.value = false
-    isCrewShowed.value = true
-    isDetailsShowed.value = false
-  }
-  if (location === 'details') {
-    isCastShowed.value = false
-    isCrewShowed.value = false
-    isDetailsShowed.value = true
-  }
+const openCast = () => {
+  isCastShowed.value = true
+  isCrewShowed.value = false
+  isDetailsShowed.value = false
 }
 
-watchEffect(() => {
-  onHashChange()
-})
+const isCrewShowed = ref(false)
+const openCrew = () => {
+  isCrewShowed.value = true
+  isCastShowed.value = false
+  isDetailsShowed.value = false
+}
+
+const isDetailsShowed = ref(false)
+const openDetails = () => {
+  isDetailsShowed.value = true
+  isCastShowed.value = false
+  isCrewShowed.value = false
+}
 </script>
 
 <style scoped>
@@ -79,7 +73,7 @@ watchEffect(() => {
   margin-bottom: 0.5rem;
 }
 
-.movie-info-navbar a {
+.movie-info-navbar button {
   box-sizing: border-box;
   text-decoration: none;
   text-transform: uppercase;
@@ -90,6 +84,11 @@ watchEffect(() => {
   padding: 0.1rem 0.2rem;
   border-radius: 0.1rem;
   color: #222;
+}
+
+.movie-info-navbar button:hover {
+  cursor: pointer;
+  background: rgba(99, 99, 99, 0.15);
 }
 
 .active {

@@ -1,7 +1,7 @@
 <template>
   <div class="navbar-container">
-    <NavbarMenu />
     <div class="navbar-left-part">
+      <NavbarMenu />
       <NavbarMultiSearch />
     </div>
     <nav class="navbar">
@@ -59,6 +59,7 @@ import NavbarUsersProfile from './NavbarUsersProfile.vue'
   align-items: center;
   justify-content: center;
   gap: 0.25rem;
+  width: 302px;
 }
 
 @media (max-width: 767px) {

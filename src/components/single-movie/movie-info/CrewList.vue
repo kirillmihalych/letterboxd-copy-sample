@@ -1,10 +1,18 @@
 <template>
   <section class="crew-list-container">
-    <div v-for="key in reactiveMap" :key="key[0]" class="crew-list-item">
-      <span>{{ key[0] }}</span>
+    <div
+      v-for="[department, departmentMembers] in crewMemberListMap"
+      :key="department"
+      class="crew-list-item"
+    >
+      <span>{{ department }}</span>
       <div class="crew-links-container">
-        <RouterLink to="/" v-for="(name, idx) in key[1]" :key="idx">
-          {{ name }}
+        <RouterLink
+          v-for="departmentMember in departmentMembers"
+          :key="departmentMember.id"
+          :to="constructCrewMemberURL(departmentMember.id)"
+        >
+          {{ departmentMember.name }}
         </RouterLink>
       </div>
     </div>
@@ -13,27 +21,54 @@
 
 <script setup lang="ts">
 import type { ICrewMember } from '@/interfaces/movie-types'
-import { reactive } from 'vue'
+import { ROUTE_NAMES } from '@/router'
 import { RouterLink } from 'vue-router'
 
 interface ICrewListProps {
-  crewInfo: ICrewMember[]
+  crewMemberList: ICrewMember[]
 }
 
 const props = defineProps<ICrewListProps>()
-const crewInfo = props.crewInfo
 
-const crewMap = new Map()
-for (let i = 0; i < crewInfo.length; i++) {
-  if (crewMap.has(crewInfo[i].department)) {
-    let load = [...crewMap.get(crewInfo[i].department), crewInfo[i].name]
-    crewMap.set(crewInfo[i].department, load)
-  } else {
-    crewMap.set(crewInfo[i].department, [crewInfo[i].name])
+const crewMemberListMap = new Map()
+
+const createCrewMemberListMap = () => {
+  for (let i = 0; i < props.crewMemberList.length; i++) {
+    const isDepartmentAdded = crewMemberListMap.has(
+      props.crewMemberList[i].department
+    )
+
+    const crewMemberObject = {
+      id: props.crewMemberList[i].id,
+      name: props.crewMemberList[i].name,
+    }
+
+    const addMemberToExistingDepartment = () => {
+      crewMemberListMap.set(props.crewMemberList[i].department, [
+        ...crewMemberListMap.get(props.crewMemberList[i].department),
+        crewMemberObject,
+      ])
+    }
+
+    const addNewDepartment = () =>
+      crewMemberListMap.set(props.crewMemberList[i].department, [
+        crewMemberObject,
+      ])
+
+    if (isDepartmentAdded) {
+      addMemberToExistingDepartment()
+    } else if (!isDepartmentAdded) {
+      addNewDepartment()
+    }
   }
 }
 
-const reactiveMap = reactive(crewMap)
+createCrewMemberListMap()
+
+const constructCrewMemberURL = (id: string) => {
+  const crewMemberURL = { name: ROUTE_NAMES.PERSON, params: { id } }
+  return crewMemberURL
+}
 </script>
 
 <style scoped>

@@ -16,6 +16,7 @@ export const ROUTE_NAMES = {
   MOVIE_LIST: 'MOVIE_LIST',
   MOVIE: 'MOVIE',
   PEOPLE: 'PEOPLE',
+  PERSON: 'PERSON',
 } as const
 
 export const ROUTE_PATHS = {
@@ -23,6 +24,7 @@ export const ROUTE_PATHS = {
   MOVIE_LIST: '/movies',
   MOVIE: '/movies/:id',
   PEOPLE: '/people',
+  PERSON: '/persons/:id',
 } as const
 
 export const movieRoutes: VueRouter.RouteRecordRaw[] = [
@@ -147,8 +149,8 @@ export const peopleRoutes = [
     component: PeopleView,
   },
   {
-    name: 'Person',
-    path: '/persons/:id',
+    name: ROUTE_NAMES.PERSON,
+    path: ROUTE_PATHS.PERSON,
     component: PersonView,
   },
 ]

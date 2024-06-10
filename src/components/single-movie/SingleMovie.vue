@@ -1,28 +1,58 @@
 <template>
-  <section>
+  <section class="movie-wrapper">
     <h2 class="h3">
       {{ movie.title }}
       <span>({{ movie.release_date?.slice(0, 4) }})</span>
     </h2>
-    <dl>
-      <dt>Directed by</dt>
-      <dd v-for="director in mainDirectors" :key="director.id">
-        <RouterLink :to="`/persons/${director.id}`">
-          {{ director.name }}
-        </RouterLink>
-      </dd>
-      <dt>Runtime:</dt>
-      <dd>{{ runtime }}</dd>
-    </dl>
-    <p>{{ movie.overview }}</p>
+    <div>
+      <div class="directed-by-wrapper">
+        <CarouselComponent :items="mainDirectors">
+          <template #header>
+            <h4>Directed by</h4>
+          </template>
+          <template #item="{ item: director }">
+            <PersonCard :person="director" />
+            <p>{{ director.name }}</p>
+          </template>
+        </CarouselComponent>
+      </div>
+      <div class="writted-by-wrapper">
+        <CarouselComponent :items="screenwriters">
+          <template #header>
+            <h4>Writed by</h4>
+          </template>
+          <template #item="{ item: writer }">
+            <PersonCard :person="writer" />
+            <p>{{ writer.name }}</p>
+          </template>
+        </CarouselComponent>
+      </div>
+      <p>Runtime: {{ runtime }} minutes</p>
+      <p>{{ movie.overview }}</p>
+    </div>
+
     <p>More at <a :href="imdbLink">IMDb</a></p>
+    <div class="cast-members-carousel">
+      <CarouselComponent :items="props.movie.credits.cast">
+        <template #header>
+          <h4>Top billed cast</h4>
+        </template>
+        <template #item="{ item: person }">
+          <PersonCard :person="person" />
+        </template>
+      </CarouselComponent>
+    </div>
     <FilmInfoList :movieInfo="movie" />
   </section>
 </template>
 
 <script setup lang="ts">
+import { ROUTE_NAMES } from '@/router'
 import FilmInfoList from './movie-info/FilmInfoList.vue'
 import type { ICrewMember, IMovie } from '@/interfaces/movie-types'
+import { watchEffect } from 'vue'
+import CarouselComponent from '../generic-carousel/CarouselComponent.vue'
+import PersonCard from '../person-card/PersonCard.vue'
 
 interface movieProps {
   movie: IMovie
@@ -31,14 +61,24 @@ interface movieProps {
 const props = defineProps<movieProps>()
 const movie = props.movie
 const crew = movie.credits?.crew
+
 const mainDirectors: ICrewMember[] = crew.filter(
   (crewMember: ICrewMember) => crewMember.job === 'Director'
 )
-// const screenwriters: ICrewMember[] = crew.filter(
-//   (crewMember: ICrewMember) => crewMember.job === 'Screenplay'
-// )
+const screenwriters: ICrewMember[] = crew.filter(
+  (crewMember: ICrewMember) =>
+    crewMember.job === 'Screenplay' || crewMember.job === 'Writer'
+)
 const imdbLink = `https://www.imdb.com/title/${movie.imdb_id}`
 const runtime = movie.runtime
 </script>
 
-<style scoped></style>
+<style scoped>
+.movie-wrapper {
+  max-width: 800px;
+}
+
+.cast-members-carousel {
+  margin-bottom: 2rem;
+}
+</style>

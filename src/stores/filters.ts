@@ -14,7 +14,7 @@ export const useFilterStore = defineStore('filters', () => {
   const releaseDateFrom = ref('')
   const releaseDateTo = ref('')
   const rating = ref('')
-  const votes = ref('10000')
+  const votes = ref('100')
   const page = ref('1')
 
   const fetchFilteredMovies = async () => {

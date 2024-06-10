@@ -3,7 +3,7 @@
     <CastMember
       v-for="castMember in showedCastMembers"
       :key="castMember.id"
-      :castMemberInfo="castMember"
+      :castMember="castMember"
     />
     <button @click="showAllCastMembers" v-show="endOfCastList !== castLength">
       Show all

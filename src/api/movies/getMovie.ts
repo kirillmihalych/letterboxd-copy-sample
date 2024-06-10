@@ -8,13 +8,14 @@ const options = {
   },
 }
 
-const getMovie = async (id: number) => {
-  const movie = await (
-    await fetch(
-      `https://api.themoviedb.org/3/movie/${id}?language=en-EN&append_to_response=credits`,
-      options
-    )
-  ).json()
+const getMovie = async (id: string) => {
+  const baseURL = `https://api.themoviedb.org/3/movie/${id}?`
+  const params = new URLSearchParams({
+    language: 'en-EN',
+    append_to_response: 'credits',
+  })
+  const constructedURL = baseURL + params
+  const movie = await (await fetch(constructedURL, options)).json()
   return movie
 }
 

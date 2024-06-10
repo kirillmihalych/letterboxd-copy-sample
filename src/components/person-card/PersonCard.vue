@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <RouterLink :to="`/persons/${props.person.id}`">
+    <RouterLink :to="personURL">
       <ImagePlaceholder
         :src="profile_picture"
         :imgParams="params"
@@ -14,7 +14,7 @@
 import type { IPerson } from '@/interfaces/movie-types'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
 import { RouterLink } from 'vue-router'
-import { personRoutes } from '@/router'
+import { ROUTE_NAMES } from '@/router'
 
 interface IPersonCardInterface {
   person: IPerson
@@ -22,6 +22,8 @@ interface IPersonCardInterface {
 
 const props = defineProps<IPersonCardInterface>()
 const profile_picture = `https://image.tmdb.org/t/p/w342/${props.person.profile_path}`
+const personURL = { name: ROUTE_NAMES.PERSON, params: { id: props.person.id } }
+
 const params = {
   width: 185 + 'px',
   height: 277.5 + 'px',

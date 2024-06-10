@@ -73,18 +73,31 @@ export interface ILanguage {
   name: string
 }
 
-export interface ICrewMember {
+export interface IPerson {
   adult: boolean
-  credit_id: string
-  department: string
   gender: number
   id: number
-  job: string
-  know_for_department: string
-  name: string
-  original_name: string
-  popularity: number
   profile_path: string
+  known_for_department: string
+  name: string
+  popularity: number
+  known_for: IMovie[]
+  media_type: string
+  original_name: string
+}
+
+export interface ICrewMember extends IPerson {
+  // adult: boolean
+  // gender: number
+  // id: number
+  // profile_path: string
+  // known_for_department: string
+  // name: string
+  // popularity: number
+  // original_name: string
+  credit_id: string
+  department: string
+  job: string
 }
 
 export interface ICastMember {
@@ -140,18 +153,18 @@ export interface ITVShow {
   vote_count: number
 }
 
-export interface IPerson {
-  adult: boolean
-  gender: number
-  id: number
-  known_for: IMovie[]
-  known_for_department: string
-  media_type: string
-  name: string
-  original_name: string
-  popularity: number
-  profile_path: string
-}
+// export interface IPerson {
+//   adult: boolean
+//   gender: number
+//   id: number
+//   known_for: IMovie[]
+//   known_for_department: string
+//   media_type: string
+//   name: string
+//   original_name: string
+//   popularity: number
+//   profile_path: string
+// }
 
 export type ISearchResult = IPerson | ITVShow | IMovieResult
 

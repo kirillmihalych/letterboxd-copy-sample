@@ -1,18 +1,23 @@
 <template>
-  <RouterLink to="/" class="cast-member-name"
-    >{{ castMemberInfo.name }}
+  <RouterLink :to="castMemberURL" class="cast-member-name"
+    >{{ props.castMember.name }}
   </RouterLink>
 </template>
 
 <script setup lang="ts">
 import type { ICastMember } from '@/interfaces/movie-types'
 import { RouterLink } from 'vue-router'
+import { ROUTE_NAMES } from '@/router'
 
 interface ICastMemberProps {
-  castMemberInfo: ICastMember
+  castMember: ICastMember
 }
 
-const { castMemberInfo } = defineProps<ICastMemberProps>()
+const props = defineProps<ICastMemberProps>()
+const castMemberURL = {
+  name: ROUTE_NAMES.PERSON,
+  params: { id: props.castMember.id },
+}
 </script>
 
 <style scoped>

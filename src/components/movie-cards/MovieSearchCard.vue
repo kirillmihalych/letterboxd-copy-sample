@@ -1,8 +1,5 @@
 <template>
-  <RouterLink
-    :to="`movies/movie_page/${props.movie.id}`"
-    class="movie-search-card-container"
-  >
+  <RouterLink :to="movieURL" class="movie-search-card-container">
     <ImagePlaceholder
       :src="poster"
       :img-params="{ width: 32 + 'px', height: 48 + 'px' }"
@@ -19,6 +16,7 @@
 <script setup lang="ts">
 import type { IMovie } from '@/interfaces/movie-types'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
+import { ROUTE_NAMES } from '@/router'
 
 interface IMovieSearchCard {
   movie: IMovie
@@ -26,6 +24,7 @@ interface IMovieSearchCard {
 
 const props = defineProps<IMovieSearchCard>()
 const poster = `https://image.tmdb.org/t/p/w92/${props.movie.poster_path}`
+const movieURL = { name: ROUTE_NAMES.MOVIE, params: { id: props.movie.id } }
 </script>
 
 <style scoped>

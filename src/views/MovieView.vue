@@ -2,9 +2,7 @@
   <div v-if="isLoading">
     <SpinnerComp />
   </div>
-
   <div v-if="error">{{ error }}</div>
-
   <article v-if="movie">
     <ImagePlaceholder
       :src="poster"
@@ -34,19 +32,18 @@ const movie = ref<IMovie | null>(null)
 const isLoading = ref(false)
 const error = ref<string | null>(null)
 const route = useRoute()
-const route_id = Number(route.params.id)
 const poster = ref('')
 const imgParams = {
   width: 250 + 'px',
   height: 375 + 'px',
 }
 
-const fetchMovieById = async () => {
+const fetchMovieById = async (movieID: string) => {
   isLoading.value = true
   error.value = null
   movie.value = null
   try {
-    movie.value = await getMovie(route_id)
+    movie.value = await getMovie(movieID)
   } catch (err: unknown) {
     if (err instanceof Error) {
       error.value = err.message.toString()
@@ -58,7 +55,7 @@ const fetchMovieById = async () => {
 }
 
 watchEffect(() => {
-  fetchMovieById()
+  fetchMovieById(route.params.id as string)
 })
 </script>
 

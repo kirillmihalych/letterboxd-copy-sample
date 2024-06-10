@@ -42,7 +42,7 @@ const navbarMenuRoutes = [
 ]
 
 const menuCssProperties: CSSProperties = {
-  width: 145 + 'px',
+  width: 302 + 'px',
   top: 32 + 'px',
   left: 0,
   overflow: 'hidden',

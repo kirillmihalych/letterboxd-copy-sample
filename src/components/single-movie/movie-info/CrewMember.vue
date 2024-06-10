@@ -1,6 +1,6 @@
 <template>
   <RouterLink to="/">
-    {{ crewMember.name }}
+    {{ crewMember.id }}
   </RouterLink>
 </template>
 
