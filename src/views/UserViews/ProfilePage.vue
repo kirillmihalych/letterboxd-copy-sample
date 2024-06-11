@@ -2,11 +2,7 @@
   <div class="profile-page-container">
     <h4>
       My
-      {{
-        (route.name as string).toLowerCase() === 'rated'
-          ? `rated list`
-          : (route.name as string).toLowerCase()
-      }}
+      {{ listName }}
     </h4>
     <PaginatedList
       :isLoading="isLoading"
@@ -23,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import type { IRatedMovie } from '@/interfaces/account-types'
 import type { IMovie } from '@/interfaces/movie-types'
@@ -33,14 +29,6 @@ import type { IList } from '@/interfaces/lists-types'
 import getLists from '@/api/account/getLists'
 import getRatedMovies from '@/api/account/getRatedMovies'
 import PaginatedList from '@/components/paginated-list/PaginatedList.vue'
-import { useUserStore } from '@/stores/user'
-
-const account_id = ref<number | null>(null)
-const setAccountId = (id: number) => {
-  account_id.value = id
-}
-
-const user = useUserStore()
 
 const route = useRoute()
 const movies = ref<IRatedMovie[] | IMovie[] | null>()
@@ -101,11 +89,11 @@ watchEffect(() => {
   }
 })
 
-function copmputed(
-  arg0: () => import('vue-router').RouteLocationNormalizedLoaded
-) {
-  throw new Error('Function not implemented.')
-}
+const listName = computed(() => {
+  return (route.name as string).toLowerCase() === 'rated'
+    ? `rated list`
+    : (route.name as string).toLowerCase()
+})
 </script>
 
 <style scoped>

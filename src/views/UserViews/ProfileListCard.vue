@@ -9,7 +9,7 @@
       <h4>{{ list.name }}</h4>
       <p>
         {{ list.total_results }}
-        <span>{{ list.total_results === 1 ? 'movie' : 'movies' }}</span>
+        <span>{{ resultsName }}</span>
       </p>
       <p class="details">
         <span>More details at click</span
@@ -24,7 +24,6 @@ import getListDetails from '@/api/lists/getListDetails'
 import type { IList } from '@/interfaces/lists-types'
 import { computed, onMounted, ref } from 'vue'
 import ImagePlaceholder from '@/components/ImagePlaceholder.vue'
-import { RouterLink } from 'vue-router'
 
 interface IProfileListCard {
   list_id: number
@@ -57,14 +56,14 @@ onMounted(() => {
   fetchList()
 })
 
+const resultsName = computed(() => {
+  return list.value?.total_results === 1 ? 'movie' : 'movies'
+})
+
 const styles = {
   width: 92 + 'px',
   height: 138 + 'px',
 }
-
-// const poster = ref(
-//   `https://image.tmdb.org/t/p/w152/${list.value?.items[0].poster_path}`
-// )
 </script>
 
 <style scoped>

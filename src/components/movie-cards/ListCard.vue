@@ -10,13 +10,7 @@
       <label for="checkbox">{{ list.name }}</label>
     </div>
     <p class="list-info">
-      {{
-        isLoading
-          ? '...'
-          : list_details?.item_count
-          ? list_details.item_count
-          : list.item_count
-      }}
+      {{ movieAmount }}
       films
     </p>
   </li>
@@ -29,7 +23,7 @@ import getListStatus from '@/api/lists/getListStatus'
 import removieMovie from '@/api/lists/removeMovie'
 import type { IList } from '@/interfaces/lists-types'
 
-import { ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 
 interface IListCard {
   list: IList
@@ -80,6 +74,14 @@ watchEffect(() => {
   if (props.list && props.movie_id) {
     isMoviePresent(props.list.id, props.movie_id)
   }
+})
+
+const movieAmount = computed(() => {
+  return isLoading
+    ? '...'
+    : list_details?.value?.item_count
+    ? list_details.value.item_count
+    : props.list.item_count
 })
 </script>
 

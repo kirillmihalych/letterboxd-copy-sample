@@ -9,9 +9,7 @@
       :title="props.movie.title"
     />
     <div class="movie-title-container">
-      <h4>
-        {{ props.movie.title }}({{ props.movie.release_date.slice(0, 4) }})
-      </h4>
+      <h4>{{ props.movie.title }}({{ releaseYear }})</h4>
       <div>
         <v-icon icon="mdi-plus-box-outline" />
       </div>
@@ -23,7 +21,7 @@
 import addMovie from '@/api/lists/addMovie'
 import ImagePlaceholder from '../ImagePlaceholder.vue'
 import type { IMovie } from '@/interfaces/movie-types'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 interface IMediaCard {
@@ -52,6 +50,10 @@ const addMedia = async (movie_id: number, list_id: number) => {
     }
   }
 }
+
+const releaseYear = computed(() => {
+  return props.movie.release_date.slice(0, 4)
+})
 </script>
 
 <style scoped>

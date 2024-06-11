@@ -6,9 +6,7 @@
       :title="props.movie.title"
     />
     <div class="movie-title-container">
-      <h4>
-        {{ props.movie.title }}({{ props.movie.release_date.slice(0, 4) }})
-      </h4>
+      <h4>{{ props.movie.title }}({{ releaseYear }})</h4>
     </div>
   </RouterLink>
 </template>
@@ -25,6 +23,7 @@ interface IMovieSearchCard {
 const props = defineProps<IMovieSearchCard>()
 const poster = `https://image.tmdb.org/t/p/w92/${props.movie.poster_path}`
 const movieURL = { name: ROUTE_NAMES.MOVIE, params: { id: props.movie.id } }
+const releaseYear = props.movie.release_date.slice(0, 4)
 </script>
 
 <style scoped>

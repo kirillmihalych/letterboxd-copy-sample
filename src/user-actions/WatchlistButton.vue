@@ -14,7 +14,7 @@
 import getAccountState from '@/api/account/getAccountState'
 import toggleWatchlist from '@/api/account/toggleWatchlist'
 import type { IWatchListMovie } from '@/interfaces/movie-types'
-import { ref, watchEffect } from 'vue'
+import { ref } from 'vue'
 import getAccountID from '@/local-storage/getAccountID'
 import { useUserStore } from '@/stores/user'
 
@@ -27,9 +27,6 @@ interface IWatchlistButton {
 }
 
 const props = defineProps<IWatchlistButton>()
-const emits = defineEmits<{
-  (e: 'update-watchlist-status', status: boolean): void
-}>()
 
 const isLoading = ref(false)
 const isWatchlist = ref(props.isWatchlist)
@@ -38,7 +35,6 @@ const getAccountStateHandler = async () => {
   try {
     isLoading.value = true
     isWatchlist.value = (await getAccountState(props.movie_id)).watchlist
-    // user.fetchTitles()
   } catch (err) {
     if (err instanceof Error) {
       console.log('Error in getting an account state' + err.message.toString())
@@ -60,17 +56,12 @@ const toggleWatchlistHandler = async () => {
     await toggleWatchlist(account_id, WatchlistMovie)
     getAccountStateHandler()
     user.fetchTitles()
-    emits('update-watchlist-status', isWatchlist.value)
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log('Error in toggling Watchlist' + err.message.toString())
     }
   }
 }
-
-// watchEffect(() => {
-//   getAccountStateHandler()
-// })
 </script>
 
 <style scoped>

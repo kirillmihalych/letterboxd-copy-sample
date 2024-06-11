@@ -121,7 +121,6 @@ const createListHandler = async () => {
 }
 
 const getList = async () => {
-  // isLoading.value = true
   isListUpdating.value = true
   let id = route.params.id ? route.params.id : listId.value
   try {
@@ -138,7 +137,6 @@ const getList = async () => {
       description.value = list.value.description
     }
     isListUpdating.value = false
-    // isLoading.value = false
   }
 }
 

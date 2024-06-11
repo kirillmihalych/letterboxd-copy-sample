@@ -2,7 +2,7 @@
   <section class="movie-wrapper">
     <h2 class="h3">
       {{ movie.title }}
-      <span>({{ movie.release_date?.slice(0, 4) }})</span>
+      <span>({{ releaseYear }})</span>
     </h2>
     <div>
       <div class="directed-by-wrapper">
@@ -47,10 +47,8 @@
 </template>
 
 <script setup lang="ts">
-import { ROUTE_NAMES } from '@/router'
 import FilmInfoList from './movie-info/FilmInfoList.vue'
 import type { ICrewMember, IMovie } from '@/interfaces/movie-types'
-import { watchEffect } from 'vue'
 import CarouselComponent from '../generic-carousel/CarouselComponent.vue'
 import PersonCard from '../person-card/PersonCard.vue'
 
@@ -71,6 +69,8 @@ const screenwriters: ICrewMember[] = crew.filter(
 )
 const imdbLink = `https://www.imdb.com/title/${movie.imdb_id}`
 const runtime = movie.runtime
+
+const releaseYear = movie.release_date?.slice(0, 4)
 </script>
 
 <style scoped>

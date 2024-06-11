@@ -10,9 +10,8 @@
 <script setup lang="ts">
 import removieMovie from '@/api/lists/removeMovie'
 import type { IMovie } from '@/interfaces/movie-types'
-import { ref, type CSSProperties } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import ImagePlaceholder from '../ImagePlaceholder.vue'
 import FilmCard from '../movie-cards/FilmCard.vue'
 
 interface IListMovieCard {

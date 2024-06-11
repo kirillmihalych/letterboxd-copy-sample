@@ -28,6 +28,7 @@ import ImagePlaceholder from '@/components/ImagePlaceholder.vue'
 import UserActionsMenu from '@/user-actions/UserActionsMenu.vue'
 import SpinnerComp from '@/components/error-handling/SpinnerComp.vue'
 import type { IMovie } from '@/interfaces/movie-types'
+
 const movie = ref<IMovie | null>(null)
 const isLoading = ref(false)
 const error = ref<string | null>(null)

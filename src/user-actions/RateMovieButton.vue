@@ -57,9 +57,9 @@ const isModalOpen = ref(false)
 const openModal = () => (isModalOpen.value = true)
 const closeModal = () => (isModalOpen.value = false)
 
-// onMounted(() => {
-//   fetchIsRated()
-// })
+onMounted(() => {
+  fetchIsRated()
+})
 </script>
 
 <style scoped>
