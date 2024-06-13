@@ -3,7 +3,7 @@
     title="Rate it"
     class="rate-movie-btn"
     @click="openModal"
-    :class="{ rated: isRated }"
+    :class="{ rated: props.isRated }"
   >
     <v-icon v-if="isLoading" icon="mdi-loading" class="loading" />
     <v-icon v-else="!isLoading" icon="mdi-star" />
@@ -14,7 +14,8 @@
           :release="props.release"
           :vote_average="props.vote_average"
           :vote_count="props.vote_count"
-          @update-is-rated="(is_rated) => setIsRated(is_rated)"
+          :rating="props.rating"
+          @update-is-rated="(isRated) => setIsRated(isRated)"
         />
       </template>
     </ModalWindow>
@@ -33,33 +34,22 @@ interface IRateMovieBtn {
   vote_average: number
   vote_count: number
   isRated: boolean
+  rating: number
 }
 
 const props = defineProps<IRateMovieBtn>()
+const emits = defineEmits<{
+  (e: 'update-is-rated', isRated: boolean): void
+}>()
 
-const isRated = ref(props.isRated)
-const setIsRated = (is_rated: boolean) => (isRated.value = is_rated)
 const isLoading = ref(false)
-const fetchIsRated = async () => {
-  try {
-    isLoading.value = true
-    isRated.value = (await getAccountState(props.movie_id)).rated.value
-      ? true
-      : false
-  } catch (error) {
-    console.log(error)
-  } finally {
-    isLoading.value = false
-  }
+const setIsRated = (isRated: boolean) => {
+  emits('update-is-rated', isRated)
 }
 
 const isModalOpen = ref(false)
 const openModal = () => (isModalOpen.value = true)
 const closeModal = () => (isModalOpen.value = false)
-
-onMounted(() => {
-  fetchIsRated()
-})
 </script>
 
 <style scoped>

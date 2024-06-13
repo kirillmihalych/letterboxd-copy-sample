@@ -38,13 +38,13 @@
           <template #dropdown-list>
             <WatchlistLink
               :isLoading="user.isLoading"
-              :titles="user.watchlist"
+              :titles="user.watchlistTitles"
             />
             <FavoriteLink
               :isLoading="user.isLoading"
-              :titles="user.favorites"
+              :titles="user.favoriteTitles"
             />
-            <RatedLink :isLoading="user.isLoading" :titles="user.rated" />
+            <RatedLink :isLoading="user.isLoading" :titles="user.ratedTitles" />
             <ListsLink :isLoading="user.isLoading" :titles="user.lists" />
             <LogoutButton />
           </template>
@@ -104,10 +104,6 @@ const approveToken = (): void => {
   // window.location.href = `https://www.themoviedb.org/authenticate/${requestToken.value}?redirect_to=https://f1re-movie-finder.netlify.app/auth/approved`
   window.location.href = `https://www.themoviedb.org/authenticate/${requestToken.value}?redirect_to=http://localhost:5173/auth/approved`
 }
-
-onMounted(() => {
-  user.fetchTitles()
-})
 </script>
 
 <style scoped>

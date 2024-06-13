@@ -28,15 +28,20 @@
             </div>
           </button>
         </div>
-        <div v-show="!userRating" class="user-rating-container">
+        <div
+          v-show="!userRating && !props.rating"
+          class="user-rating-container"
+        >
           <p>{{ isLoading ? '...' : 'Not rated yet' }}</p>
         </div>
-        <div class="user-rating-container" v-show="userRating">
+        <div class="user-rating-container" v-show="userRating || props.rating">
           <p>My rating is</p>
           <span
             class="user-rating"
             :style="{ backgroundColor: userRatingColor }"
-            >{{ isLoading ? '...' : userRating }}</span
+            >{{
+              isLoading ? '...' : userRating ? userRating : props.rating
+            }}</span
           >
           <button @click="deleteRatingHandler" class="delete-user-rating">
             Delete
@@ -72,6 +77,7 @@ interface IRatingHandlerProps {
   release: string
   vote_average: number
   vote_count: number
+  rating: number
 }
 const props = defineProps<IRatingHandlerProps>()
 const emits = defineEmits<{
@@ -80,7 +86,7 @@ const emits = defineEmits<{
 
 const temp = ref<number | null>(null)
 const userRating = ref<number | null>(null)
-const setUserRating = () => (userRating.value = rating.value)
+const setUserRating = () => (userRating.value = props.rating)
 
 const saveCurrRating = () => (temp.value = rating.value)
 const setCurrRating = (value: number) => (rating.value = value)
@@ -96,19 +102,19 @@ const currentDate = new Date()
 const isMovieReleased = releaseDate <= currentDate
 const user = useUserStore()
 
-const getAccountStateHandler = async () => {
-  try {
-    isLoading.value = true
-    rating.value = (await getAccountState(props.movie_id)).rated.value
-  } catch (err) {
-    if (err instanceof Error) {
-      console.log('Error in getting an account state' + err.message.toString())
-    }
-  } finally {
-    setUserRating()
-    isLoading.value = false
-  }
-}
+// const getAccountStateHandler = async () => {
+//   try {
+//     isLoading.value = true
+//     rating.value = (await getAccountState(props.movie_id)).rated.value
+//   } catch (err) {
+//     if (err instanceof Error) {
+//       console.log('Error in getting an account state' + err.message.toString())
+//     }
+//   } finally {
+//     setUserRating()
+//     isLoading.value = false
+//   }
+// }
 
 const addRatingHandler = async (value: number) => {
   try {
@@ -121,7 +127,7 @@ const addRatingHandler = async (value: number) => {
       console.log(err)
     }
   } finally {
-    user.fetchTitles()
+    user.fetchRatedTitles()
     emits('update-is-rated', true)
   }
 }
@@ -161,7 +167,7 @@ const tmdbRatingColor = computed(() => {
 const values = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
 watchEffect(() => {
-  getAccountStateHandler()
+  rating.value = props.rating
 })
 </script>
 

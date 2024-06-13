@@ -3,15 +3,18 @@
     title="Save to favotires"
     class="favorite-btn"
     @click="toggleFavoriteHandler()"
-    :class="{ favorite: isFavorite }"
+    :class="{ favorite: props.isFavorite }"
   >
     <v-icon v-if="isLoading" icon="mdi-loading" class="loading" />
-    <v-icon icon="mdi-thumb-up" v-if="!isLoading" />
+    <v-icon icon="mdi-thumb-up" v-if="props.isFavorite && !isLoading" />
+    <v-icon
+      v-if="!props.isFavorite && !isLoading"
+      icon="mdi-thumb-up-outline"
+    />
   </button>
 </template>
 
 <script setup lang="ts">
-import getAccountState from '@/api/account/getAccountState'
 import toggleFavorite from '@/api/account/toggleFavorite'
 import type { IFavoriteMovie } from '@/interfaces/movie-types'
 import { ref } from 'vue'
@@ -28,53 +31,42 @@ interface IFavoriteButton {
 
 const props = defineProps<IFavoriteButton>()
 const isLoading = ref(false)
-const isFavorite = ref(props.isFavorite)
 
-const getAccountStateHandler = async () => {
-  try {
-    isLoading.value = true
-    isFavorite.value = (await getAccountState(props.movie_id)).favorite
-  } catch (err) {
-    if (err instanceof Error) {
-      console.log('Error in getting an account state' + err.message.toString())
-    }
-  } finally {
-    isLoading.value = false
-  }
-}
+const emits = defineEmits<{
+  (e: 'update-is-favorite', isFavorite: boolean): void
+}>()
 
 const toggleFavoriteHandler = async () => {
   const favoriteMovie: IFavoriteMovie = {
     media_type: 'movie',
     media_id: props.movie_id,
-    favorite: !isFavorite.value,
+    favorite: !props.isFavorite,
   }
 
   try {
     isLoading.value = true
     await toggleFavorite(account_id, favoriteMovie)
-    getAccountStateHandler()
-    user.fetchTitles()
+    user.fetchFavoriteTitles()
+    emits('update-is-favorite', !props.isFavorite)
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log('Error in toggling favorite' + err.message.toString())
     }
+  } finally {
+    isLoading.value = false
   }
 }
 </script>
 
 <style scoped>
 .favorite {
-  color: red;
+  color: orange;
 }
 
 .favorite-btn:hover {
-  cursor: pointer;
   color: var(--snow-white);
-}
-
-.favorite:hover {
-  color: pink;
+  cursor: pointer;
+  opacity: 0.85;
 }
 
 .loading {

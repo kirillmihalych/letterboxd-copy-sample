@@ -14,8 +14,12 @@
               :vote_average="props.vote_average"
               :vote_count="props.vote_count"
               :is-favorite="isFavorite"
+              @update-is-favorite="(isFav) => setIsFavorite(isFav as boolean)"
               :is-watchlist="isWatchlist"
+              @update-is-watchlist="(isWatch) => setIsWatchlist(isWatch as boolean)"
               :is-rated="isRated"
+              :rating="rating"
+              @update-is-rated="(isRated) => setIsRated(isRated as boolean)"
             />
           </template>
         </FancyButtonWrapper>
@@ -32,7 +36,7 @@ import RateMovieButton from './RateMovieButton.vue'
 import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 import FancyButtonWrapper from './FancyButtonWrapper.vue'
 import getAccountState from '@/api/account/getAccountState'
-import { onMounted, ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 
 const comps = [FavoriteButton, WatchlistButton, RateMovieButton, ListsButton]
 
@@ -44,18 +48,26 @@ interface IUserActionsMenu {
 }
 
 const props = defineProps<IUserActionsMenu>()
-const emits = defineEmits<{
-  (e: 'update-watchlist-status', status: boolean): void
-  (e: 'update-favorites'): void
-  (e: 'update-rated'): void
-}>()
 
 const isUserAuthorized = getSessionFromLocalStorage() ? true : false
 
 const isLoading = ref(false)
 const isFavorite = ref(false)
+const setIsFavorite = (isFav: boolean) => {
+  isFavorite.value = isFav
+}
 const isWatchlist = ref(false)
+const setIsWatchlist = (isWatch: boolean) => {
+  isWatchlist.value = isWatch
+}
 const isRated = ref(false)
+const rating = ref()
+const setIsRated = (is_rated: boolean) => {
+  isRated.value = is_rated
+  if (is_rated === false) {
+    rating.value = null
+  }
+}
 
 const getAccountStateHandler = async () => {
   try {
@@ -64,16 +76,18 @@ const getAccountStateHandler = async () => {
     isFavorite.value = response.favorite
     isWatchlist.value = response.watchlist
     isRated.value = response.rated ? true : false
+    rating.value = response.rated.value
   } catch (err) {
     if (err instanceof Error) {
       console.log('Error in getting an account state' + err.message.toString())
     }
   } finally {
     isLoading.value = false
+    console.log(isFavorite.value, isWatchlist.value, isRated.value)
   }
 }
 
-onMounted(() => {
+watchEffect(() => {
   getAccountStateHandler()
 })
 </script>
@@ -81,7 +95,6 @@ onMounted(() => {
 <style scoped>
 .list-actions {
   height: 2.25rem;
-  /* width: 100%; */
   margin: 0 auto;
   display: grid;
   background: rgba(0, 0, 0, 65%);

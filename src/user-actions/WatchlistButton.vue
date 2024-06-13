@@ -3,15 +3,18 @@
     title="Save to watchlist"
     class="watchlist-btn"
     @click="toggleWatchlistHandler()"
-    :class="{ watchlist: isWatchlist }"
+    :class="{ watchlist: props.isWatchlist }"
   >
     <v-icon v-if="isLoading" icon="mdi-loading" class="loading" />
-    <v-icon icon="mdi-bookmark-plus" v-else="!isLoading" />
+    <v-icon
+      v-else-if="!isLoading && !isWatchlist"
+      icon="mdi-bookmark-plus-outline"
+    />
+    <v-icon v-if="!isLoading && isWatchlist" icon="mdi-bookmark-plus" />
   </button>
 </template>
 
 <script setup lang="ts">
-import getAccountState from '@/api/account/getAccountState'
 import toggleWatchlist from '@/api/account/toggleWatchlist'
 import type { IWatchListMovie } from '@/interfaces/movie-types'
 import { ref } from 'vue'
@@ -27,39 +30,30 @@ interface IWatchlistButton {
 }
 
 const props = defineProps<IWatchlistButton>()
+const emits = defineEmits<{
+  (e: 'update-is-watchlist', isWatch: boolean): void
+}>()
 
 const isLoading = ref(false)
-const isWatchlist = ref(props.isWatchlist)
-
-const getAccountStateHandler = async () => {
-  try {
-    isLoading.value = true
-    isWatchlist.value = (await getAccountState(props.movie_id)).watchlist
-  } catch (err) {
-    if (err instanceof Error) {
-      console.log('Error in getting an account state' + err.message.toString())
-    }
-  } finally {
-    isLoading.value = false
-  }
-}
 
 const toggleWatchlistHandler = async () => {
   const WatchlistMovie: IWatchListMovie = {
     media_type: 'movie',
     media_id: props.movie_id,
-    watchlist: !isWatchlist.value,
+    watchlist: !props.isWatchlist,
   }
 
   try {
     isLoading.value = true
     await toggleWatchlist(account_id, WatchlistMovie)
-    getAccountStateHandler()
-    user.fetchTitles()
+    user.fetchWatchlistTitles()
+    emits('update-is-watchlist', !props.isWatchlist)
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log('Error in toggling Watchlist' + err.message.toString())
     }
+  } finally {
+    isLoading.value = false
   }
 }
 </script>
@@ -70,11 +64,9 @@ const toggleWatchlistHandler = async () => {
 }
 
 .watchlist-btn:hover {
-  cursor: pointer;
   color: var(--snow-white);
-}
-.watchlist:hover {
-  color: pink;
+  cursor: pointer;
+  opacity: 0.85;
 }
 
 .loading {
