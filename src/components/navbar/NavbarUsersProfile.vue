@@ -3,13 +3,17 @@
     <div v-if="isLoadingRequest || user.isLoadingAccount">
       <IconSpinner />
     </div>
-    <div v-if="errorRequestToken" class="error-request-token">
+    <div v-if="errorRequestToken">
       {{ errorRequestToken }}
+    </div>
+    <div v-if="isUserAuthorized && !isAvatarReady && !isLoadingRequest">
+      You are authorized <br />
+      Turn on a vpn and refresh the page.
     </div>
     <button
       class="login-link"
       @click="fetchRequestToken"
-      v-if="!user.accountDetails && !isLoadingRequest && !user.isLoadingAccount"
+      v-if="!isUserAuthorized && !isLoadingRequest"
       :disabled="isLoadingRequest"
     >
       <v-icon icon="mdi-login" />
@@ -65,9 +69,11 @@ import DropdownList from '../dropdown-list/DropdownList.vue'
 import FavoriteLink from './FavoriteLink.vue'
 import RatedLink from './RatedLink.vue'
 import ListsLink from './ListsLink.vue'
+import { getSessionFromLocalStorage } from '@/local-storage/getSession'
 
 const user = useUserStore()
 const isAvatarReady = ref(false)
+const isUserAuthorized = getSessionFromLocalStorage()
 
 const isMenuOpen = ref(false)
 const toggleMenu = () => (isMenuOpen.value = !isMenuOpen.value)

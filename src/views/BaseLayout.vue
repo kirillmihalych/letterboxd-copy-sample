@@ -1,11 +1,16 @@
 <template>
   <div class="base-layout-container">
+    <div v-if="errorMovie && errorPeople" class="vpn-warning">
+      Что-то пошло не так... <br />
+      Возможно, у Вас выключен VPN.<br />
+      Попробуйте включить его и перезагрузите страницу <br />
+    </div>
     <!-- movies start -->
     <div>
       <div class="fetch-handle-container" v-if="loadingMovie">
         <SpinnerComp />
       </div>
-      <div v-if="errorMovie">{{ errorMovie }}</div>
+      <!-- <div v-if="errorMovie">{{ errorMovie }}</div> -->
       <div v-if="movieList">
         <CarouselComponent :items="movieList">
           <template #header>
@@ -23,7 +28,7 @@
       <div class="fetch-handle-container" v-if="loadingPeople">
         <SpinnerComp />
       </div>
-      <div v-if="errorPeople">{{ errorPeople }}</div>
+      <!-- <div v-if="errorPeople">{{ errorPeople }}</div> -->
       <div v-if="people">
         <CarouselComponent :items="people">
           <template #header>
@@ -65,6 +70,7 @@ const fetchTrendMovies = async () => {
     if (err instanceof Error) {
       errorMovie.value =
         err.message.toString() + ' Возможно, у Вас выключен VPN.'
+      console.log(errorMovie.value)
     }
   } finally {
     loadingMovie.value = false
@@ -85,9 +91,9 @@ const fetchPopularPeople = async () => {
     people.value = await getPopularPeople()
   } catch (err: unknown) {
     if (err instanceof Error) {
-      console.log()
       errorPeople.value =
         err.message.toString() + ' Возможно, у Вас выключен VPN.'
+      console.log(errorPeople.value)
     }
   } finally {
     loadingPeople.value = false
@@ -130,5 +136,9 @@ onMounted(() => {
   justify-content: center;
   height: 350px;
   /* width: 950px; */
+}
+
+.vpn-warning {
+  text-align: center;
 }
 </style>
