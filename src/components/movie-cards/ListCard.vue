@@ -77,7 +77,7 @@ watchEffect(() => {
 })
 
 const movieAmount = computed(() => {
-  return isLoading
+  return isLoading.value
     ? '...'
     : list_details?.value?.item_count
     ? list_details.value.item_count

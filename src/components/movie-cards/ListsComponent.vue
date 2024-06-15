@@ -81,7 +81,9 @@ watchEffect(() => {
   height: 10rem;
   display: grid;
   grid-template-rows: 1fr 2fr 1fr;
-  overflow-y: scroll;
+  place-items: center;
+  width: 375px;
+  overflow-y: auto;
 }
 
 .create-list-link {
