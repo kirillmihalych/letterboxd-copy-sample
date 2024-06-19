@@ -77,7 +77,7 @@ interface IRatingHandlerProps {
   release: string
   vote_average: number
   vote_count: number
-  rating: number
+  rating: number | null
 }
 const props = defineProps<IRatingHandlerProps>()
 const emits = defineEmits<{

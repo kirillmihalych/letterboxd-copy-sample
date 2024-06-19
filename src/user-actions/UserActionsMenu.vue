@@ -61,7 +61,7 @@ const setIsWatchlist = (isWatch: boolean) => {
   isWatchlist.value = isWatch
 }
 const isRated = ref(false)
-const rating = ref()
+const rating = ref<number | null>(null)
 const setIsRated = (is_rated: boolean) => {
   isRated.value = is_rated
   if (is_rated === false) {
@@ -76,7 +76,9 @@ const getAccountStateHandler = async () => {
     isFavorite.value = response.favorite
     isWatchlist.value = response.watchlist
     isRated.value = response.rated ? true : false
-    rating.value = response.rated.value
+    if (response.rated) {
+      rating.value = response.rated.value
+    }
   } catch (err) {
     if (err instanceof Error) {
       console.log('Error in getting an account state' + err.message.toString())

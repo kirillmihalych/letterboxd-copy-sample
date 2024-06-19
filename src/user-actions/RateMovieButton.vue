@@ -34,7 +34,7 @@ interface IRateMovieBtn {
   vote_average: number
   vote_count: number
   isRated: boolean
-  rating: number
+  rating: number | null
 }
 
 const props = defineProps<IRateMovieBtn>()
