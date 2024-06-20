@@ -29,7 +29,6 @@ const getFilteredMovies = async (
     'primary_release_date.gte': releaseDateFrom,
     'primary_release_date.lte': releaseDateTo,
     'vote_average.gte': rating,
-    'vote_average.lte': rating,
   })
   const URL = baseURL + params
   const response = await (await fetch(URL, options)).json()

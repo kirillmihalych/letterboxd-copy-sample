@@ -85,7 +85,6 @@ const getAccountStateHandler = async () => {
     }
   } finally {
     isLoading.value = false
-    console.log(isFavorite.value, isWatchlist.value, isRated.value)
   }
 }
 

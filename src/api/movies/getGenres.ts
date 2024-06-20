@@ -15,7 +15,6 @@ const getGenres = async () => {
   })
   const URL = baseURL + params
   const response = await (await fetch(URL, options)).json()
-  console.log(response.genres)
   return response.genres
 }
 
