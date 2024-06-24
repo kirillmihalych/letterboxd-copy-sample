@@ -76,7 +76,7 @@ watchEffect(() => {
   background-color: var(--snow-white);
   display: flex;
   flex-direction: column;
-  width: 275px;
+  /* width: 275px; */
   max-height: 275px;
   overflow-y: scroll;
   padding: 1rem;
