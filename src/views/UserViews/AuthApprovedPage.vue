@@ -12,15 +12,17 @@
 
 <script setup lang="ts">
 import createSession from '@/api/authentication/getSessionId'
+import { useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
 
+const router = useRouter()
 const curr_location = window.location.search
 const url = new URLSearchParams(curr_location)
 const isTokenApproved = url.get('approved')
 const error = ref(false)
 
 const redirectToHome = () => {
-  window.location.href = 'http://localhost:5173/'
+  router.push({ name: 'Home' })
 }
 
 onMounted(() => {
