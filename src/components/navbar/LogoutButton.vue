@@ -33,7 +33,7 @@ const logoutHandler = async () => {
       localStorage.removeItem(SESSION)
       localStorage.removeItem(TOKEN_KEY)
       localStorage.removeItem(ACCOUNT_ID)
-      window.location.href = 'http://localhost:5173/base-layout'
+      window.location.href = 'https://f1re-movie-finder.netlify.app/'
     }
   }
 }

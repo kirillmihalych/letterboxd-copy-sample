@@ -6,7 +6,7 @@
     <div v-if="errorRequestToken">
       {{ errorRequestToken }}
     </div>
-    <div v-if="isUserAuthorized && !errorRequestToken && !isLoadingRequest">
+    <div v-if="isUserAuthorized && !isAvatarReady && !isLoadingRequest">
       You are authorized <br />
       Turn on a vpn and refresh the page.
     </div>
@@ -25,7 +25,7 @@
       @click="toggleMenu"
       @mouseleave="closeMenu"
     >
-      <IconSpinner v-show="!isAvatarReady" />
+      <!-- <IconSpinner v-show="!isAvatarReady" /> -->
       <div to="/profile" class="avatar-container" v-show="isAvatarReady">
         <img
           :src="`https://image.tmdb.org/t/p/w45/${user.accountDetails.avatar.tmdb.avatar_path}`"
@@ -129,6 +129,9 @@ const approveToken = (): void => {
 .avatar {
   border-radius: var(--radius);
   margin-right: 0.25rem;
+  width: 45px;
+  height: 45px;
+  background: #222;
 }
 
 .vpn-warning {
