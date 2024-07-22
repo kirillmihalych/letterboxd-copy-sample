@@ -26,7 +26,7 @@
       @mouseleave="closeMenu"
     >
       <!-- <IconSpinner v-show="!isAvatarReady" /> -->
-      <div to="/profile" class="avatar-container" v-show="isAvatarReady">
+      <div to="/profile" class="avatar-container" v-show="!isLoadingRequest">
         <img
           :src="`https://image.tmdb.org/t/p/w45/${user.accountDetails.avatar.tmdb.avatar_path}`"
           alt="avatar"
