@@ -24,8 +24,7 @@ const createSession = async () => {
     )
   ).json()
   setSession(response.session_id)
-  // window.location.replace('https://f1re-movie-finder.netlify.app/films')
-  window.location.href = 'http://localhost:5173/films'
+  window.location.replace('https://f1re-movie-finder.netlify.app/films')
 
   return response.session_id
 }
