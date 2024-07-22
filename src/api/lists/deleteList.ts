@@ -16,7 +16,7 @@ const deleteList = async (list_id: number) => {
   if (session_id) {
     response = await (
       await fetch(
-        `https://api.themoviedb.org/3/list/${list_id}session_id=${session_id}`,
+        `https://api.themoviedb.org/3/list/${list_id}?session_id=${session_id}`,
         options
       )
     ).json()
