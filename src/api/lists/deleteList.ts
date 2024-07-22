@@ -20,6 +20,7 @@ const deleteList = async (list_id: number) => {
         options
       )
     ).json()
+    console.log(response)
   }
   return response
 }
