@@ -116,7 +116,7 @@ const createListHandler = async () => {
     }
   } finally {
     isCreating.value = false
-    router.replace(`/profile/lists/${listId.value}`)
+    router.push(`/profile/lists/${listId.value}`)
   }
 }
 
