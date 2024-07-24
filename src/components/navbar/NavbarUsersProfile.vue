@@ -6,10 +6,6 @@
     <div v-if="errorRequestToken">
       {{ errorRequestToken }}
     </div>
-    <div v-if="isUserAuthorized && !isAvatarReady && !isLoadingRequest">
-      You are authorized <br />
-      Turn on a vpn and refresh the page.
-    </div>
     <button
       class="login-link"
       @click="fetchRequestToken"
